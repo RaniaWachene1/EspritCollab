@@ -1,44 +1,26 @@
 import { Injectable } from '@angular/core';
-
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-
-const AUTH_API = 'http://localhost:8087/api/auth/';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+import { finalize } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  private apiUrl = 'http://localhost:8087/api/auth';
+
+   jwtToken: any; 
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(username: string, password: string): Observable<any> {
-    return this.http.post(
-      AUTH_API + 'signin',
-      {
-        username,
-        password,
-      },
-      httpOptions
-    );
+    return this.http.post<any>(`${this.apiUrl}/signin`, { username, password })
   }
 
-  register(username: string, email: string, password: string): Observable<any> {
-    return this.http.post(
-      AUTH_API + 'signup',
-      {
-        username,
-        email,
-        password,
-      },
-      httpOptions
-    );
+  getJwtToken(): string | null {
+    return this.jwtToken;
   }
-
   logout(): Observable<any> {
-    return this.http.post(AUTH_API + 'signout', { }, httpOptions);
+    return this.http.post<any>(`${this.apiUrl}/logout`, {});
   }
 }

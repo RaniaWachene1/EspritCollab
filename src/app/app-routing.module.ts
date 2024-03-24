@@ -17,7 +17,7 @@ import { RevisionComponent } from './frontoffice/revision/revision.component';
 import { UserListComponent } from './backoffice/user-list/user-list.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'login', component: LoginComponent,},

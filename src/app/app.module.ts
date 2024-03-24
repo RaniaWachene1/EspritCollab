@@ -23,6 +23,10 @@ import { SideBarComponent } from './backoffice/side-bar/side-bar.component';
 import { TopBarComponent } from './backoffice/top-bar/top-bar.component';
 import { UserListComponent } from './backoffice/user-list/user-list.component';
 import { httpInterceptorProviders } from './helpers/http.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
+
 
 
 @NgModule({
@@ -51,9 +55,12 @@ import { httpInterceptorProviders } from './helpers/http.interceptor';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule,
+    BrowserAnimationsModule, 
+    ToastrModule.forRoot()
   ],
-  providers: [httpInterceptorProviders],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
