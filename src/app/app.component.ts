@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  selector: 'body', template: '<router-outlet></router-outlet>',
+
 })
 export class AppComponent {
   title = 'espritcollabfront';

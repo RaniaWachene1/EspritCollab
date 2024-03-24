@@ -1,0 +1,74 @@
+
+
+<!-- **************** MAIN CONTENT START **************** -->
+<section class="mb-9 position-relative" style="background-image:url(assets/images/bg/login.png); background-size: cover; background-position: center; height: 100vh;">
+    <div class="container z-index-9">
+        <div class="row g-4 justify-content-between align-items-center">
+            <!-- Content -->
+            <div class="col-lg-6">
+                <br>
+                <br>
+                <br>
+                <h1 class="text-white">Become a professional in either field</h1>
+                <a href="#" class="btn btn-white mb-0">Explore our courses<i class="bi bi-arrow-right ms-2"></i></a>
+            </div>
+
+            <!-- Form -->
+            <div class="col-lg-6 col-xl-5 mb-n9">
+                <div class="card card-body shadow p-4 p-sm-5">
+                    <!-- Title -->
+                    <h2 class="mb-0 h3">Welcome back</h2>
+                    <p class="mb-0">New here?<a href="#"> Create an account</a></p>
+                    <!-- Form START -->
+                    <form class="mt-3 mt-sm-4 text-start" (ngSubmit)="onSubmit()">
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label class="form-label">Enter email id</label>
+                            <input type="email" class="form-control" [(ngModel)]="form.username" name="email">
+                        </div>
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label class="form-label">Enter password</label>
+                            <input class="form-control" type="password" [(ngModel)]="form.password" name="password">
+                        </div>
+                        <!-- Remember me -->
+                        <div class="mb-3 d-sm-flex justify-content-between">
+                            <div>
+                                <input type="checkbox" class="form-check-input" id="rememberCheck">
+                                <label class="form-check-label" for="rememberCheck">Remember me?</label>
+                            </div>
+                            <a href="#" class="text-primary-hover text-muted">Forgot password?</a>
+                        </div>
+                        <!-- Button -->
+                        <div class="d-grid"><button type="submit" class="btn btn-danger mb-0">Login</button></div>
+            
+                        <!-- Divider -->
+                        <div class="position-relative my-4">
+                            <hr>
+                            <p class="small position-absolute top-50 start-50 translate-middle bg-body px-2">Or sign in with</p>
+                        </div>
+            
+                        <div class="row g-3">
+                            <div class="col-sm-6 d-grid">
+                                <a href="#" class="btn btn-outline-light mb-0"><i class="fab fa-fw fa-google text-google-icon me-2"></i>Google</a>
+                            </div>
+            
+                            <div class="col-sm-6 d-grid">
+                                <a href="#" class="btn btn-outline-light mb-0"><i class="fab fa-fw fa-facebook-f text-facebook me-2"></i>Facebook</a>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Form END -->
+                </div>
+            </div>
+            
+
+        </div> <!-- Row END -->
+    </div>
+</section>
+
+
+
+<!-- =======================
+Snippet code END -->
+
