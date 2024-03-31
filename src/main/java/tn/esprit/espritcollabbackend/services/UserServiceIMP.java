@@ -19,19 +19,16 @@ public class UserServiceIMP implements IUser {
     @Override
     public User addUser(User user, MultipartFile imageFile) {
         try {
-            // Handle file upload
             if (imageFile != null && !imageFile.isEmpty()) {
                 String imageUrl = filesStorageService.saveImage(imageFile);
                 user.setImageUser(imageUrl);
             }
+            return userRepository.save(user);
         } catch (Exception e) {
-            // Handle file upload exception
-            e.printStackTrace();
-            // You might want to throw a specific exception or handle the error in a different way
+            throw new RuntimeException("Failed to add user. Error: " + e.getMessage());
         }
-
-        return userRepository.save(user);
     }
+
 
     @Override
     public User retrieveById(Long id) {

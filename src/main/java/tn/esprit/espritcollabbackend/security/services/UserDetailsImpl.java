@@ -30,7 +30,7 @@ public class UserDetailsImpl implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    private final User user; // Add this field to hold the associated User entity
+    private final User user;
 
     public UserDetailsImpl(long idUser, String username, String email, String password,
                            Collection<? extends GrantedAuthority> authorities, User user) {

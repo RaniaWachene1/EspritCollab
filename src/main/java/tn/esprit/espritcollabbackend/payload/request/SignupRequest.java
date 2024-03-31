@@ -1,5 +1,6 @@
 package tn.esprit.espritcollabbackend.payload.request;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.*;
+import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.espritcollabbackend.services.ValidEmail;
 
 public class SignupRequest {
@@ -32,11 +34,12 @@ public class SignupRequest {
     @NotNull
     @Pattern(regexp = "^[a-zA-Z]+$", message = "Last name must contain only letters")
     private String lastName;
-    @NotNull
+
+
     @Temporal(TemporalType.DATE)
     private Date birthdate;
-    @NotNull
-    private String imageUser;
+
+    private MultipartFile imageUser;
 
     @NotNull
     private String level;
@@ -52,6 +55,11 @@ public class SignupRequest {
     @NotNull(message = "Password is required")
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
+    private String facebookUsername;
+    private String instagramUsername;
+    private String youtubeProfileUrl;
+    private String linkedinProfileUrl;
+    private String description;
 
     public String getFirstName() {
         return firstName;
@@ -69,19 +77,13 @@ public class SignupRequest {
         this.lastName = lastName;
     }
 
-    public Date getBirthdate() {
-        return birthdate;
-    }
 
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
-    }
 
-    public String getImageUser() {
+    public MultipartFile  getImageUser() {
         return imageUser;
     }
 
-    public void setImageUser(String imageUser) {
+    public void setImageUser(MultipartFile  imageUser) {
         this.imageUser = imageUser;
     }
 
@@ -99,6 +101,13 @@ public class SignupRequest {
 
     public void setSection(String section) {
         this.section = section;
+    }
+    public Date getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
     }
 
     public int getClassNumber() {
@@ -149,11 +158,62 @@ public class SignupRequest {
         this.role = role;
     }
 
-    public void setBirthdateFromString(String birthdateString) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
-        Date parsedDate = dateFormat.parse(birthdateString);
-        this.birthdate = parsedDate;
+    public String getFacebookUsername() {
+        return facebookUsername;
     }
+
+    public void setFacebookUsername(String facebookUsername) {
+        this.facebookUsername = facebookUsername;
+    }
+
+    public String getInstagramUsername() {
+        return instagramUsername;
+    }
+
+    public void setInstagramUsername(String instagramUsername) {
+        this.instagramUsername = instagramUsername;
+    }
+
+    public String getYoutubeProfileUrl() {
+        return youtubeProfileUrl;
+    }
+
+    public void setYoutubeProfileUrl(String youtubeProfileUrl) {
+        this.youtubeProfileUrl = youtubeProfileUrl;
+    }
+
+    public String getLinkedinProfileUrl() {
+        return linkedinProfileUrl;
+    }
+
+    public void setLinkedinProfileUrl(String linkedinProfileUrl) {
+        this.linkedinProfileUrl = linkedinProfileUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setBirthdateFromString(String dateString) {
+        try {
+            // Define the date format of the input string
+            DateFormat inputFormat = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy");
+            // Parse the input string into a Date object
+            Date date = inputFormat.parse(dateString);
+            // Set the parsed date to the birthdate field
+            this.birthdate = date;
+        } catch (ParseException e) {
+            // Handle parsing exception
+            e.printStackTrace();
+            // You might want to throw an exception or log an error message here
+        }
+    }
+
+
 
 }
 

@@ -2,10 +2,13 @@ package tn.esprit.espritcollabbackend.restController;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.espritcollabbackend.entities.Role;
@@ -29,7 +32,8 @@ import org.slf4j.LoggerFactory;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
 public class UserRestController {
     private static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
-
+    @Autowired
+    private IUser userService;
     @Autowired
     private IUser iUser;
     @Autowired
@@ -42,23 +46,41 @@ public class UserRestController {
     JwtUtils jwtUtils;
     // @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/addUser")
-    public ResponseEntity<?> addUser(@Valid SignupRequest signUpRequest,
-                                     @RequestParam("file") MultipartFile file) {
-        // Save the image and get the image URL
-        String imageUrl = storageService.saveImage(file);
+    public ResponseEntity<?> addUser(@Valid @ModelAttribute SignupRequest signUpRequest,
+                                          @RequestParam("file") MultipartFile file) throws ParseException {
+        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Username is already taken!"));
+        }
 
-        // Create new user's account with additional fields
+        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email is already in use!"));
+        }
+
+        String imageUser = storageService.saveImage(file);
+
+
+        signUpRequest.setBirthdateFromString(String.valueOf(signUpRequest.getBirthdate()));
+
+
         User user = new User(signUpRequest.getFirstName(),
                 signUpRequest.getLastName(),
                 signUpRequest.getEmail(),
                 signUpRequest.getUsername(),
-                signUpRequest.getBirthdate(), // Use birthdate directly
+                signUpRequest.getBirthdate(),
                 encoder.encode(signUpRequest.getPassword()),
-                imageUrl, // Assign the image URL
+                imageUser,
                 signUpRequest.getLevel(),
-                signUpRequest.getSection(),
                 signUpRequest.getClassNumber(),
-                signUpRequest.getMajor());
+                signUpRequest.getMajor(),
+                signUpRequest.getDescription(),
+                signUpRequest.getFacebookUsername(),
+                signUpRequest.getInstagramUsername(),
+                signUpRequest.getLinkedinProfileUrl(),
+                signUpRequest.getYoutubeProfileUrl());
 
         user.setRole(Role.STUDENT);
 
@@ -66,7 +88,6 @@ public class UserRestController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
-
 
 
     //   @PreAuthorize("hasRole('ADMIN')")

@@ -33,7 +33,7 @@ private String username;
 private Date birthdate;
     @NotNull
 private String password;
-    @NotNull
+
 private String imageUser ;
 @Enumerated(EnumType.STRING)
 private Role role;
@@ -94,7 +94,7 @@ private Role role;
         this.role = role;
     }
 
-    public User(String firstName, String lastName, String email, String username, Date birthdate, String password, String imageUser, String level, String section, int classNumber, String major) {
+    public User(String firstName, String lastName, String email, String username, Date birthdate, String password, String imageUser, String level,  int classNumber, String major) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -103,11 +103,34 @@ private Role role;
         this.password = password;
         this.imageUser = imageUser;
         this.level = level;
-        this.section = section;
+
         this.classNumber = classNumber;
         this.major = major;
     }
 
     public User(String imageUser) {
+    }
+
+    public User(String firstName, String lastName, String email, String username, Date birthdate, String password, String imageUser, Role role, String description, String level, String section, int classNumber, String major, String facebookUsername, String instagramUsername, String youtubeProfileUrl, String linkedinProfileUrl) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.username = username;
+        this.birthdate = birthdate;
+        this.password = password;
+        this.imageUser = imageUser;
+        this.role = role;
+        this.description = description;
+        this.level = level;
+        this.section = section;
+        this.classNumber = classNumber;
+        this.major = major;
+        this.facebookUsername = facebookUsername;
+        this.instagramUsername = instagramUsername;
+        this.youtubeProfileUrl = youtubeProfileUrl;
+        this.linkedinProfileUrl = linkedinProfileUrl;
+    }
+
+    public User(String firstName, String lastName, String email, String username, Date birthdate, String encode, String imageUser, String level, int classNumber, String major, String description, String facebookUsername, String instagramUsername, String linkedinProfileUrl, String youtubeProfileUrl) {
     }
 }

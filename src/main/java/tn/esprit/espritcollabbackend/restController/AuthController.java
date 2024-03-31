@@ -79,7 +79,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @ModelAttribute SignupRequest signUpRequest,
-                                          @RequestParam("file") MultipartFile file) {
+                                          @RequestParam("file") MultipartFile file) throws ParseException {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
@@ -96,12 +96,7 @@ public class AuthController {
         String imageUser = storageService.saveImage(file);
 
 
-            try {
-                signUpRequest.setBirthdateFromString(String.valueOf(signUpRequest.getBirthdate()));
-            } catch (ParseException e) {
-                e.printStackTrace();
-                // Handle parsing error if needed
-            }
+        signUpRequest.setBirthdateFromString(String.valueOf(signUpRequest.getBirthdate()));
 
 
         // Create new user's account with additional fields
@@ -113,7 +108,7 @@ public class AuthController {
                 encoder.encode(signUpRequest.getPassword()),
                 imageUser, // Assign the image URL
                 signUpRequest.getLevel(),
-                signUpRequest.getSection(),
+
                 signUpRequest.getClassNumber(),
                 signUpRequest.getMajor());
 

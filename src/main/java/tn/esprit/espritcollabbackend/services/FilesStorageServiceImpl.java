@@ -29,13 +29,14 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     @Override
     public String saveImage(MultipartFile file) {
         try {
-            String imageUser = "https://images/" + file.getOriginalFilename();
-            Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
-            return imageUser;
+            Path filePath = this.root.resolve(file.getOriginalFilename());
+            Files.copy(file.getInputStream(), filePath);
+            return filePath.toString();
         } catch (Exception e) {
             throw new RuntimeException("Could not save the image: " + e.getMessage());
         }
     }
+
     @Override
     public void save(MultipartFile file) {
         try {
