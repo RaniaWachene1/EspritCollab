@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -16,7 +16,23 @@ export class AuthService {
   login(username: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/signin`, { username, password })
   }
-
+  
+  register(registerData: { [key: string]: any }): Observable<any> {
+    const formData: FormData = new FormData();
+    Object.entries(registerData).forEach(([key, value]) => {
+      if (key === 'image') {
+        formData.append('file', value, value.name); 
+      } else {
+        formData.append(key, value); 
+      }
+    });
+  
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+  
+    return this.http.post<any>(`${this.apiUrl}/signup`, formData, { headers: headers });
+  }
+  
   getJwtToken(): string | null {
     return this.jwtToken;
   }

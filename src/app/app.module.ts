@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,11 +22,16 @@ import { DashboardComponent } from './backoffice/dashboard/dashboard.component';
 import { SideBarComponent } from './backoffice/side-bar/side-bar.component';
 import { TopBarComponent } from './backoffice/top-bar/top-bar.component';
 import { UserListComponent } from './backoffice/user-list/user-list.component';
-import { httpInterceptorProviders } from './helpers/http.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { CommonModule } from '@angular/common';
-
+import { CommonModule, DatePipe } from '@angular/common';
+import { UserAddComponent } from './backoffice/user-add/user-add.component';
+import { MatInputModule } from '@angular/material/input'
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { httpInterceptorProviders } from './helpers/http.interceptor';
+import { UserDetailsComponent } from './backoffice/user-details/user-details.component';
+import { UserEditComponent } from './backoffice/user-edit/user-edit.component';
 
 
 @NgModule({
@@ -49,7 +54,11 @@ import { CommonModule } from '@angular/common';
     DashboardComponent,
     SideBarComponent,
     TopBarComponent,
-    UserListComponent
+    UserListComponent,
+    UserAddComponent,
+    UserDetailsComponent,
+    UserEditComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -58,9 +67,13 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     CommonModule,
     BrowserAnimationsModule, 
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ReactiveFormsModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [],
+  providers: [DatePipe,httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

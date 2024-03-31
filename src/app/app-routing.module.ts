@@ -15,6 +15,9 @@ import { DashboardComponent } from './backoffice/dashboard/dashboard.component';
 import { ComplaintComponent } from './frontoffice/complaint/complaint.component';
 import { RevisionComponent } from './frontoffice/revision/revision.component';
 import { UserListComponent } from './backoffice/user-list/user-list.component';
+import { UserAddComponent } from './backoffice/user-add/user-add.component';
+import { UserDetailsComponent } from './backoffice/user-details/user-details.component';
+import { UserEditComponent } from './backoffice/user-edit/user-edit.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -30,6 +33,12 @@ const routes: Routes = [
   { path: 'revision', component: RevisionComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'users', component: UserListComponent },
+  { path: 'addUser', component:UserAddComponent},
+  { path: 'user-details/:userId', component:UserDetailsComponent},
+  { path: 'editUser/:userId', component: UserEditComponent },
+
+  
+
 ];
 
 @NgModule({
