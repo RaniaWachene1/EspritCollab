@@ -133,4 +133,7 @@ private Role role;
 
     public User(String firstName, String lastName, String email, String username, Date birthdate, String encode, String imageUser, String level, int classNumber, String major, String description, String facebookUsername, String instagramUsername, String linkedinProfileUrl, String youtubeProfileUrl) {
     }
+
+    public User(String firstName, String lastName, String email, String username, Date birthdate, String encode, String imageUrl, String level, int classNumber, String major, String description) {
+    }
 }

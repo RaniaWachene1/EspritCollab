@@ -6,6 +6,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -47,46 +49,47 @@ public class UserRestController {
     // @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/addUser")
     public ResponseEntity<?> addUser(@Valid @ModelAttribute SignupRequest signUpRequest,
-                                          @RequestParam("file") MultipartFile file) throws ParseException {
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+                                     @RequestParam("file") MultipartFile file) throws ParseException {
+        try {
+            if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Error: Username is already taken!"));
+            }
+
+            if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Error: Email is already in use!"));
+            }
+
+            String imageUser = storageService.saveImage(file);
+            signUpRequest.setBirthdateFromString(String.valueOf(signUpRequest.getBirthdate()));
+            String imageUrl = "http://localhost:8087/uploads/" + file.getOriginalFilename(); // Adjust if necessary
+
+            User user = new User(signUpRequest.getFirstName(),
+                    signUpRequest.getLastName(),
+                    signUpRequest.getEmail(),
+                    signUpRequest.getUsername(),
+                    signUpRequest.getBirthdate(),
+                    encoder.encode(signUpRequest.getPassword()),
+                    imageUrl,
+                    signUpRequest.getLevel(),
+                    signUpRequest.getClassNumber(),
+                    signUpRequest.getMajor(),
+                    signUpRequest.getDescription()
+
+            );
+
+            user.setRole(Role.STUDENT);
+
+            userRepository.save(user);
+            return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        } catch (Exception e) {
             return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new MessageResponse("Failed to register user: " + e.getMessage()));
         }
-
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
-        }
-
-        String imageUser = storageService.saveImage(file);
-
-
-        signUpRequest.setBirthdateFromString(String.valueOf(signUpRequest.getBirthdate()));
-
-
-        User user = new User(signUpRequest.getFirstName(),
-                signUpRequest.getLastName(),
-                signUpRequest.getEmail(),
-                signUpRequest.getUsername(),
-                signUpRequest.getBirthdate(),
-                encoder.encode(signUpRequest.getPassword()),
-                imageUser,
-                signUpRequest.getLevel(),
-                signUpRequest.getClassNumber(),
-                signUpRequest.getMajor(),
-                signUpRequest.getDescription(),
-                signUpRequest.getFacebookUsername(),
-                signUpRequest.getInstagramUsername(),
-                signUpRequest.getLinkedinProfileUrl(),
-                signUpRequest.getYoutubeProfileUrl());
-
-        user.setRole(Role.STUDENT);
-
-        userRepository.save(user);
-
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
 
@@ -128,6 +131,6 @@ public class UserRestController {
             System.out.println("Error deleting user: " + e.getMessage());
         }
     }
-
+  
 
 }

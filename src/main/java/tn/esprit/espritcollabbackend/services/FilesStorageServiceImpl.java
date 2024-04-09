@@ -21,11 +21,14 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     @Override
     public void init() {
         try {
-            Files.createDirectories(root);
+            if (!Files.exists(root)) {
+                Files.createDirectories(root);
+            }
         } catch (IOException e) {
-            throw new RuntimeException("Could not initialize folder for upload!");
+            throw new RuntimeException("Could not initialize folder for upload!", e);
         }
     }
+
     @Override
     public String saveImage(MultipartFile file) {
         try {

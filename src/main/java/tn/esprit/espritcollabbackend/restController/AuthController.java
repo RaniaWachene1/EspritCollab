@@ -17,10 +17,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.util.HtmlUtils;
 import tn.esprit.espritcollabbackend.payload.request.LoginRequest;
 import tn.esprit.espritcollabbackend.payload.request.SignupRequest;
 import tn.esprit.espritcollabbackend.payload.request.response.JwtResponse;
@@ -32,13 +36,20 @@ import tn.esprit.espritcollabbackend.security.services.UserDetailsImpl;
 import tn.esprit.espritcollabbackend.entities.User;
 import tn.esprit.espritcollabbackend.entities.Role;
 import tn.esprit.espritcollabbackend.services.FilesStorageService;
+import org.springframework.beans.factory.annotation.Value;
 
 //import tn.esprit.espritcollab.entities.ERole;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+    @Value("${spring.security.oauth2.client.registration.google.client-id}")
+    private String googleClientId;
+    private final ClientRegistrationRepository clientRegistrationRepository;
 
+    public AuthController(ClientRegistrationRepository clientRegistrationRepository) {
+        this.clientRegistrationRepository = clientRegistrationRepository;
+    }
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -95,9 +106,10 @@ public class AuthController {
         // Save the image and get the image URL
         String imageUser = storageService.saveImage(file);
 
-
         signUpRequest.setBirthdateFromString(String.valueOf(signUpRequest.getBirthdate()));
 
+        // Construct the image URL relative to the backend server's base URL
+        String imageUrl = "http://localhost:8087/uploads/" + file.getOriginalFilename(); // Adjust if necessary
 
         // Create new user's account with additional fields
         User user = new User(signUpRequest.getFirstName(),
@@ -106,9 +118,8 @@ public class AuthController {
                 signUpRequest.getUsername(),
                 signUpRequest.getBirthdate(),
                 encoder.encode(signUpRequest.getPassword()),
-                imageUser, // Assign the image URL
+                imageUrl, // Assign the image URL
                 signUpRequest.getLevel(),
-
                 signUpRequest.getClassNumber(),
                 signUpRequest.getMajor());
 
@@ -119,6 +130,7 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
+
 
     @PostMapping("/logout")
     public ResponseEntity<?> logoutUser() {
@@ -134,5 +146,17 @@ public class AuthController {
                 .body(new MessageResponse("Logged out successfully"));
     }
 
+    @GetMapping("/google/login")
+    public String googleLogin() {
+        ClientRegistration registration = clientRegistrationRepository.findByRegistrationId("google");
+        return "redirect:" + registration.getProviderDetails().getAuthorizationUri();
+    }
+
+    @GetMapping("/oauth2/callback")
+    public String oauth2Callback(OAuth2User oauth2User) {
+        String email = oauth2User.getAttribute("email");
+        String name = oauth2User.getAttribute("name");
+        return "redirect:/home";
+    }
 }
 

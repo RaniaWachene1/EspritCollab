@@ -7,12 +7,10 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.*;
 import org.springframework.web.multipart.MultipartFile;
-import tn.esprit.espritcollabbackend.services.ValidEmail;
 
 public class SignupRequest {
     @NotNull(message = "Username is required")
@@ -21,7 +19,6 @@ public class SignupRequest {
 
     @NotNull
     @Size(max = 50)
-    @ValidEmail
     private String email;
 
     private Set<String> role;
@@ -200,16 +197,11 @@ public class SignupRequest {
 
     public void setBirthdateFromString(String dateString) {
         try {
-            // Define the date format of the input string
-            DateFormat inputFormat = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy");
-            // Parse the input string into a Date object
+            DateFormat inputFormat = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
             Date date = inputFormat.parse(dateString);
-            // Set the parsed date to the birthdate field
             this.birthdate = date;
         } catch (ParseException e) {
-            // Handle parsing exception
-            e.printStackTrace();
-            // You might want to throw an exception or log an error message here
+            System.err.println("Error parsing date: " + e.getMessage());
         }
     }
 
