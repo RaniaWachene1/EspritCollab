@@ -18,6 +18,8 @@ import { UserListComponent } from './backoffice/user-list/user-list.component';
 import { UserAddComponent } from './backoffice/user-add/user-add.component';
 import { UserDetailsComponent } from './backoffice/user-details/user-details.component';
 import { UserEditComponent } from './backoffice/user-edit/user-edit.component';
+import { EditProfileComponent } from './frontoffice/edit-profile/edit-profile.component';
+import { DeleteProfileComponent } from './frontoffice/delete-profile/delete-profile.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -36,6 +38,12 @@ const routes: Routes = [
   { path: 'addUser', component:UserAddComponent},
   { path: 'user-details/:userId', component:UserDetailsComponent},
   { path: 'editUser/:userId', component: UserEditComponent },
+  { path: 'editprofile', component: EditProfileComponent },
+  { path: 'deleteprofile', component: DeleteProfileComponent }
+
+  
+
+ 
 
   
 

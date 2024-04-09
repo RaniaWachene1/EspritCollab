@@ -67,12 +67,21 @@
                                             <hr>
                                             <p class="small position-absolute top-50 start-50 translate-middle bg-body px-2">Or sign in with</p>
                                         </div>
-
+                                        <div id="g_id_onload"
+                                        data-client_id="88232353192-lea6fpg1c708kglk86d0mjpr08omf3c6.apps.googleusercontent.com"
+                                        data-context="signin"
+                                        data-login_uri="http://localhost:4200/api/login"
+                                        data-auto_select="true"
+                                        data-itp_support="true">
+                                   </div>
                                         <div class="row g-3">
                                             <div class="col-sm-6 d-grid">
-                                                <a href="#" class="btn btn-outline-dark mb-0"><i class="fab fa-fw fa-google text-google-icon me-2"></i>Google</a>
+                                                <asl-google-signin-button class="google-signin-button" (click)="signInWithGoogle()">
+                                                    <i class="fab fa-google"></i> Google
+                                                </asl-google-signin-button>
                                             </div>
-
+                                            
+                                            
                                             <div class="col-sm-6 d-grid">
                                                 <a href="#" class="btn btn-outline-dark mb-0"><i class="fab fa-fw fa-facebook-f text-facebook me-2"></i>Facebook</a>
                                             </div>

@@ -69,17 +69,16 @@ Math: any;
   
 
   deleteUser(id: any) {
-    // Convert id to a valid number using parseInt
     const userId = parseInt(id, 10);
     console.log('Deleting user with ID:', userId);
   
-    if (!isNaN(userId)) { // Check if userId is a valid number
+    if (!isNaN(userId)) { 
       if (confirm("Are you sure you want to delete this user?")) {
         this.userService.deleteUser(userId).subscribe(
           () => {
             console.log("User deleted successfully");
             this.toastr.success('User deleted successfully', 'Success');
-            this.fetchUsers(); // Update the user list after deletion
+            this.fetchUsers(); 
           },
           error => {
             console.error('Error deleting user:', error);

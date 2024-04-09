@@ -1,4 +1,6 @@
+
 @charset "UTF-8";
+
 /*!
  * Bootstrap  v5.3.2 (https://getbootstrap.com/)
  * Copyright 2011-2023 The Bootstrap Authors
@@ -987,6 +989,21 @@ progress {
 
 .offset-6 {
   margin-left: 50%;
+}
+.google-signin-button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  border: 1px solid #0a0a0a;
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.google-signin-button:hover {
+  background-color: #2b2626;
 }
 
 .offset-7 {

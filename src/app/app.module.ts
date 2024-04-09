@@ -32,6 +32,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { httpInterceptorProviders } from './helpers/http.interceptor';
 import { UserDetailsComponent } from './backoffice/user-details/user-details.component';
 import { UserEditComponent } from './backoffice/user-edit/user-edit.component';
+import { SocialLoginModule, SocialAuthServiceConfig , GoogleLoginProvider, FacebookLoginProvider, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { ForgetPasswordComponent } from './frontoffice/forget-password/forget-password.component';
+import { EditProfileComponent } from './frontoffice/edit-profile/edit-profile.component';
+import { ProfileSideBarComponent } from './frontoffice/profile-side-bar/profile-side-bar.component';
+import { DeleteProfileComponent } from './frontoffice/delete-profile/delete-profile.component';
 
 
 @NgModule({
@@ -58,6 +63,10 @@ import { UserEditComponent } from './backoffice/user-edit/user-edit.component';
     UserAddComponent,
     UserDetailsComponent,
     UserEditComponent,
+    ForgetPasswordComponent,
+    EditProfileComponent,
+    ProfileSideBarComponent,
+    DeleteProfileComponent,
     
   ],
   imports: [
@@ -71,9 +80,39 @@ import { UserEditComponent } from './backoffice/user-edit/user-edit.component';
     ReactiveFormsModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    SocialLoginModule,
+    GoogleSigninButtonModule
   ],
-  providers: [DatePipe,httpInterceptorProviders],
+  
+  providers: [DatePipe,httpInterceptorProviders,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '88232353192-lea6fpg1c708kglk86d0mjpr08omf3c6.apps.googleusercontent.com'
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('clientId')
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
+  
+  
+  
+  
+  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

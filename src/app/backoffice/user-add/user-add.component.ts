@@ -7,7 +7,7 @@
   import { Router } from '@angular/router';
   import { HttpErrorResponse } from '@angular/common/http';
   import { DatePipe } from '@angular/common';
-  import { UserService } from 'C:/Projects/EspritCollabFront/espritcollabfront/src/app/services/user.service';
+import { UserService } from '../../services/user.service';
 
   @Component({
     selector: 'app-user-add',
@@ -25,7 +25,7 @@
     level: ['', Validators.required],
     classNumber: ['', Validators.required],
     major: ['', Validators.required],
-  description: [''],
+    description: [''],
     });
     
     firstName: string = '';
@@ -42,9 +42,8 @@
     instagramUsername: string = '';
     facebookUsername: string = '';
     youtubeProfileUrl: string = '';
-    // Add any additional properties as needed
     selectedFile: File | null = null;
-  
+
     options = ['DS', 'Infini', 'ERP-BI', 'GL', 'SIM', 'TWIN', 'SLEAM', 'NIDS', 'SE', 'ArcTIC', 'Commun'];
     levels = ['1', '2', '3A', '3B', '4', '5'];
     classNumbers: number[] = Array.from({length: 70}, (_, i) => i + 1);

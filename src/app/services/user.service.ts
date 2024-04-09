@@ -22,7 +22,7 @@ export class UserService {
         formData.append(key, value); 
       }
     });
-  
+
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
   
@@ -41,5 +41,8 @@ export class UserService {
 deleteUser(id: number): Observable<any> {
   const url = `${this.apiUrl}/deleteUser/${id}`;
   return this.http.delete(url);
+}
+getUserProfile(): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/profile`);
 }
 }
