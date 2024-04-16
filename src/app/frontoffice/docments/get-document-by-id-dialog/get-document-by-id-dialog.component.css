@@ -1,0 +1,28 @@
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    box-shadow: none; /* Pour supprimer l'ombre */
+  }
+  
+  .close-icon {
+    color: #ff0000; /* Couleur de l'icône */
+  }
+
+  .delete-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    box-shadow: none; /* Pour supprimer l'ombre */
+  }
+  .edit-button{
+    position: absolute;
+    bottom: 10px;
+    right: 65px;
+    box-shadow: none; /* Pour supprimer l'ombre */
+  }
+  
+  .delete-icon .edit-icon{
+    color: #0c0c0c; /* Couleur de l'icône */
+  }
+  
