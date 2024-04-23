@@ -4,5 +4,12 @@ spring:
       client:
         registration:
           google:
-            clientId: "88232353192-lea6fpg1c708kglk86d0mjpr08omf3c6.apps.googleusercontent.com"
-            clientSecret: "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"
+            client-id: "75100929630-s7tih0ketin8gkufse47s7q6ohj4aouq.apps.googleusercontent.com"
+            client-secret: "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"
+            redirect-uri: "{baseUrl}/login/oauth2/code/google"
+          facebook:
+            client-id: "391140843744729"
+            client-secret: "7b68da58f8f451c0d64ddd1db7da67b7"
+            redirect-uri: "{baseUrl}/login/oauth2/code/facebook"
+
+

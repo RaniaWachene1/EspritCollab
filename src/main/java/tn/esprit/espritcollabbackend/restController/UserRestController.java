@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import java.time.Duration;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,13 +26,14 @@ import tn.esprit.espritcollabbackend.services.IUser;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
+@CrossOrigin(origins = {"http://localhost:4200", "https://2e97-197-31-160-181.ngrok-free.app"}, maxAge = 3600, allowCredentials="true")
 public class UserRestController {
     private static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
     @Autowired
@@ -46,6 +48,27 @@ public class UserRestController {
     UserRepository userRepository;
     @Autowired
     JwtUtils jwtUtils;
+
+    @PostMapping("/{userId}/deactivate")
+    public ResponseEntity<String> deactivateAccount(@PathVariable long userId, @RequestParam("duration") String durationStr) {
+        try {
+            // Parse the duration
+            Duration duration = Duration.parse(durationStr);
+
+            // Deactivate the account
+            userService.deactivateAccount(userId, duration);
+
+            return ResponseEntity.ok("User account deactivated successfully.");
+        } catch (DateTimeParseException e) {
+            return ResponseEntity.badRequest().body("Invalid duration format. Please provide duration in ISO-8601 format.");
+        }
+    }
+
+    @PostMapping("/{userId}/reactivate")
+    public ResponseEntity<String> reactivateAccount(@PathVariable long userId) {
+        userService.reactivateAccount(userId);
+        return ResponseEntity.ok("User account reactivated successfully.");
+    }
     // @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/addUser")
     public ResponseEntity<?> addUser(@Valid @ModelAttribute SignupRequest signUpRequest,
@@ -131,6 +154,9 @@ public class UserRestController {
             System.out.println("Error deleting user: " + e.getMessage());
         }
     }
-  
 
+    @PutMapping("/assigneventtouser/{idUser}/{idEvent}")
+    public User AssignUserToList(@PathVariable Long idUser,@PathVariable Long idEvent){
+        return iUser.assignUserToEvent(idUser,idEvent);
+    }
 }

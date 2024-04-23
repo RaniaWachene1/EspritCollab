@@ -13,22 +13,19 @@ import jakarta.validation.constraints.*;
 import org.springframework.web.multipart.MultipartFile;
 
 public class SignupRequest {
-    @NotNull(message = "Username is required")
-    @Size(min = 3, max = 20)
+
+
     private String username;
 
-    @NotNull
     @Size(max = 50)
     private String email;
 
     private Set<String> role;
 
 
-    @NotNull
     @Pattern(regexp = "^[a-zA-Z]+$", message = "First name must contain only letters")
     private String firstName;
 
-    @NotNull
     @Pattern(regexp = "^[a-zA-Z]+$", message = "Last name must contain only letters")
     private String lastName;
 
@@ -38,18 +35,18 @@ public class SignupRequest {
 
     private MultipartFile imageUser;
 
-    @NotNull
+
     private String level;
 
 
     private String section;
 
-    @NotNull
+
     private int classNumber;
 
-    @NotNull
+
     private String major;
-    @NotNull(message = "Password is required")
+
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
     private String facebookUsername;

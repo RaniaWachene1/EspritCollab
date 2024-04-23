@@ -23,5 +23,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return UserDetailsImpl.build(user);
     }
-
+    public User getUserFromUserDetails(UserDetails userDetails) {
+        if (userDetails instanceof UserDetailsImpl) {
+            UserDetailsImpl userDetailsImpl = (UserDetailsImpl) userDetails;
+            return userDetailsImpl.getUser();
+        }
+        return null;
+    }
 }

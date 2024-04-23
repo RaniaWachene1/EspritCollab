@@ -1,5 +1,6 @@
 package tn.esprit.espritcollabbackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.*;
 import tn.esprit.espritcollabbackend.entities.Role;
 import tn.esprit.espritcollabbackend.entities.Role;
@@ -8,6 +9,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,40 +22,48 @@ import java.util.List;
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-private long idUser;
-    @NotNull
-private String firstName;
-    @NotNull(message = "Last name is required")
+    private long idUser;
+    private String firstName;
     @Pattern(regexp = "[a-zA-Z]+", message = "Last name should contain only letters")
-private String lastName;
-    @NotNull
-private String email;
-    @NotNull
-private String username;
-@Temporal(TemporalType.DATE)
-private Date birthdate;
-    @NotNull
-private String password;
-
-private String imageUser ;
-@Enumerated(EnumType.STRING)
-private Role role;
+    private String lastName;
+    @Getter
+    private String email;
+    private String username;
+    @Temporal(TemporalType.DATE)
+    private Date birthdate;
+    private String password;
+    private String imageUser ;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     private String description;
-    @NotNull
     private String level;
 
     private String section;
-    @NotNull
+
     private int classNumber;
 
-    @NotNull
     private String major;
     private String facebookUsername;
     private String instagramUsername;
     private String youtubeProfileUrl;
     private String linkedinProfileUrl;
-    @ManyToMany
-    private List<Event> events;
+
+    private String resetPasswordToken;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date resetPasswordTokenExpiry;
+    private boolean active;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date deactivationDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date reactivationDate;
+    @Transient
+    private Duration deactivationDuration;
+
+
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JsonIgnore
+    private List<Event> eventList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Complaint> complaints;
     @OneToMany(mappedBy = "user")
@@ -61,7 +72,23 @@ private Role role;
     private List<Exchange> exchanges;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Document> Documents;
+    private boolean verified;
+    private String verificationToken;
 
+    public String getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
+    }
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
     public User() {
     }
 
@@ -136,4 +163,19 @@ private Role role;
 
     public User(String firstName, String lastName, String email, String username, Date birthdate, String encode, String imageUrl, String level, int classNumber, String major, String description) {
     }
+
+    public User(long idUser, String email) {
+        this.idUser = idUser;
+        this.email = email;
+    }
+
+
+    public boolean isActive() {
+        return active;
+    }
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+
 }

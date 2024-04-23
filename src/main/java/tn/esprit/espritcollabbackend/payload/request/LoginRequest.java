@@ -3,10 +3,10 @@ package tn.esprit.espritcollabbackend.payload.request;
 import jakarta.validation.constraints.*;
 
 public class LoginRequest {
-    @NotNull
+
     private String username;
 
-    @NotNull
+
     private String password;
 
     public String getUsername() {

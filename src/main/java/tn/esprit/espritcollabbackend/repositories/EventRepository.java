@@ -3,5 +3,7 @@ package tn.esprit.espritcollabbackend.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import tn.esprit.espritcollabbackend.entities.Event;
 
+import java.util.List;
+
 public interface EventRepository extends JpaRepository<Event,Long> {
 }
