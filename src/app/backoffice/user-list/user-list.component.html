@@ -69,6 +69,11 @@
                                                 <button class="btn btn-sm btn-info-soft mb-0" (click)="viewStudentDetails(user.id)">
                                                     View
                                                 </button>
+                                                <div>
+                                                    <button (click)="deactivateUser(user.id)">Deactivate User</button>
+                                                    <button (click)="reactivateUser(user.id)">Reactivate User</button>
+                                                  </div>
+                                                  
                                             </td>
                                             
                                         </tr>

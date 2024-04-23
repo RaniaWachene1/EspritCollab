@@ -15,7 +15,8 @@ export class EditProfileComponent implements OnInit {
   levels: string[] = ['1', '2', '3A', '3B', '4', '5'];
   classNumbers: number[] = Array.from({ length: 70 }, (_, i) => i + 1);
 
-  constructor(private userService: UserService, private authService: AuthService) {}
+  constructor(private userService: UserService,
+     private authService: AuthService) {}
 
   ngOnInit(): void {
     this.fetchUserData();

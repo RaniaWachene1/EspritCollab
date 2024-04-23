@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -44,5 +44,16 @@ deleteUser(id: number): Observable<any> {
 }
 getUserProfile(): Observable<any> {
   return this.http.get<any>(`${this.apiUrl}/profile`);
+}
+deactivateUser(userId: number, duration: string): Observable<any> {
+  const url = `${this.apiUrl}/${userId}/deactivate`;
+  const params = new HttpParams().set('duration', duration); // Include duration parameter
+  return this.http.post<any>(url, {}, { params });
+}
+
+
+reactivateUser(userId: number): Observable<any> {
+  const url = `${this.apiUrl}/${userId}/reactivate`;
+  return this.http.post<any>(url, {});
 }
 }

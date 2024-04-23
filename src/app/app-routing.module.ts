@@ -20,6 +20,15 @@ import { UserDetailsComponent } from './backoffice/user-details/user-details.com
 import { UserEditComponent } from './backoffice/user-edit/user-edit.component';
 import { EditProfileComponent } from './frontoffice/edit-profile/edit-profile.component';
 import { DeleteProfileComponent } from './frontoffice/delete-profile/delete-profile.component';
+import { EventListComponent } from './backoffice/event-list/event-list.component';
+import { EventDetailsComponent } from './backoffice/event-details/event-details.component';
+import { EventEditComponent } from './backoffice/event-edit/event-edit.component';
+import { EventAddComponent } from './backoffice/event-add/event-add.component';
+import { ProfileEventListComponent } from './frontoffice/profile-event-list/profile-event-list.component';
+import { EventinfoComponent } from './frontoffice/eventinfo/eventinfo.component';
+import { ForgetPasswordComponent } from './frontoffice/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './frontoffice/reset-password/reset-password.component';
+import { DeactivateComponent } from './backoffice/deactivate/deactivate.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -39,10 +48,25 @@ const routes: Routes = [
   { path: 'user-details/:userId', component:UserDetailsComponent},
   { path: 'editUser/:userId', component: UserEditComponent },
   { path: 'editprofile', component: EditProfileComponent },
-  { path: 'deleteprofile', component: DeleteProfileComponent }
+  { path: 'deleteprofile', component: DeleteProfileComponent },
+  { path: 'editUser/:userId', component: UserEditComponent },
+  { path: 'login/oauth2/code/facebook', component: LoginComponent },
+  { path: 'ForgetPassword', component:ForgetPasswordComponent},
+  { path: 'resetPassword', component:ResetPasswordComponent},
+  { path: 'desactivate', component:DeactivateComponent},
 
   
-
+  /////
+  { path: 'eventList', component: EventListComponent },
+  { path: 'listevent', component: EventListComponent },
+  { path: 'event-details/:eventId', component: EventDetailsComponent },
+  { path: 'editEvent/:eventId', component: EventEditComponent },
+  { path: 'addEvent', component:EventAddComponent},
+  { path: 'EventListUser', component:ProfileEventListComponent},
+  { path: 'eventinfo/:eventId', component: EventinfoComponent }
+  
+  
+  
  
 
   

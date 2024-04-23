@@ -13,7 +13,7 @@ import { ProfileComponent } from './frontoffice/profile/profile.component';
 import { DocumentCategoriesComponent } from './frontoffice/document-categories/document-categories.component';
 import { DocumentComponent } from './frontoffice/document/document.component';
 import { EventsComponent } from './frontoffice/events/events.component';
-import { EventDetailsComponent } from './frontoffice/event-details/event-details.component';
+import { EventDetailsComponent } from './backoffice/event-details/event-details.component';
 import { BooksComponent } from './frontoffice/books/books.component';
 import { BookDetailsComponent } from './frontoffice/book-details/book-details.component';
 import { RevisionComponent } from './frontoffice/revision/revision.component';
@@ -37,7 +37,17 @@ import { ForgetPasswordComponent } from './frontoffice/forget-password/forget-pa
 import { EditProfileComponent } from './frontoffice/edit-profile/edit-profile.component';
 import { ProfileSideBarComponent } from './frontoffice/profile-side-bar/profile-side-bar.component';
 import { DeleteProfileComponent } from './frontoffice/delete-profile/delete-profile.component';
-
+import { EventEditComponent } from './backoffice/event-edit/event-edit.component';
+import { EventListComponent } from './backoffice/event-list/event-list.component';
+import { EventAddComponent } from './backoffice/event-add/event-add.component';
+import { ProfileEventListComponent } from './frontoffice/profile-event-list/profile-event-list.component';
+import { ProfileEventEditComponent } from './frontoffice/profile-event-edit/profile-event-edit.component';
+import { EventinfoComponent } from './frontoffice/eventinfo/eventinfo.component';
+import { ResetPasswordComponent } from './frontoffice/reset-password/reset-password.component';
+import { StarRatingModule } from 'angular-star-rating';
+import { IgcFormsModule } from 'igniteui-angular';
+import { RecaptchaModule } from 'ng-recaptcha';
+import { DeactivateComponent } from './backoffice/deactivate/deactivate.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +77,15 @@ import { DeleteProfileComponent } from './frontoffice/delete-profile/delete-prof
     EditProfileComponent,
     ProfileSideBarComponent,
     DeleteProfileComponent,
+    EventEditComponent,
+    EventListComponent,
+    EventAddComponent,
+    EventDetailsComponent,
+    ProfileEventListComponent,
+    ProfileEventEditComponent,
+    EventinfoComponent,
+    ResetPasswordComponent,
+    DeactivateComponent,
     
   ],
   imports: [
@@ -82,7 +101,10 @@ import { DeleteProfileComponent } from './frontoffice/delete-profile/delete-prof
     MatDatepickerModule,
     MatNativeDateModule,
     SocialLoginModule,
-    GoogleSigninButtonModule
+    GoogleSigninButtonModule,
+    StarRatingModule.forRoot(),
+    IgcFormsModule,
+    RecaptchaModule,
   ],
   
   providers: [DatePipe,httpInterceptorProviders,
@@ -90,16 +112,17 @@ import { DeleteProfileComponent } from './frontoffice/delete-profile/delete-prof
       provide: 'SocialAuthServiceConfig',
       useValue: {
         autoLogin: false,
+        useFederatedConsentForPopups: true,
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '88232353192-lea6fpg1c708kglk86d0mjpr08omf3c6.apps.googleusercontent.com'
+              '75100929630-s7tih0ketin8gkufse47s7q6ohj4aouq.apps.googleusercontent.com'
             )
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('clientId')
+            provider: new FacebookLoginProvider('391140843744729')
           }
         ],
         onError: (err) => {

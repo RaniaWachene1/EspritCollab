@@ -48,7 +48,11 @@ import { UserService } from '../../services/user.service';
     levels = ['1', '2', '3A', '3B', '4', '5'];
     classNumbers: number[] = Array.from({length: 70}, (_, i) => i + 1);
   
-    constructor(private userService: UserService, private router: Router ,private formBuilder: FormBuilder,private toastr: ToastrService,private datePipe: DatePipe) {}
+    constructor(private userService: UserService,
+       private router: Router ,
+       private formBuilder: FormBuilder,
+       private toastr: ToastrService,
+       private datePipe: DatePipe) {}
   
     onSubmit(): void {
       const formattedBirthdate = this.formatBirthdate();

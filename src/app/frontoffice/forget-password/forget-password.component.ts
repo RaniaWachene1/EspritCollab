@@ -9,18 +9,24 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ForgetPasswordComponent {
   email: string = '';
-
   constructor(private authService: AuthService, private toastr: ToastrService) {}
 
   onSubmit() {
-    //this.authService.forgotPassword(this.email).subscribe(
-     // () => {
-     //   this.toastr.success('Password reset instructions sent to your email.');
-     // },
-     // (error) => {
-      //  this.toastr.error('Failed to send password reset instructions. Please try again later.');
-      //  console.error('Forgot Password Error:', error);
+    console.log('Email:', this.email); // Log the email value
+
+    this.authService.forgotPassword(this.email).subscribe(
+      () => {
+        this.toastr.success('Password reset instructions sent successfully');
+        console.log('Password reset instructions sent successfully');
+      },
+      (error: any) => {
+        this.toastr.error('Failed to send password reset instructions');
+        console.error('Failed to send password reset instructions:', error);
       }
-   
+    );
+  }
   
-}
+  }
+    
+  
+

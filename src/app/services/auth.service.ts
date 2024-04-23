@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize, tap } from 'rxjs/operators';
+import { finalize, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -46,4 +46,35 @@ export class AuthService {
   logout(): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/logout`, {});
   }
+ 
+  
+  forgotPassword(email: string) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let body = new HttpParams();
+    body = body.set('email', email);
+    return this.http.post(`${this.apiUrl}/forgot-password`, body, { headers });
+  }
+  resetPassword(token: string, newPassword: string) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let body = new HttpParams();
+    body = body.set('token', token).set('newPassword', newPassword);
+    return this.http.post(`${this.apiUrl}/reset-password`, body, { headers });
+  }
+
+  verifyEmail(token: string) {
+    this.http.get(`/api/auth/verifyEmail?token=${token}`).subscribe(
+      () => {
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.error('Email verification failed:', error);
+      }
+    );
+  }
+  getCurrentUserId(): Observable<number> {
+    return this.http.get<{ id: number }>('http://localhost:8087/api/auth/id').pipe(
+      map(response => response.id)
+    );
+  }
+  
 }

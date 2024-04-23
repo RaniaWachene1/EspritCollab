@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { UserService } from 'C:/Projects/EspritCollabFront/espritcollabfront/src/app/services/user.service';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -65,8 +65,6 @@ Math: any;
     }
   }
   
-  
-  
 
   deleteUser(id: any) {
     const userId = parseInt(id, 10);
@@ -103,6 +101,46 @@ Math: any;
       }
     );
   }
+
+  deactivateUser(userId: number): void {
+    const duration = prompt("Enter the duration for deactivation (e.g., '2 days', '1 week', etc.):");
+    if (duration !== null) { 
+      if (confirm("Are you sure you want to deactivate this user?")) {
+        this.userService.deactivateUser(userId, duration).subscribe(
+          () => {
+            console.log("User deactivated successfully");
+            this.toastr.success('User deactivated successfully', 'Success');
+            this.fetchUsers();
+          },
+          error => {
+            console.error('Error deactivating user:', error);
+            this.toastr.error('Failed to deactivate user', 'Error');
+          }
+        );
+      }
+    } else {
+      console.log("User canceled deactivation.");
+      // Optionally, you can inform the user that deactivation was canceled.
+    }
+  }
+  
+
+  reactivateUser(userId: number): void {
+    if (confirm("Are you sure you want to reactivate this user?")) {
+      this.userService.reactivateUser(userId).subscribe(
+        () => {
+          console.log("User reactivated successfully");
+          this.toastr.success('User reactivated successfully', 'Success');
+          this.fetchUsers();
+        },
+        error => {
+          console.error('Error reactivating user:', error);
+          this.toastr.error('Failed to reactivate user', 'Error');
+        }
+      );
+    }
+  }
+
   
   calculatePagination(): void {
     this.totalPages = Math.ceil(this.users.length / this.pageSize);

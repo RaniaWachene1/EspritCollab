@@ -40,25 +40,21 @@
                                                 </div>
                                             </div>
                                             
-                                            <div class="col-12">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" name="remember_me" id="remember_me">
-                                                    <label class="form-check-label text-secondary" for="remember_me">
-                                                        Keep me logged in
-                                                    </label>
-                                                </div>
-                                            </div>
+                                           
+                                            <re-captcha (resolved)="onCaptchaResolved($event)" siteKey="6Lcu1L8pAAAAAGfXXgCZUcdLnnnYGH81RihYILU6"></re-captcha>
+
                                             <div class="col-12">
                                                 <div class="d-grid">
                                                     <button class="btn btn-danger btn-lg" type="submit">Log in now</button>
                                                 </div>
                                             </div>
+
                                         </form>
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-center mt-5">
                                                     <a routerLink="/register" class="link-secondary text-decoration-none">Create new account</a>
-                                                    <a href="#!" class="link-secondary text-decoration-none">Forgot password</a>
+                                                    <a routerLink="/ForgetPassword" class="link-secondary text-decoration-none">Forgot password</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -67,12 +63,16 @@
                                             <hr>
                                             <p class="small position-absolute top-50 start-50 translate-middle bg-body px-2">Or sign in with</p>
                                         </div>
+                                        <script src="https://accounts.google.com/gsi/client" async defer></script>
+
                                         <div id="g_id_onload"
-                                        data-client_id="88232353192-lea6fpg1c708kglk86d0mjpr08omf3c6.apps.googleusercontent.com"
+                                        data-client_id="75100929630-s7tih0ketin8gkufse47s7q6ohj4aouq.apps.googleusercontent.com"
                                         data-context="signin"
-                                        data-login_uri="http://localhost:4200/api/login"
+                                        data-login_uri="http://localhost:4200/login"
                                         data-auto_select="true"
-                                        data-itp_support="true">
+                                        data-use_fedcm_for_prompt ="true"
+                                        data-itp_support="true"
+                                        allow="identity-credentials-get">
                                    </div>
                                         <div class="row g-3">
                                             <div class="col-sm-6 d-grid">
@@ -80,11 +80,14 @@
                                                     <i class="fab fa-google"></i> Google
                                                 </asl-google-signin-button>
                                             </div>
-                                            
-                                            
                                             <div class="col-sm-6 d-grid">
-                                                <a href="#" class="btn btn-outline-dark mb-0"><i class="fab fa-fw fa-facebook-f text-facebook me-2"></i>Facebook</a>
+                                                <button class="btn btn-primary" (click)="signInWithFB()">
+                                                    <i class="fab fa-facebook"></i> Sign in with Facebook
+                                                </button>           
                                             </div>
+                                           
+                                          
+                                          
                                         </div>
                                     </div>
                                 </div>

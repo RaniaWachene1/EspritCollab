@@ -3,20 +3,15 @@
 
     <!-- =======================
     Page Banner START -->
-    <section class="bg-blue align-items-center d-flex" style="background:url(assets/images/pattern/04.png) no-repeat center center; background-size:cover;">
+    <section class="bg-blue align-items-center d-flex" style="background:url() no-repeat center center; background-size:cover;">
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
                     <!-- Title -->
-                    <h1 class="text-white">Course Grid Classic</h1>
+                    <h1 class="text-white">Events</h1>
                     <!-- Breadcrumb -->
                     <div class="d-flex justify-content-center">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb breadcrumb-dark breadcrumb-dots mb-0">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Courses classic</li>
-                            </ol>
-                        </nav>
+                    
                     </div>
                 </div>
             </div>
@@ -39,7 +34,8 @@
                     <div class="col-xl-6">
                         <form class="border rounded p-2">
                             <div class="input-group input-borderless">
-                                <input class="form-control me-1" type="search" placeholder="Find your course">
+<!-- Inside the form tag -->
+<input class="form-control me-1" type="search" placeholder="Find your event" [(ngModel)]="searchQuery">
                                 <button type="button" class="btn btn-primary mb-0 rounded z-index-1"><i class="fas fa-search"></i></button>
                             </div>
                         </form>
@@ -64,94 +60,131 @@
                             <i class="fas fa-sliders-h me-1"></i> Show filter
                         </button>
                         <!-- Advanced filter responsive toggler END -->
-                        <p class="mb-0 text-end">Showing 1-7 of 32 result</p>
+                        <button class="btn btn-danger mb-0" data-bs-toggle="modal" data-bs-target="#addNewcard">Create event</button>
                     </div>
     
                 </div>
                 <!-- Search option END -->
     
                 <!-- Course Grid START -->
-                <div class="row g-4">
-    
-                
-    
-                    <section class="pb-5 pt-0 pt-lg-5">
-                        <div class="container">
-                          
-                          <div class="row">
-                            <!-- Slider START -->
-                            <div class="tiny-slider arrow-round arrow-blur arrow-hover">
-                              <div class="tiny-slider-inner pb-1" data-autoplay="true" data-arrow="true" data-edge="2" data-dots="false" data-items="3" data-items-lg="2" data-items-sm="1">
-                                <!-- Card item START -->
-                                <div>
-                                  <div class="card action-trigger-hover border bg-transparent" style="width: 400px; height: 600px;">
+               <!-- Course Grid START -->
+<div class="row g-4">
+
+    <section class="pb-5 pt-0 pt-lg-5">
+        <div class="container">
+            <div class="row">
+                <!-- Slider START -->
+                <div class="tiny-slider arrow-round arrow-blur arrow-hover">
+                    <div class="tiny-slider-inner pb-1" data-autoplay="true" data-arrow="true" data-edge="2"
+                        data-dots="false" data-items="3" data-items-lg="2" data-items-sm="1">
+                        <!-- Card item START -->
+                        <div class="row">
+                        <div *ngFor="let event of events" class="col-md-6 mb-4"> <!-- Changed width to col-md-6 to fit two cards in a row -->
+                            <div>
+                                <div class="card action-trigger-hover border bg-transparent" >
                                     <!-- Image -->
-                                    <img src="assets/images/courses/4by3/14.jpg" class="card-img-top" alt="course image">
-                                    <!-- Ribbon -->
-                                    <div class="ribbon mt-3"><span>Free</span></div>
+                                    <img [src]="event.photoUrl" class="card-img-top"
+                                        alt="course image">
+                                    
+                                   
                                     <!-- Card body -->
                                     <div class="card-body pb-0">
-                                      <!-- Badge and favorite -->
-                                      <div class="d-flex justify-content-between mb-3">
-                                        <span class="hstack gap-2">
-                                          <a href="#" class="badge bg-primary bg-opacity-10 text-primary">Design</a>
-                                          <a href="#" class="badge text-bg-dark">Beginner</a>
-                                        </span>
-                                        <a href="#" class="h6 fw-light mb-0"><i class="far fa-bookmark"></i></a>
-                                      </div>
-                                      <!-- Title -->
-                                      <h5 class="card-title"><a href="#">The complete Digital Marketing Course - 8 Course in 1</a></h5>
-                                      <!-- Rating -->
-                                      <div class="d-flex justify-content-between mb-2">
-                                        <div class="hstack gap-2">
-                                          <p class="text-warning m-0">4.5<i class="fas fa-star text-warning ms-1"></i></p>
-                                          <span class="small">(6500)</span>
+                                        <!-- Badge and favorite -->
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <span class="hstack gap-2">
+                                                <a href="#"
+                                                    class="badge bg-primary bg-opacity-10 text-primary">{{ event.category }}</a>
+                                                <a href="#" class="badge text-bg-dark">{{ event.prerequis }}</a>
+                                            </span>
+                                            <a href="#" class="h6 fw-light mb-0"><i
+                                                    class="far fa-bookmark"></i></a>
                                         </div>
-                                        <div class="hstack gap-2">
-                                          <p class="h6 fw-light mb-0 m-0">6500</p>
-                                          <span class="small">(Student)</span>
+                                        <!-- Title -->
+                                        <h5 class="card-title" (click)="viewEventDetails(event.idEvent)">
+                                           {{ event.titleEvent }}
+                                          </h5>
+                                        <!-- Rating -->
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <div class="hstack gap-2">
+                                                <p class="text-warning m-0">{{event.averageRating}}<i
+                                                        class="fas fa-star text-warning ms-1"></i></p>
+                                                <span class="small">(6500)</span>
+                                            </div>
+                                            <div class="hstack gap-2">
+                                                <p class="h6 fw-light mb-0 m-0">{{ event.nbMaxInscrits }}</p>
+                                                <span class="small">(Student)</span>
+                                            </div>
                                         </div>
-                                      </div>
-                                      <!-- Time -->
-                                      <div class="hstack gap-3">
-                                        <span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>6h 56m</span>
-                                        <span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>82 lectures</span>
-                                      </div>
+                                        <!-- Time -->
+                                        <div class="hstack gap-3">
+                                            <span class="h6 fw-light mb-0"><i
+                                                    class="far fa-clock text-danger me-2"></i>{{ event.duree }}</span>
+                                            <span class="h6 fw-light mb-0"><i
+                                                    class="fas fa-table text-orange me-2"></i>{{ event.location }}</span>
+                                                    <span class="h6 fw-light mb-0"><i class="fa-solid fa-location-dot"></i>{{ event.dateEvent }}</span>
+                       
+                                                    
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+
+                                        <div class="hstack gap-2">
+
+                                            <p class="h6 fw-light mb-0 m-0"><i class="fas fa-user"></i> instructors : {{ event.formateurs }}</p>
+                                    </div>
+                                        </div>
                                     </div>
                                     <!-- Card footer -->
                                     <div class="card-footer pt-0 bg-transparent">
-                                      <hr>
-                                      <!-- Avatar and Price -->
-                                      <div class="d-flex justify-content-between align-items-center">
-                                        <!-- Avatar -->
-                                        <div class="d-flex align-items-center">
-                                          <div class="avatar avatar-sm">
-                                            <img class="avatar-img rounded-1" src="assets/images/avatar/10.jpg" alt="avatar">
-                                          </div>
-                                          <p class="mb-0 ms-2"><a href="#" class="h6 fw-light mb-0">Larry Lawson</a></p>
+                                        <hr>
+                                        <!-- Avatar and Price -->
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <!-- Avatar -->
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-sm">
+                                                    <img class="avatar-img rounded-1"
+                                                        src="assets/images/avatar/10.jpg" alt="avatar">
+                                                </div>
+                                                <p class="mb-0 ms-2"><a href="#"
+                                                        class="h6 fw-light mb-0">Larry Lawson</a></p>
+                                            </div>
+                                            <!-- Price -->
+                                            <div>
+                                                <h4 class="text-success mb-0 item-show">{{event.cout}}</h4>
+                                            </div>
+                                            <td>
+                                                <button class="btn btn-sm btn-success-soft btn-round me-1 mb-0"
+                                                *ngIf="currentUser && event.userList?.length && currentUser.id === event.userList[0]?.idUser"
+                                                data-bs-toggle="modal" data-bs-target="#editEventModal" 
+                                                (click)="selectEventForEdit(event)">
+                                            <i class="far fa-fw fa-edit"></i> 
+                                        </button>
+                                        
+                                        <button class="btn btn-sm btn-danger-soft btn-round mb-0"
+                                                *ngIf="currentUser && event.userList?.length && currentUser.id === event.userList[0]?.idUser"
+                                                (click)="deleteEvent(event.idEvent)">
+                                            <i class="fas fa-fw fa-times"></i> 
+                                        </button>
+                                        
+                                        
+                                        
+                                        </td>
                                         </div>
-                                        <!-- Price -->
-                                        <div>
-                                          <h4 class="text-success mb-0 item-show">Free</h4>
-                                          <a href="#" class="btn btn-sm btn-success-soft item-show-hover"><i class="fas fa-shopping-cart me-2"></i>Add to cart</a>
-                                        </div>
-                                      </div>
                                     </div>
-                                  </div>
                                 </div>
-                                <!-- Card item END -->
-                      
-                      
-                              </div>
                             </div>
-                            <!-- Slider END -->
-                          </div>
                         </div>
-                      </section>
-    
-
-    
+                    </div>
+                        <!-- Card item END -->
+                    </div>
                 </div>
+                <!-- Slider END -->
+            </div>
+        </div>
+    </section>
+
+</div>
+<!-- Course Grid END -->
+
                 <!-- Course Grid END -->
     
                 <!-- Pagination START -->
@@ -335,47 +368,8 @@
                                 <!-- Skill level END -->
         
                                 <!-- Language START -->
-                                <div class="card card-body shadow p-4 mb-4">
-                                    <!-- Title -->
-                                    <h4 class="mb-3">Language</h4>
-                                    <ul class="list-inline mb-0 g-3">
-                                        <!-- Item -->
-                                        <li class="list-inline-item mb-2">
-                                            <input type="checkbox" class="btn-check" id="btn-check-2">
-                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-2">English</label>
-                                        </li>
-                                        <!-- Item -->
-                                        <li class="list-inline-item mb-2">
-                                            <input type="checkbox" class="btn-check" id="btn-check-3">
-                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-3">Francas</label>
-                                        </li>
-                                        <!-- Item -->
-                                        <li class="list-inline-item mb-2">
-                                            <input type="checkbox" class="btn-check" id="btn-check-4">
-                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-4">Hindi</label>
-                                        </li>
-                                        <!-- Item -->
-                                        <li class="list-inline-item mb-2">
-                                            <input type="checkbox" class="btn-check" id="btn-check-5">
-                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-5">Russian</label>
-                                        </li>
-                                        <!-- Item -->
-                                        <li class="list-inline-item mb-2">
-                                            <input type="checkbox" class="btn-check" id="btn-check-6">
-                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-6">Spanish</label>
-                                        </li>
-                                        <!-- Item -->
-                                        <li class="list-inline-item mb-2">
-                                            <input type="checkbox" class="btn-check" id="btn-check-7">
-                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-7">Bengali</label>
-                                        </li>
-                                        <!-- Item -->
-                                        <li class="list-inline-item mb-2">
-                                            <input type="checkbox" class="btn-check" id="btn-check-8">
-                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-8">Portuguese</label>
-                                        </li>
-                                    </ul>
-                                </div>
+                                
+                                       
                                 <!-- Language END -->
                         </form><!-- Form End -->
                     </div>
@@ -444,10 +438,244 @@
                 </div>
             </div> <!-- Row END -->
         </div>
+        
     </div>
     </section>
     <!-- =======================
     Newsletter END -->
+    <div class="modal fade" id="addNewcard" tabindex="-1" aria-labelledby="addNewcardLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-dark">
+                    <h5 class="modal-title text-white" id="addNewcardLabel">Add card</h5>
+                    <button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+                </div>
+                <div class="modal-body">
+                
+                    <form (ngSubmit)="onSubmit(userData?.idUser || 94)" class="row text-start g-3" novalidate id="eventForm">
+                        <div class="row">
+                                <!-- Title -->
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" placeholder="Event Title "  [(ngModel)]="titleEvent"
+                                            name="titleEvent" >
+                                        <label for="titleEvent" class="form-label"><i
+                                                class="fas fa-pen"></i> Event Title</label>
+                                        <div class="invalid-feedback">
+                                            Please enter the event title.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" placeholder=" description "  [(ngModel)]="description"
+                                            name="titleEvent" >
+                                        <label for="titleEvent" class="form-label"><i
+                                                class="fas fa-pen"></i> Description</label>
+                                        <div class="invalid-feedback">
+                                            Please enter the event description.
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Date -->
+                                <div class="col-md-6">
+                                    <input id="dateEvent" class="form-control" type="date"  [(ngModel)]="dateEvent"
+                                         name="dateEvent">
+                                    <div class="invalid-feedback">
+                                        <i class="fas fa-calendar"></i> Please select the event date.
+                                    </div>
+                                </div>
+                            </div>
+    <!-- Image Upload -->
+    <div class="col-12">
+    <input type="file" (change)="onFileSelected($event)" class="form-control" id="imageUpload" >
+    <div class="invalid-feedback">
+    Please upload your Event picture.
+    </div>
+    </div>
+    
+    
+    <div class="col-md-6">
+    <div class="form-floating mb-3">
+    <input type="text" class="form-control" placeholder="nbMaxInscrits "  [(ngModel)]="nbMaxInscrits"
+    name="titleEvent" >
+    <label for="titleEvent" class="form-label"><i
+        class="fas fa-pen"></i> nbMaxInscrits</label>
+    <div class="invalid-feedback">
+    Please enter the event title.
+    </div>
+    </div>
+    </div>
+    <div class="col-md-6">
+    <div class="form-floating mb-3">
+    <input type="text" class="form-control" placeholder="location "  [(ngModel)]="location"
+    name="titleEvent" >
+    <label for="titleEvent" class="form-label"><i
+        class="fas fa-pen"></i> location</label>
+    <div class="invalid-feedback">
+    Please enter the event title.
+    </div>
+    </div>
+    </div>
+    <div class="col-md-6">
+    <div class="form-floating mb-3">
+    <input type="text" class="form-control" placeholder="duree "  [(ngModel)]="duree"
+    name="titleEvent" >
+    <label for="titleEvent" class="form-label"><i
+        class="fas fa-pen"></i> duree</label>
+    <div class="invalid-feedback">
+    Please enter the event title.
+    </div>
+    </div>
+    </div>
+    <div class="col-md-6">
+    <div class="form-floating mb-3">
+    <input type="text" class="form-control" placeholder="category "  [(ngModel)]="category"
+    name="titleEvent" >
+    <label for="titleEvent" class="form-label"><i
+        class="fas fa-pen"></i> category</label>
+    <div class="invalid-feedback">
+    Please enter the event title.
+    </div>
+    </div>
+    </div>
+    <div class="col-md-6">
+    <div class="form-floating mb-3">
+    <input type="text" class="form-control" placeholder="formateurs "  [(ngModel)]="formateurs"
+    name="titleEvent" >
+    <label for="titleEvent" class="form-label"><i
+        class="fas fa-pen"></i> formateurs</label>
+    <div class="invalid-feedback">
+    Please enter the event title.
+    </div>
+    </div>
+    </div>
+    <div class="col-md-6">
+    <div class="form-floating mb-3">
+    <input type="text" class="form-control" placeholder="modalitesParticipation "  [(ngModel)]="modalitesParticipation"
+    name="titleEvent" >
+    <label for="titleEvent" class="form-label"><i
+        class="fas fa-pen"></i> modalitesParticipation</label>
+    <div class="invalid-feedback">
+    Please enter the event title.
+    </div>
+    </div>
+    </div>
+    <div class="col-md-6">
+    <div class="form-floating mb-3">
+    <input type="text" class="form-control" placeholder="prerequis "  [(ngModel)]="prerequis"
+    name="titleEvent" >
+    <label for="titleEvent" class="form-label"><i
+        class="fas fa-pen"></i> prerequis</label>
+    <div class="invalid-feedback">
+    Please enter the event title.
+    </div>
+    </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-floating mb-3">
+        <input type="text" class="form-control" placeholder="cost "  [(ngModel)]="cout"
+        name="titleEvent" >
+        <label for="titleEvent" class="form-label"><i
+            class="fas fa-pen"></i> Cost</label>
+        <div class="invalid-feedback">
+        Please enter the event title.
+        </div>
+        </div>
+        </div>
+    
+                            <!-- Description -->
+                            <!-- Ajoutez les autres champs de formulaire ici -->
+    
+                            <!-- Bouton de soumission -->
+                            <div class="col-12">
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Add Event</button>
+                                </div>
+                            </div>
+                        </form>		
+                    
+                    
+                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger-soft my-0" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary my-0">Add Event</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="editEventModal" tabindex="-1" aria-labelledby="editEventModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-dark">
+                    <h5 class="modal-title text-white" id="editEventModalLabel">Edit Event</h5>
+                    <button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3 needs-validation" novalidate id="eventForm">
+                        <div class="col-md-6 mb-3">
+                            <label for="titleEvent">Title:</label>
+                            <input type="text" class="form-control" id="titleEvent" [(ngModel)]="eventEdit.titleEvent" name="titleEvent">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="dateEvent">Date:</label>
+                            <input type="date" class="form-control" id="dateEvent" [(ngModel)]="eventEdit.dateEvent" name="dateEvent">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="description">Description:</label>
+                            <textarea class="form-control" id="description" [(ngModel)]="eventEdit.description" name="description"></textarea>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="nbMaxInscrits">Maximum Participants:</label>
+                            <input type="number" class="form-control" id="nbMaxInscrits" [(ngModel)]="eventEdit.nbMaxInscrits" name="nbMaxInscrits">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="location">Location:</label>
+                            <input type="text" class="form-control" id="location" [(ngModel)]="eventEdit.location" name="location">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="formateurs">Trainers:</label>
+                            <input type="text" class="form-control" id="formateurs" [(ngModel)]="eventEdit.formateurs" name="formateurs">
+                        </div>
+                       
+                        <div class="col-md-6 mb-3">
+                            <label for="duree">Duration:</label>
+                            <input type="text" class="form-control" id="duree" [(ngModel)]="eventEdit.duree" name="duree">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="cout">cost:</label>
+                            <input type="text" class="form-control" id="cout" [(ngModel)]="eventEdit.cout" name="cost">
+                        </div>   
+                        <div class="col-md-6 mb-3">
+                            <label for="photoUrl">Image:</label>
+                            <input type="file" class="form-control" id="photoUrl" [(ngModel)]="eventEdit.photoUrl" name="photoUrl">
+                        </div>   
+                        <div class="col-md-6 mb-3">
+                            <label for="prerequis">Skill level:</label>
+                            <input type="text" class="form-control" id="prerequis" [(ngModel)]="eventEdit.prerequis" name="prerequis">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="modalitesParticipation">Participation:</label>
+                            <input type="text" class="form-control" id="modalitesParticipation" [(ngModel)]="eventEdit.modalitesParticipation" name="modalitesParticipation">
+                        </div> 
+                                   </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger-soft my-0" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="updateEvent()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+      
+      
+    
+      
+      
+    
     
 </main>
 <app-footer></app-footer>
