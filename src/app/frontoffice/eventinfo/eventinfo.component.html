@@ -1,7 +1,7 @@
 <!-- **************** MAIN CONTENT START **************** -->
 <app-header></app-header>
 <main>
-
+   
     <!-- =======================
     Page content START -->
     <div *ngIf="eventDetails">
@@ -15,7 +15,9 @@
                         <div class="row justify-content-center">
                             <div class="col-md-8 col-xl-12">
                                 
-                                  
+                            
+                           
+                           
                                
                                 <!-- Card START -->
                                 <div class="card shadow">
@@ -30,7 +32,7 @@
                                         <div class="text-center">
                                             <!-- Buttons -->
                                             
-                                            <button class="btn btn-danger mb-0" (click)="addReservation(idUser!, eventId!)">Add Reservation</button>
+                                            <button class="btn btn-danger mb-0" (click)="addReservation()">Add Reservation</button>
                                         </div>
                                     </div>
                                 </div>
@@ -46,8 +48,28 @@
                 <div class="col-xl-8">
                 
                     <!-- Title -->
-                    <h1 class="mb-4">{{ eventDetails?.titleEvent }}</h1>
-    
+                    <div class="content-header">
+                        <h1 class="mb-4">{{ eventDetails?.titleEvent }}</h1>
+                        <div class="social-sharing">
+                            <button title="Share this event">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                            <button (click)="shareOnFacebook()" title="Share on Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </button>
+                            <button (click)="shareOnTwitter()" title="Share on Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </button>
+                            <button (click)="shareOnLinkedIn()" title="Share on LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    
+
+                    
+                    
                     <!-- Rating -->
                     <div class="d-flex align-items-center mb-4">
                         <h2 class="me-3 mb-0"> {{ averageRating }}</h2>
@@ -101,9 +123,7 @@
                                     <span class="h6 fw-light"><i class="fas fa-fw fa-map-marker-alt text-primary me-2"></i>Location:</span>
                                     <span class="h6">{{ eventDetails?.location}}</span>
                                 </li>
-                                <div class="full" id="map">
-
-                                </div>
+           
                             </ul>
                             
                             <!-- List END -->
@@ -204,7 +224,7 @@
                                                 <ng-container *ngIf="i < averageRating">
                                                     <i class="fas fa-star text-warning"></i> <!-- Full star -->
                                                 </ng-container>
-                                                <ng-container *ngIf="i === averageRating && averageRating !== Math.floor(averageRating)">
+                                                <ng-container *ngIf="averageRating !== undefined && i === averageRating && averageRating !== floor(averageRating)">
                                                     <i class="fas fa-star-half-alt text-warning"></i> <!-- Half star -->
                                                 </ng-container>
                                                 <ng-container *ngIf="i >= averageRating">
@@ -412,7 +432,16 @@
                             </div>
                             <!-- Content END -->
     
-                            
+                            <div class="tab-pane fade" id="book-pills-3" role="tabpanel" aria-labelledby="book-pills-tab-3">
+                                <div #map style="height: 400px;" leaflet [leafletOptions]="mapOptions" [leafletLayers]="layers">
+                                </div>
+                              
+                              
+                              
+    
+                                
+                            </div>
+                            <!-- Content END -->
                                            
     
                                 <!-- Content -->
@@ -431,5 +460,31 @@
     <!-- =======================
     Page content END -->
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<!-- Reservation Modal -->
+<div class="modal fade" #reservationModal tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-dark">
+          <h5 class="modal-title text-white" id="reservationModalLabel">Confirm Reservation</h5>
+          <button type="button" class="btn btn-sm btn-light mb-0" (click)="closeModal()" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to make a reservation for the event:</p>
+      
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="phoneNumber">
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger-soft my-0" (click)="closeModal()">Close</button>
+            <button type="button" class="btn btn-primary" (click)="confirmReservation()">Confirm Reservation</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
     </main>
     <!-- **************** MAIN CONTENT END **************** -->

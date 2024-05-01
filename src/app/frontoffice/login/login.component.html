@@ -32,13 +32,17 @@
                                             </div>
                                             <div class="col-12">
                                                 <div class="form-floating mb-3">
-                                                    <input type="password" class="form-control" [(ngModel)]="password" name="password" id="password" placeholder="Password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$">
-                                                    <label for="password" class="form-label"><i class="fas fa-lock"></i>     Password</label>
-                                                    <div class="invalid-feedback">
-                                                        Please enter a valid password. Password must contain at least 8 characters, including uppercase letter, lowercase letter, numbers, and special character.
-                                                    </div>
+                                                  <input [type]="passwordVisible ? 'text' : 'password'" class="form-control" [(ngModel)]="password" name="password" id="password" placeholder="Password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$">
+                                                  <label for="password" class="form-label"><i class="fas fa-lock"></i> Password</label>
+                                                  <button type="button" class="btn btn-view-password" (click)="togglePasswordVisibility()" aria-label="Toggle password visibility">
+                                                    <i class="fas" [class.fa-eye-slash]="passwordVisible" [class.fa-eye]="!passwordVisible"></i>
+                                                  </button>
+                                                  <div class="invalid-feedback">
+                                                    Please enter a valid password. Password must contain at least 8 characters, including uppercase letter, lowercase letter, numbers, and special character.
+                                                  </div>
                                                 </div>
-                                            </div>
+                                              </div>
+                                              
                                             
                                            
                                             <re-captcha (resolved)="onCaptchaResolved($event)" siteKey="6Lcu1L8pAAAAAGfXXgCZUcdLnnnYGH81RihYILU6"></re-captcha>
@@ -63,29 +67,32 @@
                                             <hr>
                                             <p class="small position-absolute top-50 start-50 translate-middle bg-body px-2">Or sign in with</p>
                                         </div>
-                                        <script src="https://accounts.google.com/gsi/client" async defer></script>
 
                                         <div id="g_id_onload"
-                                        data-client_id="75100929630-s7tih0ketin8gkufse47s7q6ohj4aouq.apps.googleusercontent.com"
+                                        data-client_id="88232353192-lea6fpg1c708kglk86d0mjpr08omf3c6.apps.googleusercontent.com"
                                         data-context="signin"
                                         data-login_uri="http://localhost:4200/login"
-                                        data-auto_select="true"
-                                        data-use_fedcm_for_prompt ="true"
-                                        data-itp_support="true"
-                                        allow="identity-credentials-get">
+                                        data-auto_prompt="false">
+                                   </div>
+                                   <div class="g_id_signin"
+                                        data-type="standard"
+                                        data-size="large"
+                                        data-theme="outline"
+                                        data-text="sign_in_with"
+                                        data-shape="rectangular"
+                                        data-logo_alignment="left">
                                    </div>
                                         <div class="row g-3">
-                                            <div class="col-sm-6 d-grid">
-                                                <asl-google-signin-button class="google-signin-button" (click)="signInWithGoogle()">
-                                                    <i class="fab fa-google"></i> Google
-                                                </asl-google-signin-button>
-                                            </div>
+                                          
+                                                <button class="google-signin-button" id="buttonDiv" (click)="signInWithGoogle()">Sign in with Google</button>
+
+                                            
                                             <div class="col-sm-6 d-grid">
                                                 <button class="btn btn-primary" (click)="signInWithFB()">
                                                     <i class="fab fa-facebook"></i> Sign in with Facebook
                                                 </button>           
                                             </div>
-                                           
+                                            <span (click)="signInWithGitHub()"><i class="fab fa-github-square"></i></span>
                                           
                                           
                                         </div>

@@ -33,6 +33,9 @@ import { httpInterceptorProviders } from './helpers/http.interceptor';
 import { UserDetailsComponent } from './backoffice/user-details/user-details.component';
 import { UserEditComponent } from './backoffice/user-edit/user-edit.component';
 import { SocialLoginModule, SocialAuthServiceConfig , GoogleLoginProvider, FacebookLoginProvider, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 import { ForgetPasswordComponent } from './frontoffice/forget-password/forget-password.component';
 import { EditProfileComponent } from './frontoffice/edit-profile/edit-profile.component';
 import { ProfileSideBarComponent } from './frontoffice/profile-side-bar/profile-side-bar.component';
@@ -48,6 +51,9 @@ import { StarRatingModule } from 'angular-star-rating';
 import { IgcFormsModule } from 'igniteui-angular';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { DeactivateComponent } from './backoffice/deactivate/deactivate.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { EventCalendarComponent } from './frontoffice/event-calendar/event-calendar.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +92,7 @@ import { DeactivateComponent } from './backoffice/deactivate/deactivate.componen
     EventinfoComponent,
     ResetPasswordComponent,
     DeactivateComponent,
+    EventCalendarComponent,
     
   ],
   imports: [
@@ -105,25 +112,28 @@ import { DeactivateComponent } from './backoffice/deactivate/deactivate.componen
     StarRatingModule.forRoot(),
     IgcFormsModule,
     RecaptchaModule,
-  ],
+    LeafletModule,
+    MatPaginatorModule,
+    FullCalendarModule,
+    ],
   
   providers: [DatePipe,httpInterceptorProviders,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
         autoLogin: false,
-        useFederatedConsentForPopups: true,
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '75100929630-s7tih0ketin8gkufse47s7q6ohj4aouq.apps.googleusercontent.com'
+              '88232353192-lea6fpg1c708kglk86d0mjpr08omf3c6.apps.googleusercontent.com'
             )
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
             provider: new FacebookLoginProvider('391140843744729')
           }
+          
         ],
         onError: (err) => {
           console.error(err);

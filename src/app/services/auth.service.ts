@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { finalize, map, tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, finalize, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,18 @@ export class AuthService {
   
     return this.http.post<any>(`${this.apiUrl}/signup`, formData, { headers: headers });
   }
+  validateToken(token: string): Observable<any> {
+    // Define the token data
+    const tokenData = { token };
   
+    // Define the HTTP headers
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  
+    // Make the HTTP POST request to the backend and return the observable
+    return this.http.post<any>('http://localhost:8087/api/auth/validateToken', tokenData, { headers });
+}
   getJwtToken(): string | null {
     return this.jwtToken;
   }
@@ -47,7 +58,14 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/logout`, {});
   }
  
-  
+  refreshToken(): Observable<any> {
+    const refreshToken = localStorage.getItem('refresh_token');
+    return this.http.post<any>(`${this.apiUrl}/refresh`, { refreshToken }).pipe(
+      tap(response => {
+        localStorage.setItem('access_token', response.accessToken);
+      })
+    );
+  }
   forgotPassword(email: string) {
     const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let body = new HttpParams();
@@ -76,5 +94,31 @@ export class AuthService {
       map(response => response.id)
     );
   }
-  
+  private clientId = 'a10c90b73715eabaa707';
+  private clientSecret = '4f205685cecee6e889dd40e38d675858a0f74258';
+  private redirectUri = 'http://localhost:4200/home';
+  private accessTokenUrl = 'https://github.com/login/oauth/access_token';
+
+
+  getGitHubAccessToken(code: string): Observable<any> {
+    const url = `${this.accessTokenUrl}?client_id=${this.clientId}&client_secret=${this.clientSecret}&code=${code}&redirect_uri=${this.redirectUri}`;
+    return this.http.post(url, {}).pipe(
+      catchError((error) => {
+        return throwError('Error exchanging GitHub code for access token: ' + error.message);
+      })
+    );
+  }
+
+
+  getGitHubUserData(accessToken: string): Observable<any> {
+    const headers = {
+      Authorization: `token ${accessToken}`
+    };
+    return this.http.get('https://api.github.com/user', { headers }).pipe(
+      catchError((error) => {
+        throw error;
+      })
+    );
+  }
+ 
 }

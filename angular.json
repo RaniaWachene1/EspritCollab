@@ -40,8 +40,12 @@
               "src/assets/vendor/bootstrap-icons/bootstrap-icons.css",
               "src/assets/vendor/font-awesome/css/all.min.css",
               "node_modules/ngx-toastr/toastr.css",
-              "src/styles.scss"
-            ],
+              "src/styles.scss" ,
+              "node_modules/leaflet/dist/leaflet.css",
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.css"
+
+                    ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
@@ -72,6 +76,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.json" 
+          },
           "configurations": {
             "production": {
               "buildTarget": "espritcollabfront:build:production"
@@ -81,7 +88,8 @@
             }
           },
           "defaultConfiguration": "development"
-        },
+        }
+,        
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {

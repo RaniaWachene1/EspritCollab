@@ -103,42 +103,33 @@ Math: any;
   }
 
   deactivateUser(userId: number): void {
-    const duration = prompt("Enter the duration for deactivation (e.g., '2 days', '1 week', etc.):");
-    if (duration !== null) { 
-      if (confirm("Are you sure you want to deactivate this user?")) {
-        this.userService.deactivateUser(userId, duration).subscribe(
-          () => {
-            console.log("User deactivated successfully");
-            this.toastr.success('User deactivated successfully', 'Success');
-            this.fetchUsers();
-          },
-          error => {
-            console.error('Error deactivating user:', error);
-            this.toastr.error('Failed to deactivate user', 'Error');
-          }
-        );
-      }
-    } else {
-      console.log("User canceled deactivation.");
-      // Optionally, you can inform the user that deactivation was canceled.
+    const duration = prompt("Enter the duration for deactivation (e.g., 'PT30M' for 30 minutes):");
+    if (duration) {
+      this.userService.deactivateUser(userId, duration).subscribe({
+        next: () => {
+          this.toastr.success('User deactivated successfully');
+          this.fetchUsers();
+        },
+        error: (error) => {
+          console.error('Error deactivating user:', error);
+          this.toastr.error('Failed to deactivate user');
+        }
+      });
     }
   }
   
 
   reactivateUser(userId: number): void {
-    if (confirm("Are you sure you want to reactivate this user?")) {
-      this.userService.reactivateUser(userId).subscribe(
-        () => {
-          console.log("User reactivated successfully");
-          this.toastr.success('User reactivated successfully', 'Success');
-          this.fetchUsers();
-        },
-        error => {
-          console.error('Error reactivating user:', error);
-          this.toastr.error('Failed to reactivate user', 'Error');
-        }
-      );
-    }
+    this.userService.reactivateUser(userId).subscribe({
+      next: () => {
+        this.toastr.success('User reactivated successfully');
+        this.fetchUsers();
+      },
+      error: (error) => {
+        console.error('Error reactivating user:', error);
+        this.toastr.error('Failed to reactivate user');
+      }
+    });
   }
 
   

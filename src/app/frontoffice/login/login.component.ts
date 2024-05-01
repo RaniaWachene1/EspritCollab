@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SocialAuthService, GoogleLoginProvider, SocialUser, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
 
 @Component({
@@ -26,12 +28,15 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
   loginError: boolean = false;
+  google: any;
   constructor(private authService: AuthService,  private formBuilder: FormBuilder,
     private service:UserService,
      private socialAuthService: SocialAuthService,
      private router: Router,
+     private ngZone : NgZone,
      private route: ActivatedRoute,
-     private toastr: ToastrService) {}
+     private toastr: ToastrService,
+     private http: HttpClient) {}
 
      onSubmit() {
       if (this.isCaptchaResolved) {
@@ -56,8 +61,18 @@ export class LoginComponent {
       } else {
         this.toastr.error('Please verify reCAPTCHA!');
       }
+      
     }
-  
+    exchangeCodeForAccessToken(code: string) {
+      const url = 'http://localhost:8080/api/github/callback'; // Your backend endpoint
+      return this.http.get<any>(`${url}?code=${code}`);
+    }
+    
+    getUserDetails(accessToken: string) {
+      // You can fetch user details from GitHub API using the access token
+      // Implement this method according to GitHub API documentation
+      return of({ email: 'test@example.com', firstName: 'John', lastName: 'Doe' }); // Mock user data
+    }
     onCaptchaResolved(captchaResponse: string | null) {
       if (captchaResponse !== null) {
         console.log('reCAPTCHA resolved with response:', captchaResponse);
@@ -65,32 +80,35 @@ export class LoginComponent {
       }
     }
     signInWithGoogle(): void {
+      console.log('signInWithGoogle btn ');
+
       this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(
         (userData: SocialUser) => {
           // Handle successful sign-in with Google
           console.log('Google user signed in: ', userData);
           
+          // Register the user
           const registerData = {
             email: userData.email,
             firstName: userData.firstName,
             lastName: userData.lastName,
-            password: userData.email, // Use email as password
+            password: userData.idToken, // Use idToken as password (or any other method of your choice)
             username: userData.email, // Use email as username
           };
           
-          // Register the user
+          // Call the register method of your authService
           this.authService.register(registerData).subscribe(
             (registrationResponse: any) => {
               console.log('Registration Response:', registrationResponse);
               
-              // After successful registration, proceed with login
-              this.authService.login(userData.email, userData.email).subscribe( // Use email as both username and password
+              // Proceed with login after successful registration
+              this.authService.login(userData.email, userData.idToken).subscribe(
                 (loginResponse: any) => {
                   console.log('Login Response:', loginResponse);
                   
-                  // Navigate the user to the home page
+                  // Navigate to the home page after successful login
                   this.router.navigate(['/home']);
-                  this.toastr.success('Registration and Login Successful');
+                  this.toastr.success('Login Successful');
                 },
                 (loginError: any) => {
                   console.error('Login Error:', loginError);
@@ -111,6 +129,7 @@ export class LoginComponent {
         }
       );
     }
+    
     
     
     signInWithFB(): void {
@@ -161,6 +180,7 @@ export class LoginComponent {
       );
     }
     
+
     
     
     
@@ -177,22 +197,161 @@ export class LoginComponent {
     });
   }
   ngOnInit() {
-    this.socialAuthService.authState.subscribe((user) => {
-      this.user = user;
-      console.log(this.user);
-      this.loggedIn = (user != null);
-    });
-
     this.applyValidationStyles();
+    this.loadGoogleSignIn();
 
-    this.route.queryParams.subscribe(params => {
-      const code = params['code']; // Retrieve the authorization code from the URL
-      if (code) {
-        // Handle the authorization code (e.g., send it to the server for token exchange)
-        console.log('Authorization code:', code);
-        // Process the code here (e.g., send it to the server for further processing)
-      }
-    });
+}
+loadGoogleSignIn() {
+  window.onload = () => {
+    this.google.accounts.id.initialize({
+      client_id: '88232353192-lea6fpg1c708kglk86d0mjpr08omf3c6.apps.googleusercontent.com',
+      callback: this.handleCredentialResponse1.bind(this)    });
+    this.google.accounts.id.prompt(); // Display One Tap dialog
+  };
+}
+handleCredentialResponse1(response: any) {
+  console.log('Encoded JWT ID token:', response.credential);
+  // Handle the credential response here
+  // For example, you can send it to your backend for validation
+}
+
+ngAfterViewInit() {
+    // Render Google Sign-In button
+    this.google.accounts.id.renderButton(
+      document.getElementById("googleSignInButton"),
+      { theme: "outline", size: "large" } // customize as needed
+    );
+}
+
+handleCredentialResponse(response: any) {
+  console.log('handleCredentialResponse called with response:', response);
+
+  if (response && response.credential) {
+      const credential = response.credential;
+      const jwtToken = response.credential;
+      console.log('Encoded JWT ID token:', jwtToken);
+
+      // Assuming you have the token stored in a variable called 'googleToken'
+      this.authService.validateToken(jwtToken).subscribe(
+          (validationResponse: any) => {
+              if (validationResponse.valid) {
+                  // Register the user with the received credential
+                  this.authService.register(credential).subscribe(
+                      (registrationResponse: any) => {
+                          console.log('Registration Response:', registrationResponse);
+
+                          // If registration is successful, log in the user using the same credential
+                          this.authService.login(credential.username, credential.password).subscribe(
+                              (loginResponse: any) => {
+                                  console.log('Login Response:', loginResponse);
+
+                                  // Navigate the user to the home page
+                                  this.router.navigate(['/home']);
+                                  this.toastr.success('Login Successful');
+                              },
+                              (loginError: any) => {
+                                  console.error('Login Error:', loginError);
+                                  this.toastr.error('Login Error');
+                              }
+                          );
+                      },
+                      (registrationError: any) => {
+                          console.error('Registration Error:', registrationError);
+                          this.toastr.error('Registration Error');
+                      }
+                  );
+              } else {
+                  console.error('Token validation failed:', validationResponse.error);
+                  this.toastr.error('Token validation failed');
+              }
+          },
+          (validationError: any) => {
+              console.error('Token validation error:', validationError);
+              this.toastr.error('Token validation error');
+          }
+      );
+  } else {
+      console.error('Credential not received:', response);
+      this.toastr.error('Credential not received');
+  }
+}
+
+
+
+  signInWithGitHub(): void {
+    const clientId = 'a10c90b73715eabaa707';
+    const redirectUri = 'http://localhost:4200/home';
+    const scope = 'user';
+  
+    // Redirect user to GitHub OAuth authorization endpoint
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}`;
+this. handleGitHubCallback();
+  }
+  handleGitHubCallback(): void {
+    // Extract the code from the URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+  
+    if (code) {
+      // Exchange the GitHub code for an access token
+      this.authService.getGitHubAccessToken(code).subscribe(
+        (accessTokenResponse: any) => {
+          this.authService.getGitHubUserData(accessTokenResponse.access_token).subscribe(
+            (userData: any) => {
+              const registerData = {
+                email: userData.email,
+                firstName: userData.firstName,
+                lastName: userData.lastName,
+                password: userData.email, // Use email as password
+                username: userData.email, // Use email as username
+              };
+  
+              // Register the user
+              this.authService.register(registerData).subscribe(
+                (registrationResponse: any) => {
+                  console.log('Registration Response:', registrationResponse);
+  
+                  // After successful registration, proceed with login
+                  this.authService.login(userData.email, userData.email).subscribe( // Use email as both username and password
+                    (loginResponse: any) => {
+                      console.log('Login Response:', loginResponse);
+  
+                      // Navigate the user to the home page
+                      this.router.navigate(['/home']);
+                      this.toastr.success('Registration and Login Successful');
+                    },
+                    (loginError: any) => {
+                      console.error('Login Error:', loginError);
+                      this.toastr.error('Login Error');
+                    }
+                  );
+                },
+                (registrationError: any) => {
+                  console.error('Registration Error:', registrationError);
+                  this.toastr.error('Registration Error');
+                }
+              );
+            },
+            (userDataError: any) => {
+              console.error('Error fetching GitHub user data:', userDataError);
+              this.toastr.error('Error fetching GitHub user data');
+            }
+          );
+        },
+        (accessTokenError: any) => {
+          console.error('Error exchanging GitHub code for access token:', accessTokenError);
+          this.toastr.error('Error exchanging GitHub code for access token');
+        }
+      );
+    } else {
+      console.error('Error: Code not found in URL');
+      this.toastr.error('Error: Code not found in URL');
+    }
+  }
+  passwordVisible: boolean = false;  // Keeps track of password visibility
+
+  togglePasswordVisibility(): void {
+    this.passwordVisible = !this.passwordVisible;
   }
   }
   

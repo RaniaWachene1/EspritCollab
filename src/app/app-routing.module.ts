@@ -29,6 +29,7 @@ import { EventinfoComponent } from './frontoffice/eventinfo/eventinfo.component'
 import { ForgetPasswordComponent } from './frontoffice/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './frontoffice/reset-password/reset-password.component';
 import { DeactivateComponent } from './backoffice/deactivate/deactivate.component';
+import { EventCalendarComponent } from './frontoffice/event-calendar/event-calendar.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -63,9 +64,9 @@ const routes: Routes = [
   { path: 'editEvent/:eventId', component: EventEditComponent },
   { path: 'addEvent', component:EventAddComponent},
   { path: 'EventListUser', component:ProfileEventListComponent},
-  { path: 'eventinfo/:eventId', component: EventinfoComponent }
+  { path: 'eventinfo/:eventId', component: EventinfoComponent },
   
-  
+  { path: 'calendar', component: EventCalendarComponent },
   
  
 

@@ -42,4 +42,15 @@ export class ResetPasswordComponent implements OnInit
       }
     );
   }
+  newPasswordVisible: boolean = false;
+  confirmPasswordVisible: boolean = false;
+
+  // Toggles for each password field
+  toggleNewPasswordVisibility(): void {
+    this.newPasswordVisible = !this.newPasswordVisible;
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.confirmPasswordVisible = !this.confirmPasswordVisible;
+  }
 }

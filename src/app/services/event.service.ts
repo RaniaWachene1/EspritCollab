@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Rating } from '../frontoffice/eventinfo/rating.model';
 import { AuthService } from './auth.service';
 import { Reservation } from '../frontoffice/eventinfo/reservation.model';
+import { AppEvent } from '../frontoffice/event-calendar/event.model';
 
 
 
@@ -28,7 +29,7 @@ export class EventService {
     
     formData.append('idUser', idUser.toString()); // Corrected here
     
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJXYWNoZW5lUmFuaWEiLCJpYXQiOjE3MTM1NjA0OTYsImV4cCI6MTcxNDQyNDQ5Nn0.HHVIZ_HYd1zEagI9Ow43quwyzHI2HrmzFFBwpkB4tdw'; // Replace 'your-auth-token' with the actual token
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzE0NDI5OTg1LCJleHAiOjE3MTUwMzQ3ODV9.LZHA35ShMiseb5niAwfsrUgCBAWB5886Iju5HyH6WGI'; // Replace 'your-auth-token' with the actual token
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -37,7 +38,10 @@ export class EventService {
   }
   
 
-  
+  getEventsByCreator(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}?userId=${userId}`);
+}
+
 
   getEventById(idEvent: number): Observable<Event> {
     return this.http.get<Event>(`${this.baseUrl}/getEventById/${idEvent}`);
@@ -90,5 +94,21 @@ export class EventService {
   addReservation(userId: number, eventId: number, reservation: Reservation): Observable<any> {
     return this.http.post<Reservation>(`${this.baseUrl}/events/${userId}/${eventId}/reservations`, reservation);
   }
+  getDistinctCategories(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.baseUrl}/categories`);
+  }
+  getEventsByCategory(category: string): Observable<any[]> {
+    return this.http.get<Event[]>(`${this.baseUrl}/events/${category}`);
+}
+getDistinctPrerequis(): Observable<string[]> {
+  return this.http.get<string[]>(`${this.baseUrl}/Prerequis`);
+}
+getEventsByPrerequis(prerequis: string): Observable<any[]> {
+  return this.http.get<Event[]>(`${this.baseUrl}/events/prerequis/${prerequis}`);
+}
+getReservedEvents(userId: number): Observable<AppEvent[]> {
+  return this.http.get<AppEvent[]>(`${this.baseUrl}/reserved/${userId}`);
+}
+
 }
 
