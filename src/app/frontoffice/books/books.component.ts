@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../../../models/books.model'; // Mettez à jour le chemin si nécessaire
-import { BookService } from '../../books.service'; // Mettez à jour le chemin si nécessaire
+import { Book } from '../../../models/books.model'; 
+import { BookService } from '../../books.service'; 
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { IsAvailable } from '../../../models/IsAvailable.model';
@@ -18,11 +18,14 @@ export class BooksComponent implements OnInit {
     language: '',
     coverPicture: '',
     isAvailable: IsAvailable.AVAILABLE, // Initialisé sur 'Indisponible'
-    phoneNumber: ''
+    phoneNumber: '',
+    likes:0,
+    dislikes:0
   };
 
   selectedBooks: Book | null = null;
   fileToUpload: File | null = null;
+
 
   constructor(private bookService: BookService, private router: Router, private toastr: ToastrService) { }
 
@@ -60,13 +63,14 @@ export class BooksComponent implements OnInit {
       language: '',
       coverPicture: '',
       isAvailable: IsAvailable.NOTAVAILABLE ,// Gardez le statut initial sur 'Indisponible'
-      phoneNumber: ''
+      phoneNumber: '',
+      likes:0,
+      dislikes:0
 
     };
   }
 
   updateBooks(book: Book): void {
-    // Appeler la méthode updateBook() avec la disponibilité mise à jour
     this.bookService.updateBook(book.idBook, book).subscribe(updatedBook => {
       const index = this.books.findIndex(b => b.idBook === updatedBook.idBook);
       if (index !== -1) {
@@ -97,6 +101,10 @@ export class BooksComponent implements OnInit {
   }
 
   onFileSelect(event: any): void {
-    this.fileToUpload = event.target.files.item(0);
+    if (event.target.files.length > 0) {
+      this.fileToUpload = event.target.files[0];
+    }
   }
+  
+ 
 }

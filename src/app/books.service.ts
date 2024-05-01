@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IsAvailable } from '../models/IsAvailable.model';
 import { Book } from '../models/books.model';
+import { map } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -39,13 +40,15 @@ export class BookService {
     return this.http.put<Book>(`${this.baseUrl}/updateBK/${id}`, book);
   }
   uploadImage(formData: FormData): Observable<any> {
-    // Remplacez 'yourApiEndpointForImageUpload' par votre véritable endpoint d'API
-    return this.http.post<any>(`${this.baseUrl}src/assets/images/`, formData);
+    return this.http.post<any>('votre_endpoint_backend_pour_upload', formData, {
+      reportProgress: true,
+      observe: 'events'
+    });
   }
-  // Service: BookService
+  
 getQrCodeData1(book: Book): string {
   // Format des détails du livre pour un affichage texte simple
-  const bookDetails = `Détails du livre:
+   const bookDetails = `Détails du livre:
 TITLE: ${book.titleBook}
 DESCIPTION: ${book.description}
 LANGUAGE: ${book.language}
@@ -56,15 +59,27 @@ AVAILIBILITY: ${book.isAvailable }`;
 }
 
 getQrCodeData(bookId: number): string {
-  return `http:/192.168.1.214:4200/exchange-form/${bookId}`;
+  return `http:/172.20.10.3:4200/exchange-form/${bookId}`;
 }
-// Dans votre service de livres, ajoutez cette méthode
+
 updatePhoneNumber(bookId: number, phoneNumber: string): Observable<any> {
   const url = `${this.baseUrl}/updateBook/${bookId}`;
-
-  return this.http.put(url, phoneNumber);
+  return this.http.put(url, { phoneNumber });
 }
 
+
+addLike(bookId: number): Observable<Book> {
+  return this.http.post<Book>(`${this.baseUrl}/like/${bookId}`, {});
+}
+
+addDislike(bookId: number): Observable<Book> {
+  return this.http.post<Book>(`${this.baseUrl}/dislike/${bookId}`, {});
+}
+getMostLikedBook(): Observable<Book> {
+  return this.getAllBK().pipe(
+    map(books => books.reduce((max, book) => max.likes > book.likes ? max : book, books[0]))
+  );
+}
 
 
 }

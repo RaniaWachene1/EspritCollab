@@ -28,4 +28,29 @@
     padding: 10px;
     border-top: 1px solid #ccc;
   }
+  .animated-button {
+    transition: transform 0.3s ease;
+  }
+  
+  .animated-button:hover {
+    transform: scale(1.05);
+  }
+  
+  .animated-input:focus {
+    transition: box-shadow 0.3s ease-in-out;
+    box-shadow: 0 0 8px rgba(220, 20, 60, 0.5);
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.5s;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
   

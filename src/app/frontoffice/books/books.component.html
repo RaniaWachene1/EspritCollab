@@ -94,14 +94,25 @@
         <h2 class="form-title">Ajouter un livre</h2>
         <form (submit)="addBook()" class="book-form">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Titre" name="titre" [(ngModel)]="newBook.titleBook" required>
+            <input type="text" class="form-control" placeholder="Titre" name="title" [(ngModel)]="newBook.titleBook" #titre="ngModel" required minlength="3">
+            <div *ngIf="titre.invalid && (titre.dirty || titre.touched)" style="color: red;">
+              The title is required and must be at least 3 characters long.
+            </div>
           </div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Description" name="description" [(ngModel)]="newBook.description" required>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Langue" name="langue" [(ngModel)]="newBook.language" required>
-          </div>
+          
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Description" name="description" [(ngModel)]="newBook.description" #description="ngModel" required>
+              <div *ngIf="description.invalid && (description.dirty || description.touched)" style="color: red;">
+                Description is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Langue" name="langue" [(ngModel)]="newBook.language" #language="ngModel" required>
+              <div *ngIf="language.invalid && (language.dirty || language.touched)" style="color: red;">
+                Language is required.
+              </div>
+            </div>
+            
           <div class="form-group">
             <input type="file" id="coverImage" (change)="onFileSelect($event)" hidden>
             <label for="coverImage" class="custom-file-upload">Choisir une image</label>

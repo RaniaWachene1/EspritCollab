@@ -14,10 +14,11 @@ export class GetAllBooksComponent implements OnInit {
   books: Book[] = [];
 
   selectedBooks: Book | null = null;
-  fileToUpload: File | null = null;
   qrCodeData: { [key: number]: string } = {}; // Un dictionnaire pour stocker les données QR par ID de livre
   filteredBooks: Book[] = [];
   searchText: string = '';
+  mostLikedBook: Book | null = null;
+
 
 
   constructor(private bookService: BookService  , public dialog: MatDialog) { }
@@ -26,11 +27,12 @@ export class GetAllBooksComponent implements OnInit {
   ngOnInit(): void {
     this.getAllBooks();
     this.filterBooks();
+    this.getMostLikedBook();
+
        
    
     
   }
-
   
   getAllBooks(): void {
     this.bookService.getAllBK().subscribe(books => {
@@ -45,7 +47,6 @@ export class GetAllBooksComponent implements OnInit {
     });
 }
 
-  
   
   openDialog(book: Book): void {
     const dialogRef = this.dialog.open(UpdateBookDialogComponent, {
@@ -83,14 +84,17 @@ export class GetAllBooksComponent implements OnInit {
   deleteBook(id: number): void {
     this.bookService.deleteBook(id).subscribe({
       next: () => {
+        console.log('Book deleted successfully from backend');
         this.books = this.books.filter(book => book.idBook !== id);
-        console.log('Book deleted successfully');
+        this.filterBooks(); // Update filtered books if any filters are applied
+        console.log('Frontend state updated, book removed');
       },
       error: (error) => {
         console.error('Error deleting book:', error);
       }
     });
   }
+  
   filterBooks(): void {
     if (!this.searchText) {
       this.filteredBooks = [...this.books];  // Utilisez spread pour forcer la mise à jour du binding
@@ -101,10 +105,42 @@ export class GetAllBooksComponent implements OnInit {
     }
   }
   
-  
+
+likeBook(bookId: number): void {
+  this.bookService.addLike(bookId).subscribe(updatedBook => {
+    const index = this.books.findIndex(book => book.idBook === updatedBook.idBook);
+    if (index !== -1) {
+      this.books[index] = updatedBook;
+      this.filterBooks();
+    }
+  }, error => {
+    console.error('Failed to like the book:', error);
+  });
+}
+
+
+dislikeBook(bookId: number): void {
+  this.bookService.addDislike(bookId).subscribe(updatedBook => {
+    const index = this.books.findIndex(book => book.idBook === updatedBook.idBook);
+    if (index !== -1) {
+      this.books[index] = updatedBook;
+      this.filterBooks();
+    }
+  }, error => {
+    console.error('Error disliking the book:', error);
+  });
+
+
+}
+getMostLikedBook(): void {
+  this.bookService.getMostLikedBook().subscribe(book => {
+    this.mostLikedBook = book;
+  }, error => {
+    console.error("Failed to fetch most liked book: ", error);
+  });
+}
+
 
 }
 
   
-
-

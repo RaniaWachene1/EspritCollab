@@ -131,14 +131,14 @@ Main Banner START -->
                 </div>
 
                 <!-- Award message -->
-                <div class="position-absolute bottom-0 start-0 mb-0 mb-sm-4 ms-3 ms-sm-5 z-index-9">
+                <div *ngIf="mostLikedBook" class="position-absolute bottom-0 start-0 mb-0 mb-sm-4 ms-3 ms-sm-5 z-index-9">
                     <div class="d-flex align-items-center p-2 p-sm-3 bg-white shadow rounded-4">
                         <div class="icon-lg bg-white rounded-circle shadow">
                             <img src="assets/images/element/17.svg" class="h-30px" alt="">
                         </div>
                         <div class="ms-2">
-                            <h6 class="mb-0 text-dark">Best tutor Award</h6>
-                            <span class="small">Year 2021</span>
+                            <h6 class="mb-0 text-dark">Best Book : {{ mostLikedBook.titleBook }}</h6>
+                            <span class="small">Likes: {{ mostLikedBook.likes }}</span>
                         </div>
                     </div>
                 </div>
@@ -155,16 +155,29 @@ Main Banner START -->
 Main Banner END -->
 
 
+
+
+
+
 <div class="container mt-4">
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Search by book title..." [(ngModel)]="searchText" (ngModelChange)="filterBooks()">
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button">Search</button>
+    <div class="row justify-content-center">
+        <div class="col-10 col-sm-8 col-md-6">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <i class="bi bi-search" title="Search"></i> <!-- Icône de loupe avec infobulle -->
+                </span>
+                <input type="text" class="form-control" placeholder="Search by book title..." aria-label="Search" aria-describedby="basic-addon1" [(ngModel)]="searchText" (ngModelChange)="filterBooks()">
+            </div>
         </div>
     </div>
+</div>
+
+
+
+
+
 
     <!-- Ici, la liste des livres sera affichée -->
-</div>
 
 
 <section class="pt-0">
@@ -174,21 +187,22 @@ Main Banner END -->
     
 
     <div class="container">
+       
+
         <div class="row g-4">
                 <!-- Le reste de votre code pour afficher un livre -->
-          
-            
+               
             <div *ngFor="let book of filteredBooks">
                 <!-- Action box item START -->
-                <div class="col-lg-6">
-                    <div class="bg-purple bg-opacity-10 rounded-3 p-5 h-100 position-relative">
-
+                <div >
+                    <div _ngcontent-ng-c4190336445="" class="bg-purple bg-opacity-10 rounded-3 p-5 h-100 position-relative" style="width: 996px; margin-left: auto; margin-right: auto;">
+                 
+                    
                         <!-- Icon container -->
-                        <div class="position-absolute top-0 end-0 mt-2 me-2">
-                            <!-- Icône pour disponible -->
-                            <i *ngIf="book.isAvailable === 'AVAILABLE'" class="fas fa-check-circle text-success"></i>
+                        <div class="position-absolute" style="margin-left: 470px; top: 20px;"> <!-- ajustez la valeur de top ici -->
+                            <i *ngIf="book.isAvailable === 'AVAILABLE'" class="fas fa-check-circle text-success fa-2x"></i>
                             <!-- Icône pour non disponible -->
-                            <i *ngIf="book.isAvailable !== 'AVAILABLE'" class="fas fa-times-circle text-danger"></i>
+                            <i *ngIf="book.isAvailable !== 'AVAILABLE'" class="fas fa-times-circle text-danger fa-2x"></i>
                         </div>
     
                         <!-- Content -->
@@ -196,16 +210,33 @@ Main Banner END -->
                             <!-- Image -->
                             <div class="col-sm-5 col-lg-12 col-xl-5">
                                 <img src="assets/images/book/01.jpg" alt="">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <button class="btn btn-outline-success" (click)="likeBook(book.idBook)">
+                                            <i class="fas fa-thumbs-up"></i> {{ book.likes }}
+                                        </button>
+                                        <button class="btn btn-outline-danger" (click)="dislikeBook(book.idBook)">
+                                            <i class="fas fa-thumbs-down"></i> {{ book.dislikes }}
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                             <!-- Content -->
                             <div class="col-sm-7 col-lg-12 col-xl-7">                               
                                 <h6 class="lead fw-bold mb-2">{{ book.titleBook }}</h6>
                                 <h5 class="card-title">{{ book.description }}</h5>
+                               
                                 <p class="card-text">{{ book.language }}</p>
                                   <!-- QR Code if available -->
                     <div *ngIf="book.isAvailable === 'AVAILABLE'">
                         <qrcode [qrdata]="qrCodeData[book.idBook]" [width]="100" errorCorrectionLevel="H"></qrcode>
                         <p>You can make the exchange, scan this code.</p>
+                        <a [routerLink]="['/exchange-form', book.idBook]" class="btn btn-danger">Go to Exchange</a>
+                        
+                          
+                          
+  
+    
                     </div>
                     <!-- Unavailability Message -->
                     <div *ngIf="book.isAvailable !== 'AVAILABLE'">
