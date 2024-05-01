@@ -2,6 +2,7 @@ package tn.esprit.espritcollab.restController;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 import tn.esprit.espritcollab.entities.Book;
+import tn.esprit.espritcollab.repositories.BookRepository;
 import tn.esprit.espritcollab.services.IBook;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.List;
 @AllArgsConstructor
 public class BookRestController {
     private IBook iBook;
+    private BookRepository bookRepository;
+
     @PostMapping("/addBook")
     public Book addBook(@RequestBody Book b){
         return iBook.addBook(b);
@@ -36,6 +39,16 @@ public class BookRestController {
         Book updatedBook = iBook.updatePhoneNumber(bookId, phoneNumber);
         return  updatedBook;
     }
+    @PostMapping("/like/{id}")
+    public Book likeBook(@PathVariable Long id) {
+        return iBook.likeBook(id);
+    }
+
+    @PostMapping("/dislike/{id}")
+    public Book dislikeBook(@PathVariable Long id) {
+        return iBook.dislikeBook(id);
+    }
 }
+
 
 

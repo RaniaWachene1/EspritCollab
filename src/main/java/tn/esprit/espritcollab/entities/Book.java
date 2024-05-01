@@ -24,6 +24,8 @@ private String language;
 private String coverPicture;
 private IsAvailable isAvailable;
 private String phoneNumber;
+private int likes;
+private int dislikes;
 
 
     @OneToMany(mappedBy = "book")

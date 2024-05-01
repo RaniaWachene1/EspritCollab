@@ -59,5 +59,21 @@ public class BookServiceIMP implements IBook {
         return bookRepository.save(book);
     }
 
+    public Book likeBook(Long id) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Book not found with id " + id));
+        book.setLikes(book.getLikes() + 1);
+        return bookRepository.save(book);
     }
+
+    public Book dislikeBook(Long id) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Book not found with id " + id));
+        book.setDislikes(book.getDislikes() + 1);
+        return bookRepository.save(book);
+    }
+
+
+
+}
 

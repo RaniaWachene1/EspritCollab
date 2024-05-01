@@ -12,6 +12,8 @@ public interface IBook
     public void deleteBookById (Long idb) ;
     public Book updateBK (Book BK, long idb) ;
      public Book updatePhoneNumber(Long bookId, String phoneNumber);
+    public Book likeBook(Long id);
+    public Book  dislikeBook(Long id);
 
 }
 
