@@ -2,13 +2,20 @@
 <div mat-dialog-content>
   <div *ngIf="document">
     <p><strong>Title:</strong> {{ document.titleDoc }}</p>
-    <p><strong>Content:</strong> {{ document.content }}</p>
-    <p><strong>Price:</strong> {{ document.price }}</p>
     <p><strong>Module:</strong> {{ document.module }}</p>
+    <p><strong>Price:</strong> {{ document.price }}</p>
+    <p ><strong>Content:</strong> {{ document.content }}</p>
+
   </div>
-  <div *ngIf="!document">
-    <p>No document found with ID: {{ idDoc }}</p>
-  </div>
+  <div>
+  <ul>
+    <li *ngFor="let file of files">
+      <a href="{{ fileUrl(file) }}" target="_blank" download>{{ file }}</a>
+    </li>
+  </ul> 
+  </div> 
+</div>
+<div style="margin-top: 30px;">
   <button mat-icon-button class="edit-button" (click)="onEdit()">
     <mat-icon class="edit-icon" aria-label="Edit document">edit</mat-icon>
   </button>

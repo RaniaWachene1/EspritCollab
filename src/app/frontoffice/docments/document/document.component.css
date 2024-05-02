@@ -12,3 +12,8 @@
     background-color: #0056b3; /* Change background color on hover */
   }
   
+  .offcanvas-body, .d-grid {
+    display: flex;
+    flex-direction: column;
+}
+

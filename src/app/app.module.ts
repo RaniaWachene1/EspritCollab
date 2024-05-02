@@ -29,9 +29,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+
 import { GetDocumentByIdDialogComponent } from './frontoffice/docments/get-document-by-id-dialog/get-document-by-id-dialog.component';
 import { ConfirmDialogComponent } from './frontoffice/docments/confirm-dialog/confirm-dialog.component';
 import { EditDocumentDialogComponent } from './frontoffice/docments/edit-document-dialog/edit-document-dialog.component';
+import { FileUploadComponent } from './frontoffice/docments/file-upload/file-upload.component';
 
 
 @NgModule({
@@ -58,6 +60,7 @@ import { EditDocumentDialogComponent } from './frontoffice/docments/edit-documen
     GetDocumentByIdDialogComponent,
     ConfirmDialogComponent,
     EditDocumentDialogComponent,
+    FileUploadComponent,
 
 
   ],

@@ -4,6 +4,7 @@ import { Document } from '../../../Models/Document.model';
 import { DocumentService } from '../../../Services/document.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { EditDocumentDialogComponent } from '../edit-document-dialog/edit-document-dialog.component';
+import { FileUploadService } from '../../../Services/file-upload.service';
 
 @Component({
   selector: 'app-get-document-by-id-dialog',
@@ -12,11 +13,12 @@ import { EditDocumentDialogComponent } from '../edit-document-dialog/edit-docume
 })
 export class GetDocumentByIdDialogComponent {
   document!: Document;
-
+  files: string[] = [];
   constructor(
     private dialogRef: MatDialogRef<GetDocumentByIdDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public idDoc: number,
     private documentService: DocumentService,
+    private fileService:FileUploadService,
     public dialog: MatDialog
   ) {
     // Fetch document details by id
@@ -28,6 +30,12 @@ export class GetDocumentByIdDialogComponent {
         console.error('Error fetching document:', error);
       }
     );
+    this.fileService.listFiles(this.idDoc).subscribe({
+      next: (data) => {
+        this.files = data;
+      },
+      error: (error) => console.error('Error retrieving files:', error)
+    });
   }
 
   onClose(): void {
@@ -69,5 +77,13 @@ export class GetDocumentByIdDialogComponent {
         );
       }
     });
+  }
+  fileUrl(fileName: string): string {
+    return `http://localhost:8087/uploads/${fileName}`;
+  }
+  
+  displayDocument(fileData: Blob): void {
+    const fileURL = URL.createObjectURL(fileData);
+    window.open(fileURL, '_blank');
   }
 }

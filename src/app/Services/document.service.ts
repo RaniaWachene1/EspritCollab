@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Document } from '../Models/Document.model';
 import { tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -15,21 +16,11 @@ export class DocumentService {
 
   constructor(private http: HttpClient) {}
   createDocument(document: Document): Observable<Document> {
-    return this.http.post<Document>(this.apiUrl+"/addDoc", document).pipe(
-      tap(newDocument => {
-        const currentDocuments = this.documentsSubject.value;
-        const updatedDocuments = [...currentDocuments, newDocument];
-        this.documentsSubject.next(updatedDocuments);
-      })
-    );
+    return this.http.post<Document>(this.apiUrl+"/addDoc", document);
   }
   
   getAllDocument(): Observable<Document[]> {
-    return this.http.get<Document[]>(`${this.apiUrl}/getAllDoc`).pipe(
-      tap((documents: Document[]) => {
-        this.documentsSubject.next(documents);
-      })
-      );
+    return this.http.get<Document[]>(`${this.apiUrl}/getAllDoc`);
   }  
   
   retrieveById(idDoc: number): Observable<Document> {
@@ -46,4 +37,16 @@ export class DocumentService {
     const url = `${this.apiUrl}/deleteDoc/${id}`;
     return this.http.delete<void>(url);
   }  
+
+  getAllModules(): Observable<string[]> {
+    return this.getAllDocument().pipe(
+      map(documents => {
+        const modulesSet = new Set<string>();
+        documents.forEach(doc => {
+          modulesSet.add(doc.module);
+        });
+        return Array.from(modulesSet);
+      })
+    );
+  }
 }

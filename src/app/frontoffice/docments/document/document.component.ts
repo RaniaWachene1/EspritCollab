@@ -17,25 +17,33 @@ export class DocumentComponent implements OnInit {
   itemsPerPage = 9; 
   totalPages = 1;
   pages: number[] = [];
+  modules: string[] = [];
 
   constructor(
     private documentService: DocumentService,
     public dialog: MatDialog
-    ) { }
+  ) { }
 
-    ngOnInit(): void {
-      this.fetchDocuments();  
-    }
-  
-    fetchDocuments(): void {
-      this.documentService.getAllDocument().subscribe((data) => {
-        this.documents = data;
-        this.totalPages = Math.ceil(this.documents.length / this.itemsPerPage);
-        this.updatePages();
-        this.updateDisplayedDocuments();
-      });
-    }
-  
+  ngOnInit(): void {
+    this.fetchDocuments();
+    this.fetchModules();
+  }
+
+  fetchDocuments(): void {
+    this.documentService.getAllDocument().subscribe((data) => {
+      this.documents = data;
+      this.totalPages = Math.ceil(this.documents.length / this.itemsPerPage);
+      this.updatePages();
+      this.updateDisplayedDocuments();
+    });
+  }
+
+  fetchModules(): void {
+    this.documentService.getAllModules().subscribe((modules) => {
+      this.modules = modules;
+    });
+  }
+
   updatePages(): void {
     this.pages = Array(this.totalPages).fill(0).map((x, i) => i + 1);
   }
@@ -53,13 +61,31 @@ export class DocumentComponent implements OnInit {
     const endIndex = Math.min(startIndex + this.itemsPerPage, this.documents.length);
     this.displayedDocuments = this.documents.slice(startIndex, endIndex);
   }
-  // Method to open the dialog
+
+  filterByModule(module: string, event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    if (isChecked) {
+      this.displayedDocuments = this.documents.filter(doc => doc.module === module);
+    } else {
+      this.updateDisplayedDocuments();
+    }
+  }
+
+  filterByPrice(priceLevel: string, event: Event): void {
+    if (priceLevel === 'Free') {
+      this.displayedDocuments = this.documents.filter(doc => doc.price === 0);
+    } else if (priceLevel === 'Paid') {
+      this.displayedDocuments = this.documents.filter(doc => doc.price > 0);
+    } else {
+      this.updateDisplayedDocuments();
+    }
+  }
+
   openAddDocumentDialog(): void {
     const dialogRef = this.dialog.open(AddDocumentDialogComponent, {
       width: '400px', 
       data: {} 
     });
-    
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'success') {
@@ -68,9 +94,30 @@ export class DocumentComponent implements OnInit {
     });
   }
 
+  applyFilters(): void {
+    const selectedModules = this.modules.filter(module => {
+      return (document.getElementById(`module${module}`) as HTMLInputElement).checked;
+    });
+    
+    const priceFilter = document.querySelector('input[name="priceFilter"]:checked')?.getAttribute('value');
+    
+    this.displayedDocuments = this.documents.filter(document => {
+      const modulePass = selectedModules.length === 0 || selectedModules.includes(document.module);
+      
+      if (priceFilter === 'free') {
+        return document.price === 0 && modulePass;
+      } else if (priceFilter === 'paid') {
+        return document.price !== 0 && modulePass;
+      } else {
+        return modulePass;
+      }
+    });
+  }
+  
+
     openGetDocumentByIdDialog(idDoc: number): void {
       const dialogRef = this.dialog.open(GetDocumentByIdDialogComponent, {
-        width: '400px' ,
+        width: '500px' ,
         data: idDoc
       });
 
