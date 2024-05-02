@@ -1,0 +1,495 @@
+<app-header></app-header>
+<main>
+
+    <!-- =======================
+    Page Banner START -->
+    <section class="py-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="bg-light p-4 rounded-3 position-relative overflow-hidden">
+    
+                        <!-- Svg decoration -->
+                        <figure class="position-absolute top-0 end-0 mt-5">
+                            <svg width="566.3px" height="353.7px" viewBox="0 0 566.3 353.7"	>
+                                <path stroke="#17a2b8" fill="none" d="M525.1,4c8.1,0.7,14.9,7.2,17.9,14.8c3,7.6,3,16,2.1,24.1c-4.7,44.3-32.1,84.7-69.4,108.9 c-37.4,24.2-83.7,32.8-127.9,27.6c-32.3-3.8-63.5-14.5-95.9-16.6c-21.6-1.4-45.6,2.1-60.1,18.3c-7.7,8.5-11.8,19.6-14.8,30.7 c-7.9,29.5-9,60.8-19.7,89.5c-5.5,14.8-14,29.1-27.1,38c-15.6,10.5-35.6,12-54.2,9.5c-18.6-2.5-36.5-8.6-55-12.1"/>
+                                <path stroke="#F99D2B" fill="none" d="M560.7,0.2c10,18.3,3.7,41.1-5,60.1c-11.8,25.9-28,50.3-50.2,68.2c-29,23.3-66.3,34-103.2,38.6 c-36.9,4.6-74.3,3.8-111.3,7.2c-22.3,2-45.3,5.9-63.5,19c-26.8,19.2-39,55.3-68.3,70.4c-38.2,19.6-89.7-4.9-125.6,18.8 c-22.6,15-30.7,44.2-33.3,71.2"/>
+                            </svg>
+                        </figure>
+    
+                        <div class="row position-relative align-items-center">
+    
+                            <!-- Content -->
+                            <div class="col-md-6 px-md-5">
+                                <!-- Title -->
+                                <h1 class="mb-3">Welcome to our online book store!</h1>
+                                <p class="mb-3">Expand knowledge by reading book Two before narrow not relied on how except moment myself Dejection assurance. </p>
+    
+                                <!-- Search -->
+                                <form class="bg-body rounded p-2">
+                                    <div class="input-group">
+                                        <input class="form-control border-0 me-1" type="search" placeholder="Search book">
+                                        <button type="button" class="btn btn-primary mb-0 rounded">Search</button>
+                                    </div>
+                                </form>
+                            </div>
+    
+                            <!-- Image -->
+                            <div class="col-md-6 text-center">
+                                <img src="data:image/jpeg;base64,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" alt="">
+                            </div>
+                        </div> <!-- Row END -->
+                    </div>
+                </div>
+            </div> <!-- Row END -->
+        </div>
+    </section>
+    <!-- =======================
+    Page Banner END -->
+    
+    <!-- =======================
+    Page content START -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Main content START -->
+                <div class="col-12">
+    
+                    <!-- Search option START -->
+                    <div class="row mb-4 align-items-center">
+    
+                        <!-- Title -->
+                        <div class="col-md-4">
+                            <h5 class="mb-0">All Listed Books</h5>
+                        </div>
+    
+                        <!-- Select option -->
+                        <div class="col-md-4 mt-3 mt-xl-0">
+                            <form class="border-bottom p-2 input-borderless">
+                                <select class="js-choice">
+                                    <option value="">Product type</option>
+                                    <option>PDF</option>
+                                    <option>Compact Disk</option>
+                                    <option>Paperback</option>
+                                </select>
+                            </form>
+                        </div>
+    
+                        <!-- Select option -->
+                        <div class="col-md-4 mt-3 mt-xl-0">
+                            <form class="border-bottom p-2 input-borderless">
+                                <select class="js-choice">
+                                    <option value="">Select category</option>
+                                    <option>Software</option>
+                                    <option>Finance</option>
+                                    <option>Web design</option>
+                                    <option>Web Development</option>
+                                    <option>Information technology</option>
+                                    <option>Science</option>
+                                </select>
+                            </form>
+                        </div>
+    
+                    </div>
+                    <!-- Search option END -->
+    
+                    <!-- Book Grid START -->
+                    <div class="row g-4">
+    
+                        <!-- Card item START -->
+                        <div class="col-sm-6 col-lg-4 col-xl-3">
+                            <div class="card shadow h-100">
+                                <div class="position-relative">
+                                    <!-- Image -->
+                                    <img src="assets/images/book/01.jpg" class="card-img-top" alt="book image">
+                                    <!-- Overlay -->
+                                    <div class="card-img-overlay d-flex z-index-0 p-3">
+                                        <!-- Card overlay Top -->
+                                        <div class="w-100 mb-auto d-flex justify-content-end">
+                                            <!-- Card format icon -->
+                                            <div class="icon-md bg-dark rounded-circle fs-5">
+                                                <a href="#" class="text-white"><i class="bi bi-book"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <!-- Card body -->
+                                <div class="card-body px-3">
+                                    <!-- Title -->
+                                    <h5 class="card-title mb-0">
+                                        <a href="shop-product-detail.html" class="stretched-link">HTML and CSS: Design and Build Websites (Paperback)</a>
+                                    </h5>
+                                </div>
+    
+                                <!-- Card footer -->
+                                <div class="card-footer pt-0 px-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="h6 fw-light mb-0">By Dennis Barrett</span>
+                                        <!-- Price -->
+                                        <h5 class="text-success mb-0">$125</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card item END -->
+    
+                        <!-- Card item START -->
+                        <div class="col-sm-6 col-lg-4 col-xl-3">
+                            <div class="card shadow h-100">
+                                <div class="position-relative">
+                                    <!-- Image -->
+                                    <img src="assets/images/book/02.jpg" class="card-img-top" alt="book image">
+                                    <!-- Overlay -->
+                                    <div class="card-img-overlay d-flex z-index-0 p-3">
+                                        <!-- Card overlay Top -->
+                                        <div class="w-100 mb-auto d-flex justify-content-end">
+                                            <!-- Card format icon -->
+                                            <div class="icon-md bg-dark rounded-circle fs-5">
+                                                <a href="#" class="text-white"><i class="bi bi-soundwave"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <!-- Card body -->
+                                <div class="card-body px-3">
+                                    <!-- Title -->
+                                    <h5 class="card-title mb-0">
+                                        <a href="shop-product-detail.html" class="stretched-link">Angular 4 Tutorial in audio (Compact Disk)</a>
+                                    </h5>
+                                </div>
+    
+                                <!-- Card footer -->
+                                <div class="card-footer pt-0 px-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="h6 fw-light mb-0">By Lori Stevens</span>
+                                        <!-- Price -->
+                                        <h5 class="text-success mb-0">$385</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card item END -->
+    
+                        <!-- Card item START -->
+                        <div class="col-sm-6 col-lg-4 col-xl-3">
+                            <div class="card shadow h-100">
+                                <div class="position-relative">
+                                    <!-- Image -->
+                                    <img src="assets/images/book/03.jpg" class="card-img-top" alt="book image">
+                                    <!-- Overlay -->
+                                    <div class="card-img-overlay d-flex z-index-0 p-3">
+                                        <!-- Card overlay Top -->
+                                        <div class="w-100 mb-auto d-flex justify-content-end">
+                                            <!-- Card format icon -->
+                                            <div class="icon-md bg-dark rounded-circle fs-5">
+                                                <a href="#" class="text-white"><i class="bi bi-file-earmark-pdf"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <!-- Card body -->
+                                <div class="card-body px-3">
+                                    <!-- Title -->
+                                    <h5 class="card-title mb-0">
+                                        <a href="shop-product-detail.html" class="stretched-link">Javascript: The Definitive Guide (PDF Book)</a>
+                                    </h5>
+                                </div>
+    
+                                <!-- Card footer -->
+                                <div class="card-footer pt-0 px-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="h6 fw-light mb-0">By Dennis Barrett</span>
+                                        <!-- Price -->
+                                        <h5 class="text-success mb-0">$125</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card item END -->
+    
+                        <!-- Card item START -->
+                        <div class="col-sm-6 col-lg-4 col-xl-3">
+                            <div class="card shadow h-100">
+                                <div class="position-relative">
+                                    <!-- Image -->
+                                    <img src="assets/images/book/04.jpg" class="card-img-top" alt="book image">
+                                    <!-- Overlay -->
+                                    <div class="card-img-overlay d-flex z-index-0 p-3">
+                                        <!-- Card overlay Top -->
+                                        <div class="w-100 mb-auto d-flex justify-content-end">
+                                            <!-- Card format icon -->
+                                            <div class="icon-md bg-dark rounded-circle fs-5">
+                                                <a href="#" class="text-white"><i class="bi bi-book"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <!-- Card body -->
+                                <div class="card-body px-3">
+                                    <!-- Title -->
+                                    <h5 class="card-title mb-0 ">
+                                        <a href="shop-product-detail.html" class="stretched-link">The Principles of Beautiful Graphics Design (Paperback)</a>
+                                    </h5>
+                                </div>
+    
+                                <!-- Card footer -->
+                                <div class="card-footer pt-0 px-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="h6 fw-light mb-0">By Jacqueline Miller</span>
+                                        <!-- Price -->
+                                        <h5 class="text-success mb-0">$258</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card item END -->
+    
+                        <!-- Card item START -->
+                        <div class="col-sm-6 col-lg-4 col-xl-3">
+                            <div class="card shadow h-100">
+                                <div class="position-relative">
+                                    <!-- Image -->
+                                    <img src="assets/images/book/05.jpg" class="card-img-top" alt="book image">
+                                    <!-- Overlay -->
+                                    <div class="card-img-overlay d-flex z-index-0 p-3">
+                                        <!-- Card overlay Top -->
+                                        <div class="w-100 mb-auto d-flex justify-content-end">
+                                            <!-- Card format icon -->
+                                            <div class="icon-md bg-dark rounded-circle fs-5">
+                                                <a href="#" class="text-white"><i class="bi bi-book"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <!-- Card body -->
+                                <div class="card-body px-3">
+                                    <!-- Title -->
+                                    <h5 class="card-title mb-0">
+                                        <a href="shop-product-detail.html" class="stretched-link">Responsive Web Design (Paperback)</a>
+                                    </h5>
+                                </div>
+    
+                                <!-- Card footer -->
+                                <div class="card-footer pt-0 px-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="h6 fw-light mb-0">By Frances Guerrero</span>
+                                        <!-- Price -->
+                                        <h5 class="text-success mb-0">$356</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card item END -->
+    
+                        <!-- Card item START -->
+                        <div class="col-sm-6 col-lg-4 col-xl-3">
+                            <div class="card shadow h-100">
+                                <div class="position-relative">
+                                    <!-- Image -->
+                                    <img src="assets/images/book/07.jpg" class="card-img-top" alt="book image">
+                                    <!-- Overlay -->
+                                    <div class="card-img-overlay d-flex z-index-0 p-3">
+                                        <!-- Card overlay Top -->
+                                        <div class="w-100 mb-auto d-flex justify-content-end">
+                                            <!-- Card format icon -->
+                                            <div class="icon-md bg-dark text-white rounded-circle fs-5">
+                                                <a href="#" class="text-white"><i class="bi bi-file-earmark-pdf"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <!-- Card body -->
+                                <div class="card-body px-3">
+                                    <!-- Title -->
+                                    <h5 class="card-title ,b-0">
+                                        <a href="shop-product-detail.html" class="stretched-link">Learning Python, Fourth Edition (PDF Book)</a>
+                                    </h5>
+                                </div>
+    
+                                <!-- Card footer -->
+                                <div class="card-footer pt-0 px-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="h6 fw-light mb-0">By Samuel Bishop</span>
+                                        <!-- Price -->
+                                        <h5 class="text-success mb-0">$654</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card item END -->
+    
+                        <!-- Card item START -->
+                        <div class="col-sm-6 col-lg-4 col-xl-3">
+                            <div class="card shadow h-100">
+                                <div class="position-relative">
+                                    <!-- Image -->
+                                    <img src="assets/images/book/06.jpg" class="card-img-top" alt="book image">
+                                    <!-- Overlay -->
+                                    <div class="card-img-overlay d-flex z-index-0 p-3">
+                                        <!-- Card overlay Top -->
+                                        <div class="w-100 mb-auto d-flex justify-content-end">
+                                            <!-- Card format icon -->
+                                            <div class="icon-md bg-dark rounded-circle fs-5">
+                                                <a href="#" class="text-white"><i class="bi bi-book"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <!-- Card body -->
+                                <div class="card-body px-3">
+                                    <!-- Title -->
+                                    <h5 class="card-title mb-0">
+                                        <a href="shop-product-detail.html" class="stretched-link">Perfect Genius Worksheets for Class 5 (Paperback)</a>
+                                    </h5>
+                                </div>
+    
+                                <!-- Card footer -->
+                                <div class="card-footer pt-0 px-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="h6 fw-light mb-0">By Amanda Reed</span>
+                                        <!-- Price -->
+                                        <h5 class="text-success mb-0">$285</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card item END -->
+    
+                        <!-- Card item START -->
+                        <div class="col-sm-6 col-lg-4 col-xl-3">
+                            <div class="card shadow h-100">
+                                <div class="position-relative">
+                                    <!-- Image -->
+                                    <img src="assets/images/book/02.jpg" class="card-img-top" alt="book image">
+                                        <!-- Overlay -->
+                                        <div class="card-img-overlay d-flex z-index-0 p-3">
+                                            <!-- Card overlay Top -->
+                                            <div class="w-100 mb-auto d-flex justify-content-end">
+                                                <!-- Card format icon -->
+                                                <div class="icon-md bg-dark rounded-circle fs-5">
+                                                    <a href="#" class="text-white"><i class="bi bi-soundwave"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!-- Card body -->
+                                <div class="card-body px-3">
+                                    <!-- Title -->
+                                    <h5 class="card-title mb-0">
+                                        <a href="shop-product-detail.html" class="stretched-link">HTML and CSS: Design and Build Websites (Compact Disk)</a>
+                                    </h5>
+                                </div>
+    
+                                <!-- Card footer -->
+                                <div class="card-footer pt-0 px-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="h6 fw-light mb-0">By Dennis Barrett</span>
+                                        <!-- Price -->
+                                        <h5 class="text-success mb-0">$125</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card item END -->
+    
+                    </div>
+                    <!-- Book Grid END -->
+    
+                    <!-- Pagination START -->
+                    <div class="col-12">
+                        <nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
+                            <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+                                <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-double-left"></i></a></li>
+                                <li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
+                                <li class="page-item mb-0"><a class="page-link" href="#">6</a></li>
+                                <li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-double-right"></i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- Pagination END -->
+                </div>
+                <!-- Main content END -->
+            </div><!-- Row END -->
+        </div>
+    </section>
+    <!-- =======================
+    Page content END -->
+    
+    <!-- =======================
+    Action box START -->
+    <section class="pt-0">
+        <div class="container">
+            <div class="row g-4">
+    
+                <!-- Action box item START -->
+                <div class="col-lg-6">
+                    <div class="bg-purple bg-opacity-10 rounded-3 p-5 h-100">
+    
+                        <!-- Content -->
+                        <div class="row g-3 align-items-center">
+                            <!-- Image -->
+                            <div class="col-sm-5 col-lg-12 col-xl-5">
+                                <img src="assets/images/book/01.jpg" alt="">
+                            </div>
+    
+                            <!-- Content -->
+                            <div class="col-sm-7 col-lg-12 col-xl-7">
+                                <!-- Title -->
+                                <h3 class="mb-2">Best selling book of the month</h3>
+                                <!-- Rating star -->
+                                <ul class="list-inline mb-2">
+                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
+                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
+                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
+                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
+                                    <li class="list-inline-item me-0 small"><i class="fas fa-star-half-alt text-warning"></i></li>
+                                </ul>
+    
+                                <!-- Title and price -->
+                                <h6 class="lead fw-bold mb-2">HTML and CSS: Design and Build Websites (Paperback)</h6>
+                                <!-- Button -->
+                                <a href="#" class="btn btn-sm btn-purple mb-0">Buy now</a>
+                            </div>
+                        </div> <!-- Row END -->
+                    </div>
+                </div>
+                <!-- Action box item END -->
+    
+                <!-- Action box item START -->
+                <div class="col-lg-6">
+                    <div class="bg-warning rounded-3 bg-opacity-15 p-5 h-100">
+    
+                        <!-- Content -->
+                        <div class="row g-3 align-items-center my-auto">
+                            <!-- Content -->
+                            <div class="col-sm-7 col-lg-12 col-xl-7">
+                                <h2 class="mb-1 fs-1">50%OFF</h2>
+                                <p class="mb-3 h5 fw-light lead">Enroll now in the most popular and best-rated Books.</p>
+                                <a href="#" class="btn btn-dark mb-0">View Books</a>
+                            </div>
+    
+                            <!-- Image -->
+                            <div class="col-sm-5 col-lg-12 col-xl-5">
+                                <img src="assets/images/element/29.svg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Action box item END -->
+            </div>
+        </div>
+    </section>
+    <!-- =======================
+    Action box END -->
+    
+    </main>
+<app-footer></app-footer>

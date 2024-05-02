@@ -1,0 +1,14 @@
+<div *ngIf="selectedRevision">
+    <h2>Modifier une Révision</h2>
+    
+    <form (submit)="updateRevision(selectedRevision)">
+      <input type="text" placeholder="Sujet" name="sujet" [(ngModel)]="selectedRevision.sujetRev" required>
+      <input type="text" placeholder="Duree" name="Duree" [(ngModel)]="selectedRevision.duree" required>
+      <input type="text" placeholder="Notes" name="Notes" [(ngModel)]="selectedRevision.notes" required>
+      <input type="text" placeholder="Objectif" name="Objectif" [(ngModel)]="selectedRevision.objectif" required>
+      <input type="date" placeholder="Date de début" name="date_debut" [(ngModel)]="selectedRevision.date_debut" required>
+      <input type="date" placeholder="Date de fin" name="date_fin" [(ngModel)]="selectedRevision.date_fin" required>
+      <button type="submit">Modifier</button>
+    </form>
+    
+  </div>
