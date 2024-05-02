@@ -1,0 +1,21 @@
+<h2>Ajouter une Réclamation</h2>
+<form (submit)="addComplaint()">
+  <div class="mb-3">
+    <label for="dateComplaint" class="form-label">Date de réclamation</label>
+    <input type="date" class="form-control" id="dateComplaint" required [(ngModel)]="newComplaint.dateComplaint" name="date">
+  </div>
+  <div class="mb-3">
+    <label for="comment" class="form-label">Commentaire</label>
+    <textarea class="form-control" id="comment" rows="3" required [(ngModel)]="newComplaint.comment" name="comment"></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="traitement" class="form-label">Traitement</label>
+    <select class="form-select" id="traitement" required [(ngModel)]="newComplaint.traitement" name="traitement">
+      <option value="">Sélectionner le traitement</option>
+      <option value="TRAITE">TRAITE</option>
+      <option value="NONTRAITE">NONTRAITE</option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>

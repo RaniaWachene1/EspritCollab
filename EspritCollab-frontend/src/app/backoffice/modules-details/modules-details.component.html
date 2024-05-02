@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div *ngIf="module" class="card">
+          <div class="card-body">
+            <h2 class="card-title mb-4 text-primary">Module Details</h2>
+  
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <strong>Nom du module:</strong>
+                <span>{{ module.nomModule }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <strong>Niveau:</strong>
+                <span>{{ module.niveau }}</span>
+              </li> 
+              <!-- Add more details of the module here -->
+           </ul>
+  
+            <div class="mt-4">
+              <button class="btn btn-primary" (click)="navigateToListPage()">Retour à la liste</button>
+            </div>
+          </div>
+        </div>
+        
+        <div *ngIf="!module" class="alert alert-danger mt-4" role="alert">
+          Aucun module trouvé.
+        </div>
+      </div>
+    </div>
+  </div>
+  

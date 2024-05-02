@@ -1,0 +1,22 @@
+<section *ngIf="selectedComplaint" class="py-5 bg-light">
+  <div class="container">
+    <h2>Mettre à jour la Réclamation</h2>
+    <form (submit)="updateComplaint(selectedComplaint)" class="row g-3">
+      <div class="col-md-6">
+        <input type="date" class="form-control" placeholder="Date de réclamation" name="dateComplaint" [(ngModel)]="selectedComplaint.dateComplaint" required>
+      </div>
+      <div class="col-md-6">
+        <textarea class="form-control" rows="3" placeholder="Commentaire" name="comment" [(ngModel)]="selectedComplaint.comment" required></textarea>
+      </div>
+      <div class="col-md-6">
+        <select class="form-select" placeholder="Traitement" name="traitement" [(ngModel)]="selectedComplaint.traitement" required>
+          <option value="TRAITE">TRAITE</option>
+          <option value="NONTRAITE">NONTRAITE</option>
+        </select>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-success">Mettre à jour</button>
+      </div>
+    </form>
+  </div>
+</section>

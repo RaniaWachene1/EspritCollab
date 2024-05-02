@@ -1,0 +1,90 @@
+<!-- complaint-list.component.html -->
+
+<main>
+    <!-- Sidebar START -->
+    <app-side-bar></app-side-bar>
+    <!-- Sidebar END -->
+  
+    <!-- Page content START -->
+    <div class="page-content">
+      <!-- Top bar START -->
+      <app-top-bar></app-top-bar>
+      <!-- Top bar END -->
+  
+      <!-- Page main content START -->
+      <div class="page-content-wrapper border">
+        <div class="row g-4">
+          <!-- Complaint table START -->
+          <div class="col-xxl-12">
+            <div class="card bg-transparent border h-100">
+              <!-- Card header -->
+              <div class="card-header bg-light border-bottom d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Complaints</h5>
+                <button class="btn btn-danger mb-0" (click)="createComplaint()">
+                  Create Complaint
+                </button>
+              </div>
+              <!-- Card body START -->
+              <div class="card-body pb-0">
+                <!-- Table START -->
+                <div class="table-responsive">
+                  <table class="table table-dark-gray align-middle mb-0 table-hover">
+                    <!-- Table head -->
+                    <thead>
+                      <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Comment</th>
+                        <th scope="col">Treatment</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <!-- Table body START -->
+                    <tbody>
+                      <tr *ngFor="let complaint of complaints">
+                        <!-- Table data for Date -->
+                        <td>{{ complaint.dateComplaint | date }}</td>
+                        <!-- Table data for Comment -->
+                        <td>{{ complaint.comment }}</td>
+                        <!-- Table data for Treatment -->
+                        <td>
+                          {{ isComplaintTreated(complaint) ? 'Traité' : 'Non traité' }}
+                        </td>
+                        <!-- Table data for Action -->
+                        <td>
+                            <button class="btn btn-success-soft btn-round me-1 mb-1 mb-md-0" (click)="updateComplaint(complaint)">
+                              <i class="bi bi-pencil-square"></i> 
+                            </button>
+                            <button class="btn btn-danger-soft btn-round me-1 mb-1 mb-md-0" (click)="deleteComplaint(complaint.idComplaint)">
+                              <i class="bi bi-trash"></i> 
+                            </button>
+                            
+                          </td>
+                          
+                      </tr>
+                    </tbody>
+                    <!-- Table body END -->
+                  </table>
+                </div>
+                <!-- Table END -->
+              </div>
+              <!-- Card body END -->
+              <!-- Card footer START -->
+              <div class="card-footer bg-transparent">
+                <!-- Pagination START -->
+                <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+                  <!-- Content -->
+                  <p class="mb-0 text-center text-sm-start">Showing {{ complaints.length }} entries</p>
+                </div>
+                <!-- Pagination END -->
+              </div>
+              <!-- Card footer END -->
+            </div>
+          </div>
+          <!-- Complaint table END -->
+        </div>
+      </div>
+      <!-- Page main content END -->
+    </div>
+    <!-- Page content END -->
+  </main>
+  
