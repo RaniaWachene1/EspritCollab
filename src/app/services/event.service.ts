@@ -29,7 +29,11 @@ export class EventService {
     
     formData.append('idUser', idUser.toString()); // Corrected here
     
+<<<<<<< HEAD
     const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJXYWNoZW5lTWVyaWFtIiwiaWF0IjoxNzE1MDM1NTU1LCJleHAiOjE3MTU2NDAzNTV9.162JNmLjmj6TNo-H783x2Xznx64AIGuOCg_X4VZO40Y'; // Replace 'your-auth-token' with the actual token
+=======
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzE0NDI5OTg1LCJleHAiOjE3MTUwMzQ3ODV9.LZHA35ShMiseb5niAwfsrUgCBAWB5886Iju5HyH6WGI'; // Replace 'your-auth-token' with the actual token
+>>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -109,9 +113,12 @@ getEventsByPrerequis(prerequis: string): Observable<any[]> {
 getReservedEvents(userId: number): Observable<AppEvent[]> {
   return this.http.get<AppEvent[]>(`${this.baseUrl}/reserved/${userId}`);
 }
+<<<<<<< HEAD
 getLeaderboard(): Observable<Event[]> {
   return this.http.get<Event[]>(`${this.baseUrl}/leaderboard`);
 }
+=======
+>>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
 
 }
 

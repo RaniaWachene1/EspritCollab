@@ -7,11 +7,19 @@ import { RegisterComponent } from './frontoffice/register/register.component';
 import { HomeComponent } from './frontoffice/home/home.component';
 import { ProfileComponent } from './frontoffice/profile/profile.component';
 import { DocumentCategoriesComponent } from './frontoffice/document-categories/document-categories.component';
+<<<<<<< HEAD
+=======
+import { DocumentComponent } from './frontoffice/document/document.component';
+>>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
 import { EventsComponent } from './frontoffice/events/events.component';
 import { BooksComponent } from './frontoffice/books/books.component';
 import { BookDetailsComponent } from './frontoffice/book-details/book-details.component';
 import { DashboardComponent } from './backoffice/dashboard/dashboard.component';
 import { ComplaintComponent } from './frontoffice/complaint/complaint.component';
+<<<<<<< HEAD
+=======
+import { RevisionComponent } from './frontoffice/revision/revision.component';
+>>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
 import { UserListComponent } from './backoffice/user-list/user-list.component';
 import { UserAddComponent } from './backoffice/user-add/user-add.component';
 import { UserDetailsComponent } from './backoffice/user-details/user-details.component';
@@ -28,6 +36,7 @@ import { ForgetPasswordComponent } from './frontoffice/forget-password/forget-pa
 import { ResetPasswordComponent } from './frontoffice/reset-password/reset-password.component';
 import { DeactivateComponent } from './backoffice/deactivate/deactivate.component';
 import { EventCalendarComponent } from './frontoffice/event-calendar/event-calendar.component';
+<<<<<<< HEAD
 import { GetAllBooksComponent } from './frontoffice/get-all-books/get-all-books.component';
 import { ExchangeFormComponent } from './frontoffice/exchange-form/exchange-form.component';
 import { CompAddComponent } from './frontoffice/comp-add/comp-add.component';
@@ -70,6 +79,34 @@ const routes: Routes = [
   { path: 'desactivate', component:DeactivateComponent},
   { path: 'Leaderboard', component:LeaderboardComponent},
 
+=======
+
+const routes: Routes = [
+  { path: 'home', component: HomeComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'login', component: LoginComponent,},
+  { path: 'documentCategories', component: DocumentCategoriesComponent },
+  { path: 'documents', component: DocumentComponent },
+  { path: 'events', component: EventsComponent },
+  { path: 'books', component: BooksComponent },
+  { path: 'bookDetails', component: BookDetailsComponent },
+  { path: 'complaint', component: ComplaintComponent },
+  { path: 'revision', component: RevisionComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'users', component: UserListComponent },
+  { path: 'addUser', component:UserAddComponent},
+  { path: 'user-details/:userId', component:UserDetailsComponent},
+  { path: 'editUser/:userId', component: UserEditComponent },
+  { path: 'editprofile', component: EditProfileComponent },
+  { path: 'deleteprofile', component: DeleteProfileComponent },
+  { path: 'editUser/:userId', component: UserEditComponent },
+  { path: 'login/oauth2/code/facebook', component: LoginComponent },
+  { path: 'ForgetPassword', component:ForgetPasswordComponent},
+  { path: 'resetPassword', component:ResetPasswordComponent},
+  { path: 'desactivate', component:DeactivateComponent},
+
+>>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
   
   /////
   { path: 'eventList', component: EventListComponent },
@@ -82,6 +119,7 @@ const routes: Routes = [
   
   { path: 'calendar', component: EventCalendarComponent },
   
+<<<<<<< HEAD
   { path: 'getallbooks', component: GetAllBooksComponent },
   { path: 'exchange-form/:id', component: ExchangeFormComponent }, 
   ////
@@ -108,6 +146,11 @@ const routes: Routes = [
 
 
   { path: '**', component:NotFoundComponent},
+=======
+ 
+
+  
+>>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
 
 ];
 

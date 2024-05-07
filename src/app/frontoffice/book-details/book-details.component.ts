@@ -1,14 +1,19 @@
+<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
 import { BookDetailsService } from '../../book-details.service';
 import { Exchange } from '../../../models/book-details.model';
 import { Router } from '@angular/router';
 import { State } from '../../../models/state.model';
+=======
+import { Component } from '@angular/core';
+>>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
 
 @Component({
   selector: 'app-book-details',
   templateUrl: './book-details.component.html',
   styleUrl: './book-details.component.css'
 })
+<<<<<<< HEAD
 export class BookDetailsComponent implements OnInit {
   exchanges: Exchange[] = [];
   newExchange: Exchange = {} as Exchange;
@@ -92,3 +97,8 @@ export class BookDetailsComponent implements OnInit {
 
 
 
+=======
+export class BookDetailsComponent {
+
+}
+>>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f

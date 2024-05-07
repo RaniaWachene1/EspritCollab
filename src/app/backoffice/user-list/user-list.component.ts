@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+<<<<<<< HEAD
 import { Observable, interval } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
+=======
+>>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
 
 @Component({
   selector: 'app-user-list',
@@ -12,10 +15,14 @@ import { map, startWith } from 'rxjs/operators';
   styleUrl: './user-list.component.css'
 })
 export class UserListComponent implements OnInit {
+<<<<<<< HEAD
   users: {
 deactivationDate: Date;
 active: any; id: number, name: string, email: string,username: string, level: string, major: string, pictureUrl: string ,instagramUsername:string
 }[] = [];
+=======
+  users: { id: number, name: string, email: string,username: string, level: string, major: string, pictureUrl: string ,instagramUsername:string}[] = [];
+>>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
 Math: any;
 
 
@@ -25,9 +32,12 @@ Math: any;
   currentPage: number = 1; 
   totalPages: number = 3; 
   pages: number[] = [];
+<<<<<<< HEAD
   selectedUserId: number | null = null;
   duration: string = '';
   showModal: boolean = false; 
+=======
+>>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
   ngOnInit(): void {
     this.fetchUsers(); 
    }
@@ -44,9 +54,14 @@ Math: any;
             major: user.major,
             instagramUsername: user.instagramUsername,
             classNumber: user.classNumber,
+<<<<<<< HEAD
             pictureUrl: user.imageUser ,
             active: user.active ,
             deactivationDate: user.deactivationDate
+=======
+            pictureUrl: user.imageUser 
+            
+>>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
             
           };
         });
@@ -112,6 +127,7 @@ Math: any;
     );
   }
 
+<<<<<<< HEAD
   toggleUserActivation(user: any): void {
     const action = user.active ? 'deactivate' : 'reactivate';
     const confirmation = confirm(`Are you sure you want to ${action} this user?`);
@@ -140,14 +156,27 @@ Math: any;
       this.userService.deactivateUser(this.selectedUserId, this.duration).subscribe({
         next: () => {
           this.closeModal();
+=======
+  deactivateUser(userId: number): void {
+    const duration = prompt("Enter the duration for deactivation (e.g., 'PT30M' for 30 minutes):");
+    if (duration) {
+      this.userService.deactivateUser(userId, duration).subscribe({
+        next: () => {
+          this.toastr.success('User deactivated successfully');
+>>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
           this.fetchUsers();
         },
         error: (error) => {
           console.error('Error deactivating user:', error);
+<<<<<<< HEAD
+=======
+          this.toastr.error('Failed to deactivate user');
+>>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
         }
       });
     }
   }
+<<<<<<< HEAD
 
 
   selectUser(userId: number): void {
@@ -208,6 +237,23 @@ Math: any;
   padZero(num: number): string {
     return num < 10 ? '0' + num : num.toString();
   }
+=======
+  
+
+  reactivateUser(userId: number): void {
+    this.userService.reactivateUser(userId).subscribe({
+      next: () => {
+        this.toastr.success('User reactivated successfully');
+        this.fetchUsers();
+      },
+      error: (error) => {
+        console.error('Error reactivating user:', error);
+        this.toastr.error('Failed to reactivate user');
+      }
+    });
+  }
+
+>>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
   
   calculatePagination(): void {
     this.totalPages = Math.ceil(this.users.length / this.pageSize);

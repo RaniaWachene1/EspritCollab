@@ -12,7 +12,10 @@ export class AuthService {
 
    jwtToken: any; 
    userId: number | undefined;
+<<<<<<< HEAD
   currentUserValue: any;
+=======
+>>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
   constructor(private http: HttpClient, private router: Router) {}
   login(username: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/signin`, { username, password }).pipe(
