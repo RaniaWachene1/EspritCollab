@@ -3,11 +3,13 @@ import { Document } from '../../../models/Document.model';
 import { DocumentService } from '../../../services/document.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddDocumentDialogComponent } from '../add-document-dialog/add-document-dialog.component';
-import { GetDocumentByIdDialogComponent } from '../get-document-by-id-dialog/get-document-by-id-dialog.component'
 import { PaymentService } from '../../../services/payment.service'; 
 import { CartDialogComponent } from '../cart-dialog/cart-dialog.component';
 import { map } from 'rxjs';
 import { CartService } from '../../../services/cart.service';
+import { ModulesService } from '../../../services/modules.service';
+import { Modules } from '../../../models/modules.model';
+
 @Component({
   selector: 'app-document',
   templateUrl: './document.component.html',
@@ -20,14 +22,15 @@ export class DocumentComponent implements OnInit {
   itemsPerPage = 9; 
   totalPages = 1;
   pages: number[] = [];
-  modules: string[] = [];
-
+  modules: Modules[] = [];
+  userData:any;
+  
   constructor(
     private documentService: DocumentService,
     private paymentService: PaymentService, 
     private cartService: CartService,
-    public dialog: MatDialog
-
+    public dialog: MatDialog,
+    public moduleService: ModulesService,
   ) { }
 
   ngOnInit(): void {
@@ -41,13 +44,18 @@ export class DocumentComponent implements OnInit {
       this.totalPages = Math.ceil(this.documents.length / this.itemsPerPage);
       this.updatePages();
       this.updateDisplayedDocuments();
-    });
+    });    
   }
 
   fetchModules(): void {
-    this.documentService.getAllModules().subscribe((modules) => {
-      this.modules = modules;
-    });
+    this.moduleService.getAllModules().subscribe(
+      (modules) => {
+        this.modules = modules;
+      },
+      (error) => {
+        console.error('Error fetching modules:', error);
+      }
+    );
   }
 
   updatePages(): void {
@@ -68,10 +76,10 @@ export class DocumentComponent implements OnInit {
     this.displayedDocuments = this.documents.slice(startIndex, endIndex);
   }
 
-  filterByModule(module: string, event: Event): void {
+  filterByModule(nomModule: string, event: Event): void {
     const isChecked = (event.target as HTMLInputElement).checked;
     if (isChecked) {
-      this.displayedDocuments = this.documents.filter(doc => doc.module === module);
+      this.displayedDocuments = this.documents.filter(doc => doc.module === nomModule);
     } else {
       this.updateDisplayedDocuments();
     }
@@ -102,13 +110,13 @@ export class DocumentComponent implements OnInit {
 
   applyFilters(): void {
     const selectedModules = this.modules.filter(module => {
-      return (document.getElementById(`module${module}`) as HTMLInputElement).checked;
+      return (document.getElementById(`module${module.nomModule}`) as HTMLInputElement).checked;
     });
     
     const priceFilter = document.querySelector('input[name="priceFilter"]:checked')?.getAttribute('value');
     
     this.displayedDocuments = this.documents.filter(document => {
-      const modulePass = selectedModules.length === 0 || selectedModules.includes(document.module);
+      const modulePass = selectedModules.length === 0 || selectedModules.some(module => module.nomModule === document.module);
       
       if (priceFilter === 'free') {
         return document.price === 0 && modulePass;
@@ -121,28 +129,22 @@ export class DocumentComponent implements OnInit {
   }
   
 
-    openGetDocumentByIdDialog(idDoc: number): void {
-      const dialogRef = this.dialog.open(GetDocumentByIdDialogComponent, {
-        width: '500px' ,
-        data: idDoc
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-          this.fetchDocuments();
-        
-      });
-    }
-
-
-
-
   addToCart(document: Document): void {
     this.cartService.addItem(document);
     // Optionnel: Afficher un message ou une notification
     alert('Added to cart!');
 }
+
+
 buy(doc: Document) {
-  this.paymentService.proc22(doc).subscribe({
+  const storedUserData = localStorage.getItem('userData');
+            if (storedUserData) {
+            this.userData = JSON.parse(storedUserData);
+       }
+            console.log(this.userData);
+            const userId = this.userData.idUser;
+            console.log(userId);
+  this.paymentService.proc22(doc,userId).subscribe({
     next: (response) => {
       console.log("Received URL:", response);
       window.location.href = response; // Redirect to the Stripe payment page
@@ -153,20 +155,6 @@ buy(doc: Document) {
   });
 }
 
-
-
-openCartDialog(): void {
-  const dialogRef = this.dialog.open(CartDialogComponent, {
-    width: '400px',
-    data: { items: this.cartService.getItems() }
-  });
-
-  dialogRef.afterClosed().subscribe(result => {
-    if (result === 'proceed_to_checkout') {
-      this.processPayment();
-    }
-  });
-}
 
 processPayment(): void {
   const items = this.cartService.getItems();

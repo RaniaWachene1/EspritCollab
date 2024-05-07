@@ -25,4 +25,12 @@
   .delete-icon .edit-icon{
     color: #0c0c0c; 
   }
+  .sales-info {
+    border-top: 1px solid #ccc;
+  }
   
+  .total-sales,
+  .total-amount {
+    margin-bottom: 10px;
+  }
+

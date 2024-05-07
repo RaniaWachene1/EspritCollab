@@ -36,7 +36,8 @@ Action box START -->
 						</div>
 						<!-- Button -->
 						<div class="col-lg-5 text-lg-end">
-               <a class="btn btn-lg btn-secondary mb-0" (click)="openAddRevisionPopup()">Ajouter une Révision</a>
+               <a class="btn btn-lg btn-secondary mb-0" (click)="openAddRevisionPopup()"> Create Revision    </a>
+ 
                <div class="alert alert-success" role="alert" *ngIf="showAlert">
                 A simple secondary alert—check it out!
               </div>
@@ -60,16 +61,12 @@ Action box END -->
           <!-- Review -->
           <div class="col-md-7 position-relative mb-0 mt-0 mt-md-5">
             <!-- SVG -->
-            <figure class="fill-danger opacity-2 position-absolute top-0 start-0 translate-middle mb-3">
-              <svg width="211px" height="211px">
-                <path d="M210.030,105.011 C210.030,163.014 163.010,210.029 105.012,210.029 C47.013,210.029 -0.005,163.014 -0.005,105.011 C-0.005,47.015 47.013,-0.004 105.012,-0.004 C163.010,-0.004 210.030,47.015 210.030,105.011 Z"></path>
-              </svg>
-            </figure>
+
 
             <div class="bg-body shadow text-center p-4 rounded-3 position-relative mb-5 mb-md-0">
               <!-- Avatar -->
               <div class="avatar avatar-xl mb-3">
-                <img class="avatar-img rounded-circle" src="\assets\images\summary-png-icon-6081.png" alt="avatar">
+                <img class="avatar-img rounded-circle" src="\assets\images\sum.png" alt="avatar">
               </div>
               <!-- Content -->
               <blockquote>
@@ -87,8 +84,7 @@ Action box END -->
                 <li class="list-inline-item me-0 small"><i class="fas fa-star-half-alt text-warning"></i></li>
               </ul>
               <!-- Info -->
-              <h6 class="mb-0">Carolyn Ortiz</h6>
-            </div>
+             </div>
           </div>
 
           <!-- Mentor list -->
@@ -98,46 +94,24 @@ Action box END -->
               <div class="icon-lg bg-warning rounded-circle position-absolute top-0 start-100 translate-middle">
                 <i class="bi bi-shield-fill-check text-dark"></i>
               </div>
+              <div class="avatar avatar-xl mb-3">
+
+              <img class="avatar-img rounded-circle" src="assets/images/Design sans titre.png"   alt="avatar">
+            </div>
+
               <!-- Title -->
-              <h6 class="mb-3">100+ Verified Mentors</h6>
-              <!-- Mentor Item -->
-              <div class="d-flex align-items-center mb-3">
-                <!-- Avatar -->
-                <div class="avatar avatar-sm">
-                  <img class="avatar-img rounded-1" src="assets/images/avatar/09.jpg" alt="avatar">
-                </div>
-                <!-- Info -->
-                <div class="ms-2">
-                  <h6 class="mb-0">Lori Stevens</h6>
-                  <p class="mb-0 small">Tutor of physic</p>
-                </div>
-              </div>
+               
+                <blockquote>
+                  <p>
+                    <span class="me-1 small"><i class="fas fa-quote-left"></i></span> 
+                    Invite your classmates for a video call study session to review together! <span class="ms-1 small"><i class="fas fa-quote-right"></i></span>
+                  </blockquote>
+                 
+                <button class="btn btn-warning mb-0" routerLink="/video">Start a video call</button>
 
-              <!-- Mentor Item -->
-              <div class="d-flex align-items-center mb-3">
-                <!-- Avatar -->
-                <div class="avatar avatar-sm">
-                  <img class="avatar-img rounded-1" src="assets/images/avatar/04.jpg" alt="avatar">
-                </div>
-                <!-- Info -->
-                <div class="ms-2">
-                  <h6 class="mb-0">Billy Vasquez</h6>
-                  <p class="mb-0 small">Tutor of chemistry</p>
-                </div>
-              </div>
+ 
 
-              <!-- Mentor Item -->
-              <div class="d-flex align-items-center">
-                <!-- Avatar -->
-                <div class="avatar avatar-sm">
-                  <img class="avatar-img rounded-1" src="assets/images/avatar/02.jpg" alt="avatar">
-                </div>
-                <!-- Info -->
-                <div class="ms-2">
-                  <h6 class="mb-0">Larry Lawson</h6>
-                  <p class="mb-0 small">Tutor of technology</p>
-                </div>
-              </div>
+               
             </div>
           </div>
         </div> <!-- Row END -->
@@ -213,21 +187,20 @@ Action box END -->
 
           <!-- Review -->
           <div class="col-md-5 mt-n6 mb-0 mb-md-5">
-            <div class="bg-body shadow text-center p-4 rounded-3">
+            <div class="bg-body shadow text-center p-3 rounded-1">
               <!-- Avatar -->
               <div class="avatar avatar-xl mb-3">
-                 <img class="avatar-img rounded-circle" src="assets/images/element/exam.svg"   alt="avatar">
+                 <img class="avatar-img rounded-circle" src="\assets\images\pomodor.png"   alt="avatar">
 
               </div>
               <!-- Content -->
               <blockquote>
                 <p>
                   <span class="me-1 small"><i class="fas fa-quote-left"></i></span> 
-                  Plan, organize, and accomplish your tasks with EspritColab, your companion for effortless productivity.                  <span class="ms-1 small"><i class="fas fa-quote-right"></i></span>
-                </p>
+                  Get organized with our app! Create task lists and use the Pomodoro technique to stay focused. It's easy and convenient!    <span class="ms-1 small"><i class="fas fa-quote-right"></i></span>            </p>
               </blockquote>
                
-              <a href="pomodoro" class="btn btn-danger mb-0">Open To Do List</a>
+              <a href="pomodoro" class="btn btn-danger mb-0">Try</a>
 
               <!-- Rating -->
               <ul class="list-inline mb-2">
@@ -257,124 +230,4 @@ Reviews END -->
 
 
         
-    <div class="col-md-7 position-relative mb-0 mt-0 mt-md-5">
-      <!-- SVG -->
-      <figure class="fill-danger opacity-2 position-absolute top-0 start-0 translate-middle mb-3">
-          <svg width="211px" height="211px">
-              <path d="M210.030,105.011 C210.030,163.014 163.010,210.029 105.012,210.029 C47.013,210.029 -0.005,163.014 -0.005,105.011 C-0.005,47.015 47.013,-0.004 105.012,-0.004 C163.010,-0.004 210.030,47.015 210.030,105.011 Z"></path>
-          </svg>
-      </figure>
-  
-      <div class="bg-body shadow p-5 rounded-3 position-relative mb-5 mb-md-0" style="max-width: 800px; margin: 0 auto;">
-          <!-- Liste des Révisions -->
-          <div>
-              <h2>Liste des Révisions</h2>
-              <ul>
-                  <li *ngFor="let revision of revisions">
-                    <span class="me-1"><i class="fas fa-quote-left"></i></span>
-                    {{ revision.sujetRev }} - {{ revision.date_debut | date }} - {{ revision.date_fin | date }}
-                  <span class="ms-1"><i class="fas fa-quote-right"></i></span>
-                      {{ revision.sujetRev }} - {{ revision.date_debut | date }} - {{ revision.date_fin | date }}
-                      <button (click)="selectRevision(revision)">Modifier</button>
-                      <button (click)="deleteRevision(revision.idRev)">Supprimer</button>
-                  </li>
-              </ul>
-          </div>
-  
-          
-          <!-- Content -->
-          <blockquote class="mb-4">
-              <p class="lead">
-                  <span class="me-1"><i class="fas fa-quote-left"></i></span>
-                  Moonlight newspaper up its enjoyment agreeable depending. Timed voice share led him to widen noisy young. At weddings believed laughing
-                  <span class="ms-1"><i class="fas fa-quote-right"></i></span>
-              </p>
-          </blockquote>
-          <!-- Rating -->
-          <ul class="list-inline mb-2">
-              <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-              <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-              <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-              <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-              <li class="list-inline-item me-0 small"><i class="fas fa-star-half-alt text-warning"></i></li>
-          </ul>
-          <!-- Info -->
-          <h4 class="mb-0 text-center">Carolyn Ortiz</h4>
-      </div>
-  </div>
-  
-    
-<main>
-  <div>
-    <h2>Liste des Révisions</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Sujet</th>
-          <th>Date de début</th>
-          <th>Date de fin</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        
-        <ng-container *ngFor="let revision of pagedRevisions">
-          <tr>
- 
-            <td>{{ revision.sujetRev }}</td>
-            <td>{{ revision.date_debut | date }}</td>
-            <td>{{ revision.date_fin | date }}</td>
-            <td>
-             
-              <!-- Ajoutez ce bouton pour ouvrir le popup de modification   <button (click)="openPopup()">Modifier</button> -->
-              <!--button class="btn btn-outline-warning mb-0" (click)="openUpdateRevisionPopup(selectedRevision)">Modifier</button-->
-
-
-              <button (click)="deleteRevision(revision.idRev)">Supprimer</button>
-
-            </td>
-          </tr>
-        </ng-container>
-      </tbody>
-    </table>
-    <div class="pagination">
-      <button class="btn btn-primary" (click)="previousPage()" [disabled]="currentPage === 1">Précédent</button>
-      <button class="btn btn-primary" (click)="nextPage()" [disabled]="currentPage === totalPages">Suivant</button>
-    </div>
-  </div>
- 
-  <div *ngIf="selectedRevision">
-    <h2>Modifier une Révision</h2>
-    
-    <form (submit)="updateRevision(selectedRevision)">
-      <input type="text" placeholder="Sujet" name="sujet" [(ngModel)]="selectedRevision.sujetRev" required>
-      <input type="text" placeholder="Duree" name="Duree" [(ngModel)]="selectedRevision.duree" required>
-      <input type="text" placeholder="Notes" name="Notes" [(ngModel)]="selectedRevision.notes" required>
-      <input type="text" placeholder="Objectif" name="Objectif" [(ngModel)]="selectedRevision.objectif" required>
-      <input type="date" placeholder="Date de début" name="date_debut" [(ngModel)]="selectedRevision.date_debut" required>
-      <input type="date" placeholder="Date de fin" name="date_fin" [(ngModel)]="selectedRevision.date_fin" required>
-      <button type="submit">Modifier</button>
-    </form>
-    
-  </div>
-  <div>
-    <h2>Add New Review</h2>
-    
-    <form (submit)="addRevision()">
-      <input type="text" placeholder="Sujet" name="sujet" [(ngModel)]="newRevision.sujetRev" required>
-      <input type="text" placeholder="Duree" name="Duree" [(ngModel)]="newRevision.duree" required>
-      <input type="text" placeholder="Notes" name="Notes" [(ngModel)]="newRevision.notes" required>
-      <input type="text" placeholder="Objectif" name="Objectif" [(ngModel)]="newRevision.objectif" required>
-      <input type="date" placeholder="Date de début" name="date_debut" [(ngModel)]="newRevision.date_debut" required>
-      <input type="date" placeholder="Date de fin" name="date_fin" [(ngModel)]="newRevision.date_fin" required>
-      <button type="submit">Ajouter</button>
-      <div class="alert alert-secondary" role="alert" *ngIf="showAlert">
-        A simple secondary alert—check it out!
-      </div>
-      
-    </form>
-    
-  </div>
-</main>
-
-<app-footer></app-footer>
+    <app-footer></app-footer>

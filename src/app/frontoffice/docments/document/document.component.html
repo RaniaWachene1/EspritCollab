@@ -35,22 +35,20 @@
                         <div>
                             <button mat-raised-button color="warn" type="submit" (click)="openAddDocumentDialog()">Add Document</button>
                         </div>
-                        <div>
-                            <button mat-raised-button color="primary" (click)="openCartDialog()">View Cart and Checkout</button>
-                        </div>
-                        <div class="col-sm-6 col-xl-4" *ngFor="let document of displayedDocuments" (click)="openGetDocumentByIdDialog(document.idDoc)">
+                        
+                        <div class="col-sm-6 col-xl-4" *ngFor="let document of displayedDocuments">
                             <div class="card action-trigger-hover border">
                                 <!-- Content -->
                                 <div class="card-body pb-0">
                                     <p class="mb-2"><strong>Module:</strong> {{ document.module }}</p>
-                                    <h5 class="card-title"><a href="#">{{ document.titleDoc }}</a></h5>
+                                    <h5 class="card-title" style="color: brown;">{{ document.titleDoc }}</h5>
                                     <p class="mb-2 text-truncate-2">{{ document.content }}</p>
                                     <!-- Price -->
-                                    <div class="d-flex justify-content-between" style="padding-left: 55%;">
+                                    <div class="d-flex justify-content-between" style="padding-left: 60%;">
                                         <h4 class="text-success mb-0 item-show" *ngIf="document.price === 0">Free</h4>
                                         <h4 class="text-success mb-0 item-show" *ngIf="document.price !== 0">{{ document.price }} DT</h4>
                                         <a href="#" class="btn btn-sm btn-success-soft item-show-hover" (click)="$event.preventDefault(); buy(document);">
-                                            <i class="fas fa-shopping-cart me-2"></i>Add to cart
+                                            <i class="fas fa-shopping-cart me-2"></i>Buy
                                           </a>
                                           
                                         
@@ -61,13 +59,19 @@
                                     <hr>
                                     <!-- Additional details -->
                                     <div class="d-flex justify-content-between">
-                                        <!-- Duration -->
+                                        <!-- Duration 
                                         <div class="hstack gap-2">
                                             <p class="text-warning m-0">4.5<i class="fas fa-star text-warning ms-1"></i></p>
                                         </div>
-                                        <!-- Number of lectures -->
-                                        <span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>15 lectures</span>
-                                    </div>
+                                        -->
+                                        <!-- user propriétaire 
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{ document.user?.imageUser }}" alt="User Image" width="30" height="30">
+                                            <span class="h6 fw-light mb-0 ms-2">{{ document.user?.username }}</span>
+                                        </div> 
+                                        -->                                  
+                                     </div>
+                                     
                                 </div>
                             </div>
                         </div>
@@ -119,13 +123,12 @@
                                 <div class="col-12">
                                     <div *ngFor="let module of modules">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="{{ module }}" id="module{{ module }}">
-                                            <label class="form-check-label" for="module{{ module }}">{{ module }}</label>
+                                            <input class="form-check-input" type="checkbox" id="module{{ module.nomModule }}" [value]="module.nomModule" (change)="filterByModule(module.nomModule, $event)">
+                                            <label class="form-check-label" for="module{{ module.nomModule }}">{{ module.nomModule }}</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
                             <!-- Filtre par prix -->
                             <div class="card card-body shadow p-4 mb-4">
                                 <h4 class="mb-3">Price</h4>

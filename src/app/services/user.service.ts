@@ -1,11 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-<<<<<<< HEAD
 import { Observable, catchError, throwError } from 'rxjs';
-=======
-import { Observable } from 'rxjs';
->>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
 
 @Injectable({
   providedIn: 'root'
@@ -49,7 +45,6 @@ deleteUser(id: number): Observable<any> {
 getUserProfile(): Observable<any> {
   return this.http.get<any>(`${this.apiUrl}/profile`);
 }
-<<<<<<< HEAD
 
 deactivateUser(userId: number, duration: string): Observable<any> {
   const url = `${this.apiUrl}/${userId}/deactivate`;
@@ -67,17 +62,4 @@ getLeaderboardS(): Observable<any[]> {
   return this.http.get<any[]>(`${this.apiUrl}/leaderboardStudent`);
 }
 
-=======
-deactivateUser(userId: number, duration: string): Observable<any> {
-  const url = `${this.apiUrl}/${userId}/deactivate`;
-  const params = new HttpParams().set('duration', duration); // Include duration parameter
-  return this.http.post<any>(url, {}, { params });
-}
-
-
-reactivateUser(userId: number): Observable<any> {
-  const url = `${this.apiUrl}/${userId}/reactivate`;
-  return this.http.post<any>(url, {});
-}
->>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
 }

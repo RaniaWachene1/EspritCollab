@@ -17,9 +17,10 @@ export class PaymentService {
   processPayment(idDoc: number) {
     return this.http.post<any>(this.apiUrl, this.documentService.retrieveById(idDoc));
   }
-  proc22(document: Document): Observable<string> {
+  proc22(document: Document,id:Number): Observable<string> {
     console.log("Sending document to server:", document);
-    return this.http.post<{ url: string }>(this.apiUrl, document).pipe(
+    const url2 = `${this.apiUrl}/${id}`;
+    return this.http.post<{ url: string }>(url2, document).pipe(
       map((response) => {
         console.log("Received response from server:", response);
         return response.url;  // Extracting the URL from the JSON object

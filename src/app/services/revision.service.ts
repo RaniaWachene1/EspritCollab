@@ -91,7 +91,7 @@ export class RevisionService {
     return this.http.post<Pomodoro>(`${this.baseUrl}/api/pomodoro`, pomodoro);
 }
 createOrUpdatePomodoro(pomodoro: Pomodoro): Observable<Pomodoro> {
-  return this.http.post<Pomodoro>(`${this.baseUrl}/api/pomodoro`, pomodoro);
+  return this.http.post<Pomodoro>(`${this.baseUrl}/saveOrUpdatePomodoro`, pomodoro);
 }
 //Tasks
 getAllTasks(): Observable<Task[]> {

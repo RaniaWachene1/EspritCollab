@@ -430,10 +430,6 @@ getCurrentPageNumber(): number {
       }
 
       filterMyEvents(): void {
-<<<<<<< HEAD
-=======
-        // Use optional chaining to ensure that we do not attempt to access properties of null objects.
->>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
         if (this.currentUser?.id) {
             if (this.allEvents) {
                 this.events = this.allEvents.filter(event => this.currentUser && event.userList?.length && this.currentUser.id === event.userList[0]?.idUser);

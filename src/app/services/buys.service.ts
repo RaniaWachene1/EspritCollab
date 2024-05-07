@@ -15,7 +15,15 @@ export class BuysService {
   createbuy(buy: Buys): Observable<Buys> {
     return this.http.post<Buys>(this.apiUrl+"/addBuy", buy);
   }
-  getDocsByUser(user:User):Observable<Buys[]>{
-    return this.http.get<Buys[]>(this.apiUrl+"myBuys")
+  getDocsByUser(id:number):Observable<Buys[]>{
+    const url = `${this.apiUrl}/myBuys/${id}`;
+    return this.http.get<Buys[]>(url)
+  }
+  createbuy2(): Observable<Buys> {
+    return this.http.post<Buys>(this.apiUrl+"/addb", {});
+  }
+  getNbrVente(id:number):Observable<number>{
+    const url = `${this.apiUrl}/vente/${id}`;
+    return this.http.get<number>(url);
   }
 }

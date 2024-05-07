@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
-<<<<<<< HEAD
 import { User } from '../../models/user.model';
-=======
->>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +9,6 @@ import { User } from '../../models/user.model';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-<<<<<<< HEAD
   user!: User;  // The user property is declared as non-nullable but no initial value is provided
   badges = [
     { name: 'Nerd', imageUrl: 'http://localhost:8087/uploads/Nerd.png', threshold: 96 },
@@ -23,10 +19,6 @@ export class ProfileComponent implements OnInit {
     { name: 'Newbie', imageUrl: 'http://localhost:8087/uploads/Newbie.png', threshold: 1 },
   
 ];
-=======
-  userData: any;
-
->>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
   constructor(private userService: UserService, private authService: AuthService) {}
 
   ngOnInit(): void {
@@ -36,7 +28,6 @@ export class ProfileComponent implements OnInit {
   fetchUserData(): void {
     const storedUserData = localStorage.getItem('userData');
     if (storedUserData) {
-<<<<<<< HEAD
       this.user = JSON.parse(storedUserData);
       console.log('User data from localStorage:', this.user);
       if (!this.user.badge) { 
@@ -51,18 +42,6 @@ export class ProfileComponent implements OnInit {
           this.user = response;
           localStorage.setItem('userData', JSON.stringify(response));
           console.log('User data from API:', this.user);
-=======
-      this.userData = JSON.parse(storedUserData);
-      console.log('User data from localStorage:', this.userData);
-    }
-        const userId = this.authService.userId;
-    if (userId) {
-      this.userService.getUserById(userId).subscribe(
-        (response) => {
-          this.userData = response;
-          localStorage.setItem('userData', JSON.stringify(response));
-          console.log('User data from API:', this.userData);
->>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
         },
         (error) => {
           console.error('Error fetching user profile:', error);

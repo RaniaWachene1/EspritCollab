@@ -15,8 +15,9 @@ export class DocumentService {
   private apiUrl = 'http://localhost:8087';
 
   constructor(private http: HttpClient) {}
-  createDocument(document: Document): Observable<Document> {
-    return this.http.post<Document>(this.apiUrl+"/addDoc", document);
+  createDocument(document: Document,id:number): Observable<Document> {
+    const url = `${this.apiUrl}/addDoc/${id}`;
+    return this.http.post<Document>(url, document);
   }
   
   getAllDocument(): Observable<Document[]> {
@@ -28,10 +29,10 @@ export class DocumentService {
     return this.http.get<Document>(url);
   }  
   
-  updateDocument(document: Document): Observable<Document> {
-    const url = `${this.apiUrl}/updateDoc`;
+  updateDocument(document: Document, userId: number): Observable<Document> {
+    const url = `${this.apiUrl}/updateDoc/${userId}`;
     return this.http.put<Document>(url, document);
-  }  
+  } 
 
   deleteDocument(id: number): Observable<void> {
     const url = `${this.apiUrl}/deleteDoc/${id}`;
@@ -49,4 +50,8 @@ export class DocumentService {
       })
     );
   }
+  getMyDocs(id: number): Observable<Document[]> {
+    const url = `${this.apiUrl}/getmy/${id}`;
+    return this.http.get<Document[]>(url);
+  }  
 }

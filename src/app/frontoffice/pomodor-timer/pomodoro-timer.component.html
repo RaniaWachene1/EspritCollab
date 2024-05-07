@@ -51,8 +51,9 @@ Main Banner START -->
 							C57.5,58.1,60.8,63.5,59.8,64.9z" />
           </svg>
         </figure>
-        <p class="display-6" *ngIf="isRunning"> {{ formatTime(remainingTime) }}</p>
-         <h3 class="position-relative fs-5" *ngIf="cycleCount < 5" >Cycle {{ cycleCount + 1 }} of 5</h3>
+         <h3 class="position-relative fs-5" *ngIf="pomodoro.cycleCount < 5" >Cycle {{pomodoro.cycleCount + 1 }} of 5</h3>
+         <p class="display-6" *ngIf="isRunning"> {{ formatTime(remainingTime) }}</p>
+
         <!-- Buttons -->
         <div class="d-sm-flex align-items-center justify-content-center">
           <!-- stop Button -->
@@ -75,7 +76,7 @@ Main Banner START -->
           <div class="d-flex align-items-center justify-content-center py-2 ms-0 ms-sm-4">
             <!--button (click)="startPomodoro()" [disabled]="isRunning || cycleCount >= 5"
               class="btn btn-success">Start</button-->
-            <button (click)="startPomodoro()" [disabled]="isRunning || cycleCount >= 5"
+            <button (click)="startPomodoro()" [disabled]="isRunning || pomodoro.cycleCount >= 5"
               class="btn btn-lg btn-round btn-light mb-0 overflow-visible me-7">
               <i class="fas fa-play"></i>
               <h6 class="mb-0 ms-2 fw-normal position-absolute start-100 top-50 translate-middle-y">Start</h6>

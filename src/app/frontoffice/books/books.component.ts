@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../../../models/books.model'; 
 import { BookService } from '../../books.service'; 
@@ -165,15 +164,3 @@ getCurrentUser(): void {
  
 }
  
-=======
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-books',
-  templateUrl: './books.component.html',
-  styleUrl: './books.component.css'
-})
-export class BooksComponent {
-
-}
->>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f

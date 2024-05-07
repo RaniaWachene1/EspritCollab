@@ -11,18 +11,10 @@ import { HeaderComponent } from './frontoffice/header/header.component';
 import { FooterComponent } from './frontoffice/footer/footer.component';
 import { ProfileComponent } from './frontoffice/profile/profile.component';
 import { DocumentCategoriesComponent } from './frontoffice/document-categories/document-categories.component';
-<<<<<<< HEAD
-=======
-import { DocumentComponent } from './frontoffice/document/document.component';
->>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
 import { EventsComponent } from './frontoffice/events/events.component';
 import { EventDetailsComponent } from './backoffice/event-details/event-details.component';
 import { BooksComponent } from './frontoffice/books/books.component';
 import { BookDetailsComponent } from './frontoffice/book-details/book-details.component';
-<<<<<<< HEAD
-=======
-import { RevisionComponent } from './frontoffice/revision/revision.component';
->>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
 import { ComplaintComponent } from './frontoffice/complaint/complaint.component';
 import { DashboardComponent } from './backoffice/dashboard/dashboard.component';
 import { SideBarComponent } from './backoffice/side-bar/side-bar.component';
@@ -60,7 +52,6 @@ import { DeactivateComponent } from './backoffice/deactivate/deactivate.componen
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { EventCalendarComponent } from './frontoffice/event-calendar/event-calendar.component';
-<<<<<<< HEAD
 import {provideAnimationsAsync} from'@angular/platform-browser/animations/async';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
@@ -101,8 +92,9 @@ import { FileUploadComponent } from './frontoffice/docments/file-upload/file-upl
 import { PaymentComponent } from './frontoffice/docments/payment/payment.component';
 import { CartDialogComponent } from './frontoffice/docments/cart-dialog/cart-dialog.component';
 import {MatListModule} from '@angular/material/list';
-=======
->>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
+import { AddbuyComponent } from './frontoffice/docments/addbuy/addbuy.component';
+import { GetmybuysComponent } from './frontoffice/docments/getmybuys/getmybuys.component';
+import { MydocumentsComponent } from './frontoffice/docments/mydocuments/mydocuments.component';
 
 @NgModule({
   declarations: [
@@ -114,18 +106,10 @@ import {MatListModule} from '@angular/material/list';
     FooterComponent,
     ProfileComponent,
     DocumentCategoriesComponent,
-<<<<<<< HEAD
-=======
-    DocumentComponent,
->>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
     EventsComponent,
     EventDetailsComponent,
     BooksComponent,
     BookDetailsComponent,
-<<<<<<< HEAD
-=======
-    RevisionComponent,
->>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
     ComplaintComponent,
     DashboardComponent,
     SideBarComponent,
@@ -147,7 +131,6 @@ import {MatListModule} from '@angular/material/list';
     EventinfoComponent,
     ResetPasswordComponent,
     DeactivateComponent,
-<<<<<<< HEAD
     GetAllBooksComponent,
     UpdateBookDialogComponent,
     EventCalendarComponent,
@@ -179,9 +162,9 @@ import {MatListModule} from '@angular/material/list';
     FileUploadComponent,
     PaymentComponent,
     CartDialogComponent,
-=======
-    EventCalendarComponent,
->>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
+    AddbuyComponent,
+    GetmybuysComponent,
+    MydocumentsComponent,
     
   ],
   imports: [
@@ -204,7 +187,6 @@ import {MatListModule} from '@angular/material/list';
     LeafletModule,
     MatPaginatorModule,
     FullCalendarModule,
-<<<<<<< HEAD
     MatInputModule,
     MatFormFieldModule,
     MatInputModule,
@@ -225,11 +207,6 @@ import {MatListModule} from '@angular/material/list';
     
   
   providers: [DatePipe,httpInterceptorProviders, provideAnimationsAsync(),
-=======
-    ],
-  
-  providers: [DatePipe,httpInterceptorProviders,
->>>>>>> 2ccfd77c9737d402b11bf7ba59ba4ed96d848c8f
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

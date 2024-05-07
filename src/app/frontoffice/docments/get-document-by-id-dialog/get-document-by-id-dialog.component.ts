@@ -5,6 +5,7 @@ import { DocumentService } from '../../../services/document.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { EditDocumentDialogComponent } from '../edit-document-dialog/edit-document-dialog.component';
 import { FileUploadService } from '../../../services/file-upload.service';
+import { BuysService } from '../../../services/buys.service';
 
 @Component({
   selector: 'app-get-document-by-id-dialog',
@@ -14,13 +15,18 @@ import { FileUploadService } from '../../../services/file-upload.service';
 export class GetDocumentByIdDialogComponent {
   document!: Document;
   files: string[] = [];
+  nb!:number;
+  totprice!:number;
   constructor(
     private dialogRef: MatDialogRef<GetDocumentByIdDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public idDoc: number,
     private documentService: DocumentService,
     private fileService:FileUploadService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private buyService:BuysService
   ) {
+    console.log("a");
+    console.log(this.idDoc);
     // Fetch document details by id
     this.documentService.retrieveById(this.idDoc).subscribe(
       (data: Document) => {
@@ -36,6 +42,12 @@ export class GetDocumentByIdDialogComponent {
       },
       error: (error) => console.error('Error retrieving files:', error)
     });
+    this.buyService.getNbrVente(this.idDoc).subscribe(
+      (res)=>{
+        this.nb=res;
+        this.totprice=this.nb*this.document.price;
+      }
+    )
   }
 
   onClose(): void {

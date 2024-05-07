@@ -1,116 +1,5 @@
+
 <app-header></app-header>
-<div *ngIf="revisions.length > 0; else noRevisions">
-    <h2>Révisions de l'utilisateur connecté</h2>
-    <ul>
-        <li *ngFor="let revision of revisions">
-            <p><strong>Date de début:</strong> {{ revision.date_debut }}</p>
-            <p><strong>Sujet:</strong> {{ revision.sujetRev }}</p>
-            <p><strong>Objectif:</strong> {{ revision.objectif }}</p>
-        </li>
-    </ul>
-</div>
-<ng-template #noRevisions>
-    <p>Aucune révision trouvée pour l'utilisateur connecté.</p>
-</ng-template>
-
-<!-- Section des révisions de l'utilisateur connecté -->
-<section class="position-relative">
-    <div class="container">
-        <div *ngIf="revisions.length > 0; else noRevisions">
-            <h2>Révisions de l'utilisateur connecté</h2>
-            <ul class="list-group">
-                <li class="list-group-item" *ngFor="let revision of revisions">
-                    <p><strong>Date de début:</strong> {{ revision.date_debut | date:'mediumDate' }}</p>
-                    <p><strong>Sujet:</strong> {{ revision.sujetRev }}</p>
-                    <p><strong>Objectif:</strong> {{ revision.objectif }}</p>
-                </li>
-            </ul>
-        </div>
-        <ng-template #noRevisions>
-            <p>Aucune révision trouvée pour l'utilisateur connecté.</p>
-        </ng-template>
-    </div>
-</section>
-
-<!-- Autres sections de votre choix, ici un exemple de SVG et des cartes -->
-<section class="overflow-hidden pt-0 pt-sm-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 text-center mx-auto">
-                <!-- SVG decoration et message de succès, facultatif selon votre contexte -->
-                <figure class="ms-n4">
-                    <!-- SVG ici -->
-                </figure>
-                <h3>Votre contenu a été soumis avec succès.</h3>
-                <p>Nous examinerons votre contenu sous peu. Vous serez informé par e-mail de l'acceptation de votre
-                    contenu. Assurez-vous également que vos informations de paiement et fiscales sont correctes et
-                    valides.</p>
-                <a href="index.html" class="btn btn-primary-soft mb-5">Retour à l'accueil</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- =======================
-Feature START -->
-<section class="position-relative">
-    <!-- Svg image decoration -->
-    <div class="position-absolute bottom-0 end-0">
-        <img src="assets/images/element/30.svg" class="h-300px" alt="">
-    </div>
-
-    <div class="container">
-        <div class="row g-4">
-            <!-- Title -->
-            <div class="col-sm-6 col-lg-4">
-                <h2>Why choose our classes</h2>
-                <p class="mb-0">Comfort reached gay perhaps chamber his six detract besides add. Moonlight newspaper up
-                    its enjoyment agreeable depending.</p>
-            </div>
-
-            <!-- Revision Display Condition -->
-            <div *ngIf="revisions.length > 0; else noRevisions">
-                <!-- Loop through each revision -->
-                <ng-container *ngFor="let revision of revisions; let i = index">
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="card card-body bg-light p-4 h-100">
-                            <h3 class="card-title">{{ revision.sujetRev }}</h3>
-                            <p>Objectif: {{ revision.objectif }}</p>
-                            <p>Date de début: {{ revision.date_debut | date:'mediumDate' }}</p>
-                            <button class="btn btn-sm btn-success-soft btn-round me-1 mb-0" (click)="selectRevision(revision)">
-                                <i class="far fa-fw fa-edit"></i> Edit
-                            </button>
-                            <button class="btn btn-sm btn-danger-soft btn-round mb-0" (click)="deleteRevision(revision.idRev)">
-                                <i class="fas fa-fw fa-times"></i> Delete
-                            </button>
-                        </div>
-                    </div>
-                </ng-container>
-
-                <!-- Pagination -->
-                <nav aria-label="Page navigation example" class="mt-4">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item" [class.disabled]="currentPage === 1">
-                            <a class="page-link" href="#" (click)="previousPage(); $event.preventDefault()">Previous</a>
-                        </li>
-                        <li class="page-item" *ngFor="let page of [].constructor(totalPages); let idx = index" [class.active]="currentPage === page+1">
-                            <a class="page-link" href="#" (click)="goToPage(page+1); $event.preventDefault()">{{ page + 1 }}</a>
-                        </li>
-                        <li class="page-item" [class.disabled]="currentPage === totalPages">
-                            <a class="page-link" href="#" (click)="nextPage(); $event.preventDefault()">Next</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <ng-template #noRevisions>
-                <p>Aucune révision trouvée pour l'utilisateur connecté.</p>
-            </ng-template>
-        </div>
-    </div>
-</section>
-<!-- =======================
-Feature END -->
-
 <!-- =======================
 Feature START -->
 <section class="position-relative">
@@ -125,12 +14,11 @@ Feature START -->
 
             <!-- Title -->
             <div class="col-sm-6 col-lg-4">
-                <h2>Why choose our classes</h2>
-                <p class="mb-0">Comfort reached gay perhaps chamber his six detract besides add. Moonlight newspaper up
-                    its enjoyment agreeable depending.</p>
+                <h2>Explore Your Revision History</h2>
+                <p class="mb-0">Welcome to your personal space where you can delve into your revision history. Here, you can track the progress you've made on your academic journey.</p>
             </div>
 
-            <div *ngIf="revisions.length > 0; else noRevisions">
+            <!--div *ngIf="revisions.length > 0; else noRevisions">
 
                 <!-- Feature item -->
                 <ng-container *ngFor="let revision of revisions">
@@ -174,21 +62,12 @@ Feature START -->
                                         d="M41.74,24.62h-6.47c-0.47,0-0.84-0.38-0.84-0.84c0-0.47,0.38-0.84,0.84-0.84h6.47c0.47,0,0.84,0.38,0.84,0.84 C42.58,24.24,42.2,24.62,41.74,24.62z" />
                                 </svg>
                                 <div class="col">
-                                    <div class="card-body">
+                                    <div class="card card-body bg-light p-4 h-100">
                                  
-
-                                        <h1 class="card-title">{{ revision.sujetRev }}</h1>
-                                        <div class="col-sm-6 col-lg-4">
-                                            <h3>Notes: {{ revision.notes }} </h3>
-
-                                        </div>
-                                        <div class="col-sm-6 col-lg-4">
-                                            <h3>Objectif: {{ revision.objectif }} </h3>
-                                        </div>
-                                        <div class="col-sm-6 col-lg-4">
-                                            <h3>Date de début: {{ revision.date_debut }} </h3>
-                                        </div>
- 
+                  
+                                        <h3 class="card-title">{{ revision.sujetRev }}</h3>
+                                        <p>Objectif: {{ revision.objectif }}</p>
+                                        <p>Date de début: {{ revision.date_debut | date:'mediumDate' }}</p>
                                          <button href="#" class="btn btn-sm btn-success-soft btn-round me-1 mb-0"
                                             (click)="selectRevision(revision)"><i
                                                 class="far fa-fw fa-edit"></i></button>
@@ -234,7 +113,7 @@ Feature START -->
 
                 <!-- Feature item -->
             </div>
-        </div>
+        <!--/div>
 </section>
 <!-- =======================
 Feature END -->
@@ -257,12 +136,7 @@ Feature END -->
                             <input type="text" class="form-control" placeholder="Sujet" id="sujet" name="sujet"
                                 [(ngModel)]="selectedRevision.sujetRev" required>
                         </div>
-                        <!-- Notes -->
-                        <div class="mb-4">
-                            <label for="notes" class="form-label">Notes *</label>
-                            <input type="text" class="form-control" placeholder="Notes" id="notes" name="notes"
-                                [(ngModel)]="selectedRevision.notes" required>
-                        </div>
+                       
                         <!-- Objectif -->
                         <div class="mb-4">
                             <label for="objectif" class="form-label">Objectif *</label>
@@ -330,12 +204,10 @@ Feature END -->
                 <!-- SVG decoration END -->
 
                 <!-- Title -->
-                <h3>Your course has been submitted successfully.</h3>
+                <h3>Your revision has been successfully updated.</h3>
                 <!-- Subtitle -->
-                <p>We will review your item shortly. You will be informed by email that your course has been accepted.
-                    Also, make sure your <a href="#">Payment and Tax information</a> is correct and valid.</p>
-
-                <a href="index.html" class="btn btn-primary-soft mb-5">Back to Homepage</a>
+               
+                <a href="/home" class="btn btn-primary-soft mb-5">Back to Homepage</a>
             </div>
         </div>
     </div>
@@ -344,6 +216,7 @@ Feature END -->
 
 
 
+<app-footer></app-footer>
 
 
 
@@ -352,143 +225,3 @@ Feature END -->
 
 
 
-
-
-
-
-
-
-<!-- =======================
-    Reviews START -->
-<section class="bg-light">
-    <div class="container">
-        <!-- =======================
-    Action box START -->
-        <section class="pt-9 pt-lg-5">
-            <div class="container position-relative">
-                <div>
-                    <figure class="position-absolute top-50 start-50 translate-middle ms-2">
-                        <svg>
-                            <path class="fill-white opacity-4"
-                                d="m496 22.999c0 10.493-8.506 18.999-18.999 18.999s-19-8.506-19-18.999 8.507-18.999 19-18.999 18.999 8.506 18.999 18.999z" />
-                            <path class="fill-white opacity-4"
-                                d="m775 102.5c0 5.799-4.701 10.5-10.5 10.5-5.798 0-10.499-4.701-10.499-10.5 0-5.798 4.701-10.499 10.499-10.499 5.799 0 10.5 4.701 10.5 10.499z" />
-                            <path class="fill-white opacity-4"
-                                d="m192 102c0 6.626-5.373 11.999-12 11.999s-11.999-5.373-11.999-11.999c0-6.628 5.372-12 11.999-12s12 5.372 12 12z" />
-                            <path class="fill-white opacity-4"
-                                d="m20.499 10.25c0 5.66-4.589 10.249-10.25 10.249-5.66 0-10.249-4.589-10.249-10.249-0-5.661 4.589-10.25 10.249-10.25 5.661-0 10.25 4.589 10.25 10.25z" />
-                        </svg>
-                    </figure>
-                    <div class="row g-4 g-lg-5 align-items-center">
-                        <div class="col-xl-10 order-2 order-xl-10">
-                            <div class="row mt-6 mt-xl-19">
-                                <!-- Review -->
-                                <div class="col-md-12 position-relative mb-1 mt-1 mt-md-1">
-                                    <!-- SVG -->
-                                    <figure
-                                        class="fill-danger opacity-2 position-absolute top-0 start-0 translate-middle mb-3">
-                                        <svg width="211px" height="211px">
-                                            <path
-                                                d="M210.030,105.011 C210.030,163.014 163.010,210.029 105.012,210.029 C47.013,210.029 -0.005,163.014 -0.005,105.011 C-0.005,47.015 47.013,-0.004 105.012,-0.004 C163.010,-0.004 210.030,47.015 210.030,105.011 Z">
-                                            </path>
-                                        </svg>
-                                    </figure>
-
-                                    <h2 class="fs-1 text-danger" md-colors="RED">Liste des Révisions</h2>
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Sujet</th>
-                                                <th>Notes</th>
-                                                <th>objectif</th>
-                                                <th>Date de début</th>
-                                                <th>Date de fin</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <ng-container *ngFor="let revision of pagedRevisions">
-                                                <tr>
-
-                                                    <td>{{ revision.sujetRev }}</td>
-                                                    <td>{{ revision.notes }}</td>
-                                                    <td>{{ revision. objectif }}</td>
-                                                    <td>{{ revision.date_debut | date }}</td>
-                                                    <td>{{ revision.date_fin | date }}</td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-info bi bi-arrow-clockwise"
-                                                            (click)="selectRevision(revision)">Modifier</button>
-                                                        <button type="button" class="btn btn-danger bi bi-trash"
-                                                            (click)="deleteRevision(revision.idRev)">Supprimer</button>
-
-
-
-                                                    </td>
-                                                </tr>
-                                            </ng-container>
-                                        </tbody>
-                                    </table>
-                                    <div class="pagination">
-                                        <button class="btn p-3 mb-2 bg-dark text-white bi bi-arrow-left-square"
-                                            (click)="previousPage()" [disabled]="currentPage === 1"> </button>
-                                        <button class="btn p-3 mb-2 bg-dark text-white bi bi-arrow-right-square"
-                                            (click)="nextPage()" [disabled]="currentPage === totalPages"> </button>
-                                    </div>
-                                </div>
-                                <div *ngIf="selectedRevision">
-                                    <h2>Modifier une Révision</h2>
-                                    <div class="card" class="alert alert-info" role="alert">
-                                        <div class="card-header"></div>
-                                        <div class="card-body">
-                                            <form (submit)="updateRevision(selectedRevision)">
-                                                <!-- Vos champs de formulaire pour la modification ici -->
-                                                <!-- Sujet -->
-                                                <div class="mb-4">
-                                                    <label for="sujet" class="form-label">Sujet *</label>
-                                                    <input type="text" class="form-control" placeholder="Sujet"
-                                                        id="sujet" name="sujet" [(ngModel)]="selectedRevision.sujetRev"
-                                                        required>
-                                                </div>
-                                                <!-- Duree -->
-                                                <div class="mb-4">
-                                                    <label for="duree" class="form-label">Durée *</label>
-                                                    <input type="text" class="form-control" placeholder="Durée"
-                                                        id="duree" name="duree" [(ngModel)]="selectedRevision.duree"
-                                                        required>
-                                                </div>
-                                                <!-- Notes -->
-                                                <div class="mb-4">
-                                                    <label for="notes" class="form-label">Notes *</label>
-                                                    <input type="text" class="form-control" placeholder="Notes"
-                                                        id="notes" name="notes" [(ngModel)]="selectedRevision.notes"
-                                                        required>
-                                                </div>
-                                                <!-- Objectif -->
-                                                <div class="mb-4">
-                                                    <label for="objectif" class="form-label">Objectif *</label>
-                                                    <input type="text" class="form-control" placeholder="Objectif"
-                                                        id="objectif" name="objectif"
-                                                        [(ngModel)]="selectedRevision.objectif" required>
-                                                </div>
-                                                <!-- Date de début -->
-                                                <div class="mb-4">
-                                                    <label for="dateDebut" class="form-label">Date de début *</label>
-                                                    <input type="date" class="form-control" id="dateDebut"
-                                                        name="dateDebut" [(ngModel)]="selectedRevision.date_debut"
-                                                        required>
-                                                </div>
-                                                <!-- Date de fin -->
-                                                <div class="mb-4">
-                                                    <label for="dateFin" class="form-label">Date de fin *</label>
-                                                    <input type="date" class="form-control" id="dateFin" name="dateFin"
-                                                        [(ngModel)]="selectedRevision.date_fin" required>
-                                                </div>
-                                                <!-- Bouton Modifier -->
-                                                <div class="d-grid">
-                                                    <button class="btn btn-primary" type="submit">Modifier</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>

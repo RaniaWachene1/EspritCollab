@@ -31,17 +31,19 @@
         </mat-error>
       </mat-form-field>
     </div>
-
     <div class="form-field">
       <mat-form-field appearance="fill">
         <mat-label>Module</mat-label>
-        <input matInput type="text" [(ngModel)]="newDocument.module" name="module" required #module="ngModel">
+        <mat-select [(ngModel)]="newDocument.module" name="module" required>
+          <mat-option *ngFor="let module of modules" [value]="module.nomModule">{{ module.nomModule }}</mat-option>
+        </mat-select>
         <mat-icon matSuffix>subject</mat-icon>
-        <mat-error *ngIf="module.invalid && (module.dirty || module.touched)">
+        <mat-error *ngIf="!newDocument.module">
           Module is required.
         </mat-error>
       </mat-form-field>
     </div>
+    
     
     <div class="form-field" style="margin-bottom: 20px;">
       <input type="file" (change)="onFilesSelected($event)" multiple>

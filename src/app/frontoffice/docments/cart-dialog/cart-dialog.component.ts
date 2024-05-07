@@ -16,6 +16,7 @@ export class CartDialogComponent {
   items: Document[] = [];
   returnedString!: string;
   doc!:Document;
+  userData:any;
   constructor(
     public dialogRef: MatDialogRef<CartDialogComponent>,private paymentService:PaymentService,private docService:DocumentService,
     @Inject(MAT_DIALOG_DATA) public data: { items: Document[] },
@@ -40,8 +41,15 @@ export class CartDialogComponent {
     console.log(id);
     this.docService.retrieveById(id).subscribe((response:Document)=>{
       this.doc=response;
+      const storedUserData = localStorage.getItem('userData');
+            if (storedUserData) {
+            this.userData = JSON.parse(storedUserData);
+       }
+            console.log(this.userData);
+            const userId = this.userData.idUser;
+            console.log(userId);
       console.log(this.doc);
-      this.paymentService.proc22(this.doc).subscribe(
+      this.paymentService.proc22(this.doc,userId).subscribe(
         (response: string) => {
           console.log("aaa");
           console.log('Returned string:', response); // Log the returned string here

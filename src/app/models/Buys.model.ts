@@ -1,5 +1,10 @@
+;
+import { Document } from "./Document.model";
+import { User } from "./user.model";
+
+
 export class Buys {
     idBuy!: number;
-    documentIdDoc!: number;
-    userIdUser!: number;
+    document!: Document;
+    user!: User;
 }

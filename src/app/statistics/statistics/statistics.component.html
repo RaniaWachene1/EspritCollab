@@ -1,5 +1,10 @@
+<app-header></app-header>
+<div>
+<h2 contenteditable="true" class="small-title">Levels based on the number of modules</h2>
+</div>
+
 <div *ngIf="moduleStatistics">
-    <h2>Module Statistics</h2>
+    <!--<h2 style="font-size:30px; color: rgb(171, 64, 64);text-align: center;">Levels based on the number of modules</h2>-->
     <div class="bar-graph">
         <ul>
             <li *ngFor="let entry of moduleStatistics | keyvalue">
@@ -52,4 +57,59 @@
         transform: translateY(-50%);
         right: 5px;
     }
+
+    h2{
+
+        font-size: 5em;
+position: relative;
+
+font-size: 6em;
+
+Letter-spacing: 15px;
+
+color:#0e3742;
+
+text-transform: uppercase;
+
+width: 100%;
+
+text-align: center;
+margin-bottom: 200px;
+
+-webkit-box-reflect: below 1px linear-gradient(transparent,#0008)
+
+;
+
+Line-height: 0.70em;
+
+outline: none;
+
+animation: animate 5s linear infinite;
+    }
+@keyframes animate
+{
+  0%,18%,20%,50.1%,60%,65.1%,80%,90.1%,92%
+{
+    color:#0e3742;
+    text-shadow:none;
+}
+18.1%, 20.1%, 30%, 50%, 60.1%, 65%, 80.1%, 90%, 92.1%, 100%
+{
+    color: #fff;
+
+text-shadow: 0 0 10px #f40323,
+
+
+
+0 0 10px #f40323,
+
+0 0 30px #f40323,
+
+0 0 70px #f40323,
+
+0 0 150px #f40323;
+
+}
+
+}
 </style>

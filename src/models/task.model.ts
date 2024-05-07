@@ -5,5 +5,5 @@ export interface Task {
   completed: boolean;
   priority: number;
   isFavorite: boolean;
-
+  userId:any
 }

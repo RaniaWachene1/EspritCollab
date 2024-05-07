@@ -1,4 +1,6 @@
-<h1 mat-dialog-title>Document Details</h1>
+<div style="padding: 10px;">
+<h1 style="color: brown;" mat-dialog-title>Document Details</h1>
+
 <div mat-dialog-content>
   <div *ngIf="document">
     <p><strong>Title:</strong> {{ document.titleDoc }}</p>
@@ -15,7 +17,9 @@
   </ul> 
   </div> 
 </div>
-<div style="margin-top: 30px;">
+
+ 
+<div >
   <button mat-icon-button class="edit-button" (click)="onEdit()">
     <mat-icon class="edit-icon" aria-label="Edit document">edit</mat-icon>
   </button>
@@ -27,4 +31,12 @@
   <mat-icon class="close-icon" aria-label="Close dialog">close</mat-icon>
 </button>
 
+<div class="sales-info">
+  <div class="total-sales">
+    <p><strong>Total number of sales :</strong> {{ nb }}</p>
+  </div>
+  <div class="total-amount">
+    <p><strong>Total amount of sales:</strong> {{ totprice }}</p>
+  </div>
 
+</div>

@@ -19,12 +19,13 @@ function randomID(len:number) {
 export function getUrlParams(
   url = window.location.href
 ) {
-  let urlStr = url.split('?')[1];
+  let urlStr = url.split('?')[1]; //Cela permet de séparer la partie de l'URL contenant les paramètres de requête.
+//  La partie après le point d'interrogation contient les paramètres de requête de l'URL.
   return new URLSearchParams(urlStr);
 }
  @Component({
   selector: 'app-videocall',
-  templateUrl: './videocall.component.html',
+  templateUrl: './videocall.component.b.html',
   styleUrl: './videocall.component.css'
 })
 export class VideocallComponent implements OnInit,AfterViewInit {
@@ -47,8 +48,6 @@ console.log("afterviewinitshouldexecuteafterinit");
     debugger
     const userName = this.userData.username;
     const idUser = this.userData.idUser;
-
-    debugger
     const kitToken =  ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID, 
       serverSecret, 
@@ -77,8 +76,7 @@ console.log("afterviewinitshouldexecuteafterinit");
 
 
    ngOnInit(): void {
-    debugger
-     this.getCurrentUser()
+      this.getCurrentUser()
    }
 
 getCurrentUser(): void {
