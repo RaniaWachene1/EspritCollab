@@ -5,8 +5,8 @@
 		<div class="container">
 			<!-- Logo START -->
 			<a class="navbar-brand" href="index.html">
-				<img class="light-mode-item navbar-brand-item" src="assets/images/logo.svg" alt="logo">
-				<img class="dark-mode-item navbar-brand-item" src="assets/images/logo-light.svg" alt="logo">
+				<img class="light-mode-item navbar-brand-item" src="assets/images/logo.png" alt="logo">
+				<img class="dark-mode-item navbar-brand-item" src="assets/images/logo.png" alt="logo">
 			</a>
 			<!-- Logo END -->
 	
@@ -40,24 +40,62 @@
 					<li class="nav-item dropdown"><a class="nav-link" href="#">Revision</a></li>
 
 					<!-- Nav item 2 Eduport Business -->
-					<li class="nav-item dropdown"><a class="nav-link" href="#">Doccuments</a></li>
-
+					<li class="nav-item dropdown"><a class="nav-link" routerLink="/documents">Documents</a></li>
 					<!-- Nav item 3 My learning -->
-					<li class="nav-item"><a class="nav-link" href="#">Books</a></li>
+					<li class="nav-item"><a class="nav-link" href="/getallbooks">Books</a></li>
 
-                    <li class="nav-item"><a class="nav-link" href="#">Events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/events">Events</a></li>
+					<li class="nav-item"><a class="nav-link" href="/calendar"> Calender</a></li>
+					<li class="nav-item"><a class="nav-link" href="/Leaderboard"> Leaderboard</a></li>
 
-                    <li class="nav-item"><a class="nav-link" href="#">Complaint</a></li>
+
+                    <li class="nav-item"><a class="nav-link" href="/listc">Complaint</a></li>
+					<li class="nav-item"><a class="nav-link" href="/modules">Modules</a></li>
+
 				</ul>
 				<!-- Nav Main menu END -->
 			</div>
 			<!-- Main navbar END -->
-
+			<div *ngIf="userData">
 			<!-- Profile and notification START -->
 			<ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
-                <div class="navbar-nav d-none d-lg-inline-block">
-                    <button class="btn btn-danger-soft mb-0">Sign In</button>
-                </div>
+                <!-- Profile dropdown START -->
+				<li class="nav-item ms-2 ms-md-3 dropdown">
+					<!-- Avatar -->
+					<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+						<img class="avatar-img rounded-circle"  [src]="userData.imageUser" alt="avatar">
+					</a>
+				
+					<!-- Profile dropdown START -->
+					<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+						<!-- Profile info -->
+						<li class="px-3">
+							<div class="d-flex align-items-center">
+								<!-- Avatar -->
+								
+								<div class="avatar me-3 mb-3">
+									<img class="avatar-img rounded-circle shadow"  [src]="userData.imageUser" alt="avatar">
+								</div>
+								<div>
+									<a class="h6 mt-2 mt-sm-0" href="#">{{ userData.firstName }} {{ userData.lastName }} </a>
+									<p class="small m-0">{{ userData.email }}</p>
+								</div>
+							</div>
+							
+						</li>
+		<li> <hr class="dropdown-divider"></li>
+						<!-- Links -->
+
+						<li><a class="dropdown-item" routerLink="/profile"><i class="bi bi-person fa-fw me-2"></i> Profile</a></li>
+						
+						<li><a class="dropdown-item bg-danger-soft-hover"  (click)="logout()"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+						<li> <hr class="dropdown-divider"></li>
+
+						
+					</ul>
+					<!-- Profile dropdown END -->
+				</li>
+				<!-- Profile dropdown END -->
 
 				<!-- Profile dropdown START -->
 				<li class="nav-item ms-3 dropdown">
@@ -79,9 +117,11 @@
 								</div>
 							</div>
 						</li>
+						
 						<!-- Links -->
 						<li> <hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" href="#"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+						
+						<li><a class="dropdown-item"  [routerLink]="['/profile']"><i class="bi bi-person fa-fw me-2"></i> Profile</a></li>
 						<li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
 						<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
 						<li><a class="dropdown-item bg-danger-soft-hover" href="#"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
@@ -117,6 +157,7 @@
 			</ul>
 			<!-- Profile and notification END -->
 		</div>
+	</div>
 	</nav>
 	<!-- Nav END -->
     <hr class="my-0">
