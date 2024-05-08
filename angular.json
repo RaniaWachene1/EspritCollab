@@ -41,7 +41,7 @@
               "src/assets/vendor/font-awesome/css/all.min.css",
               "node_modules/ngx-toastr/toastr.css",
               "src/styles.scss" ,
-              "node_modules/leaflet/dist/leaflet.css",
+              "node_modules/leaflet/dist/leaflet.css"
 
                     ],
             "scripts": [
